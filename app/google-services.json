@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "702424334658",
+    "firebase_url": "https://friendsexam-f39db.firebaseio.com",
+    "project_id": "friendsexam-f39db",
+    "storage_bucket": "friendsexam-f39db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702424334658:android:69e12afc6836a1a441c8db",
+        "android_client_info": {
+          "package_name": "com.firends.examapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702424334658-3nnj3kboq1cq22ph0blvgbkn2m05b4ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firends.examapp",
+            "certificate_hash": "928e96d21bbdfdda8d30aadb0bc8e69df1aae315"
+          }
+        },
+        {
+          "client_id": "702424334658-tjr0617u4p0phq6qv5cg30f7v6pkb14h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCivnDNQeIV1qaHxPPDAgyNRsyOXAUUxsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702424334658-tjr0617u4p0phq6qv5cg30f7v6pkb14h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

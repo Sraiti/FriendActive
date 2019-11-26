@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firends.examapp.Controllers.DataBaseManager;
+import com.firends.examapp.Moduls.User;
 import com.firends.examapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -25,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Login extends AppCompatActivity  {
+public class Login extends AppCompatActivity {
 
     private Context mContext;
     static final int RC_SIGN_IN = 123;
@@ -33,14 +35,16 @@ public class Login extends AppCompatActivity  {
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     Button ButtonLogin;
+    private DataBaseManager manager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        manager=new DataBaseManager();
 
-        mContext=this;
+        mContext = this;
         ButtonLogin = findViewById(R.id.bt_login);
         mAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions
@@ -49,7 +53,7 @@ public class Login extends AppCompatActivity  {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient =GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +101,12 @@ public class Login extends AppCompatActivity  {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(mContext, user.getEmail(), Toast.LENGTH_SHORT).show();
+                            User NewUser=new User();
+                            NewUser.setEmail(user.getEmail());
+                            NewUser.setIdUser(user.getProviderId());
+                            NewUser.setImage(user.getPhotoUrl());
+                            NewUser.setUserName(user.getDisplayName());
+
 
 
                         } else {
@@ -117,10 +127,8 @@ public class Login extends AppCompatActivity  {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        try {
-            Toast.makeText(this, currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-        }catch (Exception ex){}
+        if (currentUser!=null)
+        Toast.makeText(this, currentUser.getEmail(), Toast.LENGTH_SHORT).show();
 
-        //updateUI(currentUser);
     }
 }

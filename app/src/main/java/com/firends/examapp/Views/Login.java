@@ -55,27 +55,6 @@ public class Login extends AppCompatActivity {
 
         //get invitation link
 
-        FirebaseDynamicLinks.getInstance()
-                .getDynamicLink(getIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                    @Override
-                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                        // Get deep link from result (may be null if no link is found)
-                        Uri deepLink = null;
-                        if (pendingDynamicLinkData != null) {
-                            deepLink = pendingDynamicLinkData.getLink();
-                            Toast.makeText(mContext, deepLink.toString(), Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "getDynamicLink:onFailure", e);
-                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
 
         //-------------------------
 
@@ -132,12 +111,15 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(mContext, user.getEmail(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+
                             User NewUser=new User();
-                            NewUser.setIdUser(user.getProviderId());
-                            NewUser.setImage(user.getPhotoUrl());
-                            NewUser.setUserName(user.getDisplayName());
+                            NewUser.set_IdUser(user.getUid());
+                            NewUser.set_UserName(user.getDisplayName());
+                            NewUser.set_Image(user.getPhotoUrl().toString());
+                            User.currentUser=NewUser;
                             manager.AddUser(NewUser);
+
 
 
 
@@ -162,8 +144,14 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser!=null){
+            User NewUser=new User();
+            NewUser.set_IdUser(currentUser.getUid());
+            NewUser.set_UserName(currentUser.getDisplayName());
+            NewUser.set_Image(currentUser.getPhotoUrl().toString());
+            User.currentUser=NewUser;
             startActivity(new Intent(this,MainActivity.class));
-            Toast.makeText(this, currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+            this.finish();
+            //Toast.makeText(mContext, currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         }
 
 

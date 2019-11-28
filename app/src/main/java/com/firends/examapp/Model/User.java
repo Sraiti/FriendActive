@@ -2,47 +2,68 @@ package com.firends.examapp.Model;
 
 import android.net.Uri;
 
-public class User {
-    public String IdUser;
-    public String UserName;
+import java.util.HashMap;
 
-    public Uri Image;
-    public static User CurrentUser;
+public class User {
+    public String _IdUser;
+    public String _UserName;
+    public String _Image;
+    public HashMap<String ,Object> _MyQuestion=new HashMap<>();
+    public HashMap<String ,Object> _FriendAnswer=new HashMap<>();
+    public HashMap<String ,Object> _MyInvitations=new HashMap<>();
+
+    public static User currentUser;
 
 
 
     public User() {
     }
 
-    public User(String idUser, String userName, Uri image) {
-        IdUser = idUser;
-        UserName = userName;
-        Image = image;
+    public String get_IdUser() {
+        return _IdUser;
     }
 
-    public String getIdUser() {
-        return IdUser;
+    public void set_IdUser(String _IdUser) {
+        this._IdUser = _IdUser;
     }
 
-    public void setIdUser(String idUser) {
-        IdUser = idUser;
+    public String get_UserName() {
+        return _UserName;
     }
 
-    public String getUserName() {
-        return UserName;
+    public void set_UserName(String _UserName) {
+        this._UserName = _UserName;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public String get_Image() {
+        return _Image;
     }
 
-
-
-    public Uri getImage() {
-        return Image;
+    public void set_Image(String _Image) {
+        this._Image = _Image;
     }
 
-    public void setImage(Uri image) {
-        Image = image;
+    public HashMap<String, Object> get_MyQuestion() {
+        return _MyQuestion;
+    }
+
+    public void set_MyQuestion(HashMap<String, Object> _MyQuestion) {
+        this._MyQuestion = _MyQuestion;
+    }
+
+    public HashMap<String, Object> get_FriendAnswer() {
+        return _FriendAnswer;
+    }
+
+    public void set_FriendAnswer(HashMap<String, Object> _FriendAnswer) {
+        this._FriendAnswer = _FriendAnswer;
+    }
+
+    public HashMap<String, Object> get_MyInvitations() {
+        return _MyInvitations;
+    }
+
+    public void set_MyInvitations(HashMap<String, Object> _MyInvitations) {
+        this._MyInvitations = _MyInvitations;
     }
 }

@@ -2,6 +2,7 @@ package com.firends.examapp.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -29,26 +30,7 @@ public class DynamicLinkManager {
 
     public void buildDynamicLink(String UserId) {
 
-        Task<ShortDynamicLink> shortLinkTask = firebaseDynamicLinks.createDynamicLink()
-                .setLink(Uri.parse(mydomine+"="+UserId))
-                .setDomainUriPrefix(mydomine)
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder(context.getPackageName()).build())
-                // Set parameters
-                // ...
-                .buildShortDynamicLink().addOnCompleteListener((Activity) context, new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
-                            Toast.makeText(context, shortLink.toString(), Toast.LENGTH_LONG).show();
-                        } else {
 
-                            Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
 
     }

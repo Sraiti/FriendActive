@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,10 +47,37 @@ public class MainActivity extends AppCompatActivity {
         InvitationsButton=findViewById(R.id.bt_Invitations);
 
 
+
+
     }
 
     public void playGame(View view) {
-        dynamicLinkManager.buildDynamicLink("1234");
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse(mydomine+"="+User.currentUser.get_IdUser()))
+                .setDomainUriPrefix(mydomine)
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder(getPackageName()).build())
+                // Set parameters
+                // ...
+                .buildShortDynamicLink().addOnCompleteListener((Activity) this, new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                            Intent intent2 = new Intent();
+                            intent2.setAction(Intent.ACTION_SEND);
+                            intent2.setType("text/plain");
+                            intent2.putExtra(Intent.EXTRA_TEXT, shortLink.toString() );
+                            startActivity(Intent.createChooser(intent2, "Share via"));
+
+                            Toast.makeText(MainActivity.this, shortLink.toString(), Toast.LENGTH_LONG).show();
+                        } else {
+
+                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
 
 

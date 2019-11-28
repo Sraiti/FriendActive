@@ -1,4 +1,4 @@
-package com.firends.examapp.Moduls;
+package com.firends.examapp.Model;
 
 import android.net.Uri;
 

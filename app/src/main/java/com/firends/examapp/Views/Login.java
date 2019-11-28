@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.firends.examapp.Controllers.DataBaseManager;
-import com.firends.examapp.Moduls.User;
+import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -109,10 +109,13 @@ public class Login extends AppCompatActivity {
 
 
 
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.",
+                            // Snackbar.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
 

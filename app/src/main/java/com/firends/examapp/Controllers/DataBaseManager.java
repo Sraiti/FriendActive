@@ -15,7 +15,7 @@ public class DataBaseManager {
     public String TAG ="data";
 
     public void AddUser(User user){
-        db.collection("users")
+        db.collection("Users")
                 .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

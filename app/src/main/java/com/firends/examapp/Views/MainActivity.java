@@ -29,7 +29,7 @@ import com.google.firebase.dynamiclinks.ShortDynamicLink;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "mytag";
-    Button gamPlay;
+    Button gamPlay,ResutlsButton,InvitationsButton;
     public static String mydomine = "https://examapp.page.link";
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
@@ -42,27 +42,10 @@ public class MainActivity extends AppCompatActivity {
         dynamicLinkManager = new DynamicLinkManager(this);
 
         gamPlay = findViewById(R.id.GamePlay);
-        FirebaseDynamicLinks.getInstance()
-                .getDynamicLink(getIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                    @Override
-                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                        // Get deep link from result (may be null if no link is found)
-                        Uri deepLink = null;
-                        if (pendingDynamicLinkData != null) {
-                            deepLink = pendingDynamicLinkData.getLink();
-                            Toast.makeText(MainActivity.this, deepLink.toString(), Toast.LENGTH_SHORT).show();
-                        }
+        ResutlsButton=findViewById(R.id.Bt_Results);
+        InvitationsButton=findViewById(R.id.bt_Invitations);
 
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "getDynamicLink:onFailure", e);
-                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+
     }
 
     public void playGame(View view) {

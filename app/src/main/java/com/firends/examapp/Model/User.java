@@ -5,11 +5,19 @@ import android.net.Uri;
 public class User {
     public String IdUser;
     public String UserName;
-    public String Email;
+
     public Uri Image;
+    public static User CurrentUser;
+
 
 
     public User() {
+    }
+
+    public User(String idUser, String userName, Uri image) {
+        IdUser = idUser;
+        UserName = userName;
+        Image = image;
     }
 
     public String getIdUser() {
@@ -28,13 +36,7 @@ public class User {
         UserName = userName;
     }
 
-    public String getEmail() {
-        return Email;
-    }
 
-    public void setEmail(String email) {
-        Email = email;
-    }
 
     public Uri getImage() {
         return Image;

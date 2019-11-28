@@ -1,6 +1,5 @@
 package com.firends.examapp.Views;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,8 +38,8 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
     int index = 0;
     boolean IsImage;
 
-    Map Answers = new HashMap();
 
+    Map<Integer, Integer> Answers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,12 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         Img02 = findViewById(R.id.Img_02);
         Img03 = findViewById(R.id.Img_03);
 
-  //
+        Txt_00 = findViewById(R.id.Txt_00);
+        Txt_01 = findViewById(R.id.Txt_01);
+        Txt_02 = findViewById(R.id.Txt_02);
+        Txt_03 = findViewById(R.id.Txt_03);
+
+
         Txt_Question = findViewById(R.id.txt_Ques);
 
         //DataBase
@@ -62,7 +66,6 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         GetData(new FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
-
                 NextQuestion(index);
             }
         });
@@ -72,27 +75,27 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         Img01.setOnClickListener(this);
         Img02.setOnClickListener(this);
         Img03.setOnClickListener(this);
-//        Txt_00.setOnClickListener(this);
-//        Txt_01.setOnClickListener(this);
-//        Txt_02.setOnClickListener(this);
-//        Txt_03.setOnClickListener(this);
+        Txt_00.setOnClickListener(this);
+        Txt_01.setOnClickListener(this);
+        Txt_02.setOnClickListener(this);
+        Txt_03.setOnClickListener(this);
 
         ClickAbles.add(Img00);
         ClickAbles.add(Img01);
         ClickAbles.add(Img02);
         ClickAbles.add(Img03);
 
-//        ClickAbles.add(Txt_00);
-//        ClickAbles.add(Txt_01);
-//        ClickAbles.add(Txt_02);
-//        ClickAbles.add(Txt_03);
+        ClickAbles.add(Txt_00);
+        ClickAbles.add(Txt_01);
+        ClickAbles.add(Txt_02);
+        ClickAbles.add(Txt_03);
 
 
     }
 
     private void NextQuestion(int index) {
 
-        if (index < mQuestions.size()) {
+        if (index < totalQues) {
 
             Question question = mQuestions.get(index);
             Log.d("TAG", "question.getImage() =" + question.getImage());
@@ -104,9 +107,9 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                 Log.d("TAG", "IMAGEVIEWS TEAM");
                 // Set Images With Picasso.
                 String imagePath00 = question.getAnswer_00();
-                String imagePath01 = question.getAnswer_00();
-                String imagePath02 = question.getAnswer_00();
-                String imagePath03 = question.getAnswer_00();
+                String imagePath01 = question.getAnswer_01();
+                String imagePath02 = question.getAnswer_02();
+                String imagePath03 = question.getAnswer_03();
 
                 Picasso.get()
                         .load(imagePath00)
@@ -144,77 +147,111 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
         } else {
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
+
+
         }
 
     }
 
     private void ButtonsStatue(boolean Statue) {
 
-        //The same thing with foreach
-
-
         if (Statue) {
-
-            Img00.setClickable(true);
-            Img01.setClickable(true);
-            Img02.setClickable(true);
-            Img03.setClickable(true);
-
-
+            for (Object item : ClickAbles) {
+                if (item instanceof ImageView) {
+                    ((ImageView) item).setClickable(true);
+                    ((ImageView) item).setVisibility(View.VISIBLE);
+                } else {
+                    ((TextView) item).setClickable(false);
+                    ((TextView) item).setVisibility(View.GONE);
+                }
+            }
             IsImage = true;
         } else {
+            for (Object item : ClickAbles) {
+                if (item instanceof ImageView) {
+                    ((ImageView) item).setClickable(false);
+                    ((ImageView) item).setVisibility(View.GONE);
+                } else {
+                    ((TextView) item).setClickable(false);
+                    ((TextView) item).setVisibility(View.VISIBLE);
+                }
+            }
+            IsImage = false;
+        }
+    }
 
-            Img00.setClickable(false);
-            Img01.setClickable(false);
-            Img02.setClickable(false);
-            Img03.setClickable(false);
-            Txt_00.setClickable(true);
-            Txt_01.setClickable(true);
-            Txt_02.setClickable(true);
-            Txt_03.setClickable(true);
 
-                IsImage = false;
+    @Override
+    public void onClick(View v) {
+        if (IsImage) {
+            ImageView image = (ImageView) v;
 
+            int Answer = GetItemId(image.getTag().toString(), true);
+            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
+            Answers.put(mQuestions.get(index).getQuestionID(), Answer);
+        } else {
+            TextView text = (TextView) v;
+            int Answer = GetItemId(text.getTag().toString(), false);
+            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
+            Answers.put(mQuestions.get(index).getQuestionID(), Answer);
+        }
+        NextQuestion(++index);
+    }
+
+    private int GetItemId(String id, boolean a) {
+
+        if (a) {
+            switch (id) {
+                case "Img_00":
+                    return 0;
+                case "Img_01":
+                    return 1;
+                case "Img_02":
+                    return 2;
+                case "Img_03":
+                    return 3;
+            }
+        } else {
+            switch (id) {
+                case "Txt_00":
+                    return 0;
+                case "Txt_01":
+                    return 1;
+                case "Txt_02":
+                    return 2;
+                case "Txt_03":
+                    return 3;
             }
         }
+        return 0;
+    }
 
+    private void GetData(final FireBaseCallBack fireBaseCallBack) {
 
-
-        @Override
-        public void onClick (View v){
-
-
-            NextQuestion(++index);
-
-
-        }
-
-        private void GetData ( final FireBaseCallBack fireBaseCallBack){
-
-            db.collection("Questions").orderBy("QuestionID")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("TAG", document.getId() + " => " + document.getData());
-                                    Question Qu = document.toObject(Question.class);
-                                    mQuestions.add(Qu);
-                                }
-                            } else {
-                                Log.d("TAG", "Error getting documents: ", task.getException());
+        db.collection("Questions").orderBy("QuestionID")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                Question Qu = document.toObject(Question.class);
+                                mQuestions.add(Qu);
                             }
-                            fireBaseCallBack.OnCallback(mQuestions);
-                            totalQues = mQuestions.size();
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
                         }
-                    });
-
-        }
-
-        private interface FireBaseCallBack {
-            void OnCallback(List<Question> QuestionList);
-        }
-
+                        totalQues = mQuestions.size();
+                        fireBaseCallBack.OnCallback(mQuestions);
+                    }
+                });
 
     }
+
+    private interface FireBaseCallBack {
+        void OnCallback(List<Question> QuestionList);
+    }
+
+
+}

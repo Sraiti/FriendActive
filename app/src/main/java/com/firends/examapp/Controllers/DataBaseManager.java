@@ -23,7 +23,7 @@ public class DataBaseManager {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public String TAG = "data";
-    Map<String, Object> city = new HashMap<>();
+    public HashMap<String ,Object> _MyInvitations=new HashMap<>();
 
 
     public void AddUser(User user) {
@@ -66,6 +66,11 @@ public class DataBaseManager {
 
     }
 
+
+    public void addInvite(String IdUser,String UserInvited){
+        _MyInvitations.put(UserInvited,false);
+        //db.collection("Users").document(IdUser).update(_MyInvitations);
+    }
 
 
 }

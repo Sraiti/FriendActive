@@ -106,12 +106,19 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                                User NewUser = new User();
-                                NewUser.set_IdUser(user.getUid());
-                                NewUser.set_UserName(user.getDisplayName());
-                                NewUser.set_Image(user.getPhotoUrl().toString());
-                                User.currentUser = NewUser;
-                                manager.AddUser(NewUser);
+
+                            User NewUser=new User();
+                            NewUser.set_IdUser(user.getUid());
+                            NewUser.set_UserName(user.getDisplayName());
+                            NewUser.set_Image(user.getPhotoUrl().toString());
+                            User.currentUser=NewUser;
+                            manager.AddUser(NewUser);
+                            manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
+
+
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

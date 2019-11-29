@@ -31,6 +31,7 @@ public class Invite extends AppCompatActivity {
     private Context mContext;
     private Button startTest;
     public String TAG = "data";
+    public static String InvitedUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +51,10 @@ public class Invite extends AppCompatActivity {
                         if (pendingDynamicLinkData != null) {
                             deepLink = pendingDynamicLinkData.getLink();
 
-                            String InvitedUser=deepLink.toString();
+                            InvitedUser=deepLink.toString();
                             InvitedUser=InvitedUser.substring(InvitedUser.lastIndexOf("=")+1);
                             Toast.makeText(mContext, InvitedUser, Toast.LENGTH_SHORT).show();
+
                             getInfoUserById(InvitedUser);
                         }
                         avi.hide();
@@ -72,6 +74,9 @@ public class Invite extends AppCompatActivity {
         startTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 startActivity(new Intent(Invite.this,Login.class));
                 Invite.this.finish();
             }

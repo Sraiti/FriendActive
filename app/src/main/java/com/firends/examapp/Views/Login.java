@@ -119,6 +119,7 @@ public class Login extends AppCompatActivity {
                             NewUser.set_Image(user.getPhotoUrl().toString());
                             User.currentUser=NewUser;
                             manager.AddUser(NewUser);
+                            manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
 
 
 

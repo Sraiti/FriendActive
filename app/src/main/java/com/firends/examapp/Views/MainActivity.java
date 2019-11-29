@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton=findViewById(R.id.Bt_Results);
         InvitationsButton=findViewById(R.id.bt_Invitations);
-
+        try {
+            Toast.makeText(mContext, Invite.InvitedUser, Toast.LENGTH_SHORT).show();
+        }catch (Exception ex){}
 
 
 

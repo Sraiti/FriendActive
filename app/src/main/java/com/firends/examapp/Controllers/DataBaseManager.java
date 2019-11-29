@@ -44,7 +44,7 @@ public class DataBaseManager {
                     }
                 });
     }
-    public void UpdateUserQuestions(HashMap<Integer,Integer> MyQues){
+    public void UpdateUserQuestions(HashMap< String, Integer> MyQues){
 
         db.collection("Users").document(User.currentUser._IdUser)
 

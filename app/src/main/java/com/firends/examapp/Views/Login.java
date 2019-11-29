@@ -107,18 +107,19 @@ public class Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             //Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
+                            Log.d("TAG"," USER ID :"+user.getUid());
+                            Log.d("TAG"," USER Display name :"+user.getDisplayName());
+                            Log.d("TAG"," USER Email :"+user.getEmail());
+                            Log.d("TAG"," USER PHOTOURL :"+user.getPhotoUrl());
+
                             User NewUser=new User();
+
                             NewUser.set_IdUser(user.getUid());
-                            NewUser.set_UserName(user.getDisplayName());
-                            NewUser.set_Image(user.getPhotoUrl().toString());
+                       //     NewUser.set_UserName(user.getDisplayName());
+                         //   NewUser.set_Image(user.getPhotoUrl().toString());
                             User.currentUser=NewUser;
                             manager.AddUser(NewUser);
-                            manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
-
-
-
-
-
+                          //  manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -126,7 +127,6 @@ public class Login extends AppCompatActivity {
                             // Snackbar.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
-
                         // ...
                     }
                 });
@@ -141,8 +141,8 @@ public class Login extends AppCompatActivity {
         if (currentUser != null) {
             User NewUser = new User();
             NewUser.set_IdUser(currentUser.getUid());
-            NewUser.set_UserName(currentUser.getDisplayName());
-            NewUser.set_Image(currentUser.getPhotoUrl().toString());
+          //  NewUser.set_UserName(currentUser.getDisplayName());
+//            NewUser.set_Image(currentUser.getPhotoUrl().toString());
             User.currentUser = NewUser;
             startActivity(new Intent(this, MainActivity.class));
             this.finish();

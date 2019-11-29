@@ -45,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton=findViewById(R.id.Bt_Results);
         InvitationsButton=findViewById(R.id.bt_Invitations);
+
+         gamPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Gameplay.class));
+
+            }
+        });
     }
 
     public void playGame(View view) {

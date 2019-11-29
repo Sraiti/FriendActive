@@ -41,7 +41,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
     DataBaseManager DataBaseM = new DataBaseManager();
 
-    HashMap<Integer,Integer> Answers = new HashMap<>();
+    HashMap<String,Integer> Answers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +175,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                     ((ImageView) item).setClickable(false);
                     ((ImageView) item).setVisibility(View.GONE);
                 } else {
-                    ((TextView) item).setClickable(false);
+                    ((TextView) item).setClickable(true);
                     ((TextView) item).setVisibility(View.VISIBLE);
                 }
             }
@@ -191,12 +191,12 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
             int Answer = GetItemId(image.getTag().toString(), true);
             Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
-            Answers.put(mQuestions.get(index).getQuestionID(), Answer);
+            Answers.put(mQuestions.get(index).getQuestionID()+"", Answer);
         } else {
             TextView text = (TextView) v;
             int Answer = GetItemId(text.getTag().toString(), false);
-            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
-            Answers.put(mQuestions.get(index).getQuestionID(), Answer);
+            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " +Answer);
+            Answers.put(mQuestions.get(index).getQuestionID()+"", Answer);
         }
         NextQuestion(++index);
     }

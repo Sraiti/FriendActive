@@ -8,7 +8,7 @@ public class User {
     public String _IdUser;
     public String _UserName;
     public String _Image;
-    public HashMap<String ,Object> _MyQuestion=new HashMap<>();
+    public HashMap<Integer,Integer> _MyQuestion=new HashMap<>();
     public HashMap<String ,Object> _FriendAnswer=new HashMap<>();
     public HashMap<String ,Object> _MyInvitations=new HashMap<>();
 
@@ -43,11 +43,11 @@ public class User {
         this._Image = _Image;
     }
 
-    public HashMap<String, Object> get_MyQuestion() {
+    public HashMap<Integer, Integer> get_MyQuestion() {
         return _MyQuestion;
     }
 
-    public void set_MyQuestion(HashMap<String, Object> _MyQuestion) {
+    public void set_MyQuestion(HashMap<Integer, Integer> _MyQuestion) {
         this._MyQuestion = _MyQuestion;
     }
 

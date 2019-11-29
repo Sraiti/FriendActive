@@ -1,16 +1,14 @@
 package com.firends.examapp.Views;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.User;
@@ -21,16 +19,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 public class Login extends AppCompatActivity {
 
@@ -47,7 +41,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        manager=new DataBaseManager();
+        manager = new DataBaseManager();
 
         mContext = this;
         ButtonLogin = findViewById(R.id.bt_login);
@@ -112,18 +106,12 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-                            User NewUser=new User();
-                            NewUser.set_IdUser(user.getUid());
-                            NewUser.set_UserName(user.getDisplayName());
-                            NewUser.set_Image(user.getPhotoUrl().toString());
-                            User.currentUser=NewUser;
-                            manager.AddUser(NewUser);
-
-
-
-
-
+                                User NewUser = new User();
+                                NewUser.set_IdUser(user.getUid());
+                                NewUser.set_UserName(user.getDisplayName());
+                                NewUser.set_Image(user.getPhotoUrl().toString());
+                                User.currentUser = NewUser;
+                                manager.AddUser(NewUser);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -143,13 +131,13 @@ public class Login extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser!=null){
-            User NewUser=new User();
+        if (currentUser != null) {
+            User NewUser = new User();
             NewUser.set_IdUser(currentUser.getUid());
             NewUser.set_UserName(currentUser.getDisplayName());
             NewUser.set_Image(currentUser.getPhotoUrl().toString());
-            User.currentUser=NewUser;
-            startActivity(new Intent(this,MainActivity.class));
+            User.currentUser = NewUser;
+            startActivity(new Intent(this, MainActivity.class));
             this.finish();
             //Toast.makeText(mContext, currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         }

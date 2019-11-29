@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.Question;
 import com.firends.examapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,8 +39,9 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
     int index = 0;
     boolean IsImage;
 
+    DataBaseManager DataBaseM = new DataBaseManager();
 
-    Map<Integer, Integer> Answers = new HashMap<>();
+    HashMap<Integer,Integer> Answers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +150,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         } else {
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
 
+            DataBaseM.UpdateUserQuestions(Answers);
 
         }
 

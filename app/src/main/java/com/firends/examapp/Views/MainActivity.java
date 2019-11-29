@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton=findViewById(R.id.Bt_Results);
         InvitationsButton=findViewById(R.id.bt_Invitations);
-
-
-
-
     }
 
     public void playGame(View view) {

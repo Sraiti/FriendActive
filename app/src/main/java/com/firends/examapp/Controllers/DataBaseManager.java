@@ -44,6 +44,27 @@ public class DataBaseManager {
                     }
                 });
     }
+    public void UpdateUserQuestions(HashMap<Integer,Integer> MyQues){
+
+        db.collection("Users").document(User.currentUser._IdUser)
+
+                .update("_MyQuestion",MyQues)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully Updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+
+
+    }
 
 
 

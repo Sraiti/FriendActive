@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playGame(View view) {
+        startActivity(new Intent(MainActivity.this,Gameplay.class));
+    }
+
+
+    public void buildDynamiclink(){
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(Uri.parse(mydomine+"="+User.currentUser.get_IdUser()))
                 .setDomainUriPrefix(mydomine)
@@ -74,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
 
     }
 

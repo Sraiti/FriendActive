@@ -70,7 +70,24 @@ public class DataBaseManager {
     public void addInvite(String IdUser,String UserInvited){
         _MyInvitations.put(UserInvited,false);
         //db.collection("Users").document(IdUser).update(_MyInvitations);
+        db.collection("Users").document(User.currentUser._IdUser)
+
+                .update("_MyInvitations",_MyInvitations)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully Updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
     }
+
+
 
 
 

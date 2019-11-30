@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 public class Invite extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -31,7 +34,10 @@ public class Invite extends AppCompatActivity {
     private Context mContext;
     private Button startTest;
     public String TAG = "data";
-    public static String InvitedUser;
+    public static String InvitedUser=null;
+
+    private ImageView imageInvitedUser;
+    private TextView txtInvite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,8 @@ public class Invite extends AppCompatActivity {
         mContext = this;
         avi = findViewById(R.id.avi);
         startTest=findViewById(R.id.bt_invite_start);
+        imageInvitedUser=findViewById(R.id.id_image_invitedUser);
+        txtInvite=findViewById(R.id.invite_text);
         startTest.setVisibility(View.GONE);
 
         FirebaseDynamicLinks.getInstance()
@@ -53,12 +61,12 @@ public class Invite extends AppCompatActivity {
 
                             InvitedUser=deepLink.toString();
                             InvitedUser=InvitedUser.substring(InvitedUser.lastIndexOf("=")+1);
-                            Toast.makeText(mContext, InvitedUser, Toast.LENGTH_SHORT).show();
-
+                            //Toast.makeText(mContext, InvitedUser, Toast.LENGTH_SHORT).show();
                             getInfoUserById(InvitedUser);
                         }
                         avi.hide();
                         startTest.setVisibility(View.VISIBLE);
+
 
                     }
                 })
@@ -66,8 +74,8 @@ public class Invite extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         avi.hide();
-                        startTest.setVisibility(View.VISIBLE);
-                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Invite.this,Login.class));
+                        Invite.this.finish();
                     }
                 });
 
@@ -90,7 +98,13 @@ public class Invite extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
+                txtInvite.setText(user._UserName+ " wants to test friendship with you");
+                Picasso.get()
+                        .load(user.get_Image())
+                        .placeholder(R.drawable.image_loading)
+                        .error(R.mipmap.ic_launcher)
+                        .into(imageInvitedUser);
             }
         });
     }

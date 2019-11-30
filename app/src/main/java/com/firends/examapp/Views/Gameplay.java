@@ -1,5 +1,6 @@
 package com.firends.examapp.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -151,6 +152,8 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
 
             DataBaseM.UpdateUserQuestions(Answers);
+
+            startActivity(new Intent(Gameplay.this,ShareLink.class));
 
         }
 

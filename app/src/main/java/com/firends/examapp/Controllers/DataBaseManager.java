@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.firends.examapp.Model.Notification;
 import com.firends.examapp.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,8 +26,7 @@ public class DataBaseManager {
     public HashMap<String ,Object> _MyInvitations=new HashMap<>();
 
 
-    public void AddUser(User user,String IdToken) {
-
+    public void AddUser(User user) {
 
 
         db.collection("Users").document(user.get_IdUser())
@@ -45,20 +43,6 @@ public class DataBaseManager {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
-
-        Notification notification = new Notification(IdToken,new HashMap<String, Integer>());
-        db.collection("Notifications").document(user.get_IdUser())
-                .set(notification).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "Notification DocumentSnapshot successfully written!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Notification Error writing document", e);
-            }
-        });
     }
     public void UpdateUserQuestions(HashMap< String, Integer> MyQues){
 

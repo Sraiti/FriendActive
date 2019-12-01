@@ -19,11 +19,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Login extends AppCompatActivity {
@@ -34,6 +36,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     Button ButtonLogin;
+    String IdToken;
     private DataBaseManager manager;
 
 
@@ -104,22 +107,25 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
                             //Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                            Log.d("TAG"," USER ID :"+user.getUid());
-                            Log.d("TAG"," USER Display name :"+user.getDisplayName());
-                            Log.d("TAG"," USER Email :"+user.getEmail());
-                            Log.d("TAG"," USER PHOTOURL :"+user.getPhotoUrl());
 
-                            User NewUser=new User();
+                            mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                                @Override
+                                public void onSuccess(GetTokenResult getTokenResult) {
+                                    IdToken = getTokenResult.getToken();
+                                    FirebaseUser user = mAuth.getCurrentUser();
 
-                            NewUser.set_IdUser(user.getUid());
-                       //     NewUser.set_UserName(user.getDisplayName());
-                         //   NewUser.set_Image(user.getPhotoUrl().toString());
-                            User.currentUser=NewUser;
-                            manager.AddUser(NewUser);
-                          //  manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
+                                    User NewUser = new User();
+                                    NewUser.set_IdUser(user.getUid());
+                                    //     NewUser.set_UserName(user.getDisplayName());
+                                    //   NewUser.set_Image(user.getPhotoUrl().toString());
+                                    User.currentUser = NewUser;
+                                    manager.AddUser(NewUser,IdToken);
+                                    //  manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
+                                }
+                            });
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -141,7 +147,7 @@ public class Login extends AppCompatActivity {
         if (currentUser != null) {
             User NewUser = new User();
             NewUser.set_IdUser(currentUser.getUid());
-          //  NewUser.set_UserName(currentUser.getDisplayName());
+            //  NewUser.set_UserName(currentUser.getDisplayName());
 //            NewUser.set_Image(currentUser.getPhotoUrl().toString());
             User.currentUser = NewUser;
             startActivity(new Intent(this, MainActivity.class));

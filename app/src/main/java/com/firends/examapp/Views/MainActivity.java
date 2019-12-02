@@ -25,8 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.dynamiclinks.DynamicLink;
+ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -65,20 +64,6 @@ public class MainActivity extends AppCompatActivity {
              }
          });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast toast =Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
-                View toastView = toast.getView();
-                toastView.setBackgroundColor(getResources().getColor(R.color.colordark2));
-                TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                v.setTextColor(getResources().getColor(R.color.white));
-               
-                toast.show();
-                startRate();
-            }
-        });
     }
 
     public void playGame(View view) {

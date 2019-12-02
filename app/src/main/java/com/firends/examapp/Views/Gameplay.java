@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.Question;
@@ -24,25 +26,26 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Gameplay extends AppCompatActivity implements View.OnClickListener {
 
 
     ImageView Img00, Img01, Img02, Img03;
     TextView Txt_00, Txt_01, Txt_02, Txt_03, Txt_Question;
+    CardView Card_00, Card_01, Card_02, Card_03;
 
+    LinearLayout Linear_00, Linear_01;
     FirebaseFirestore db;
 
     List<Question> mQuestions = new ArrayList<>();
-    List<Object> ClickAbles = new ArrayList<>();
+    List<LinearLayout> ClickAbles = new ArrayList<>();
     int totalQues;
     int index = 0;
     boolean IsImage;
 
     DataBaseManager DataBaseM = new DataBaseManager();
 
-    HashMap<String,Integer> Answers = new HashMap<>();
+    HashMap<String, Integer> Answers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,17 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         Txt_02 = findViewById(R.id.id_txt3);
         Txt_03 = findViewById(R.id.id_txt4);
 
+        Card_00 = findViewById(R.id.Card_00);
+        Card_01 = findViewById(R.id.Card_01);
+        Card_02 = findViewById(R.id.Card_02);
+        Card_03 = findViewById(R.id.Card_03);
+
+        Linear_00 = findViewById(R.id.Linear_00);
+        Linear_01 = findViewById(R.id.Linear_01);
+
+
+        Linear_00.setVisibility(View.GONE);
+        Linear_01.setVisibility(View.GONE);
 
         Txt_Question = findViewById(R.id.txt_Ques);
 
@@ -69,74 +83,125 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         GetData(new FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
+
                 NextQuestion(index);
             }
         });
 
-        //ClickListeners
-        Img00.setOnClickListener(this);
-        Img01.setOnClickListener(this);
-        Img02.setOnClickListener(this);
-        Img03.setOnClickListener(this);
-        Txt_00.setOnClickListener(this);
-        Txt_01.setOnClickListener(this);
-        Txt_02.setOnClickListener(this);
-        Txt_03.setOnClickListener(this);
 
-        ClickAbles.add(Img00);
-        ClickAbles.add(Img01);
-        ClickAbles.add(Img02);
-        ClickAbles.add(Img03);
+        Card_00.setOnClickListener(this);
+        Card_01.setOnClickListener(this);
+        Card_02.setOnClickListener(this);
+        Card_03.setOnClickListener(this);
 
-        ClickAbles.add(Txt_00);
-        ClickAbles.add(Txt_01);
-        ClickAbles.add(Txt_02);
-        ClickAbles.add(Txt_03);
+        ClickAbles.add(Linear_00);
+        ClickAbles.add(Linear_01);
 
 
     }
 
     private void NextQuestion(int index) {
-
         if (index < totalQues) {
-
             Question question = mQuestions.get(index);
 
-
-                //Make All TextViews UnClickAble
-                ButtonsStatue(true);
-
-                Log.d("TAG", "IMAGEVIEWS TEAM");
+            if (question.getType() == 2) {
+                CardStatue(2);
                 // Set Images With Picasso.
                 String imagePath00 = question.getAnswer_Ph_0();
                 String imagePath01 = question.getAnswer_Ph_1();
-                String imagePath02 = question.getAnswer_Ph_2();
-                String imagePath03 = question.getAnswer_Ph_3();
+
+//
+//                Log.d("TAG", "imagePath00: " + imagePath00);
+//                Log.d("TAG", "imagePath01: " + imagePath01);
+
+                Log.d("TAG", "ID: " +question.getQuestionID() );
+
+                if (imagePath00.trim().isEmpty()) {
+                    imagePath00 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
+
+                }
+                if (imagePath01.trim().isEmpty()) {
+                    imagePath01 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
+
+                }
+
 
                 Picasso.get()
                         .load(imagePath00)
+                        .error(R.drawable.thinking)
+                        .placeholder(getResources().getDrawable(R.drawable.thinking))
                         .fit()
                         .into(Img00);
                 Picasso.get()
                         .load(imagePath01)
+                        .error(R.drawable.thinking)
+                        .placeholder(getResources().getDrawable(R.drawable.thinking))
                         .fit()
                         .into(Img01);
-                Picasso.get()
-                        .load(imagePath02)
-                        .fit()
-                        .into(Img02);
-                Picasso.get()
-                        .load(imagePath03)
-                        .fit()
-                        .into(Img03);
+
+                Txt_00.setText(question.getAnswer_00());
+                Txt_01.setText(question.getAnswer_01());
 
 
                 Txt_Question.setText(question.getQuestion());
 
+            } else {
+                CardStatue(4);
 
-                //Make All ImageViews UnClickAble
-                ButtonsStatue(false);
-                Log.d("TAG", "TextViews TEAM");
+                String imagePath00 = question.getAnswer_Ph_0();
+                String imagePath01 = question.getAnswer_Ph_1();
+                String imagePath02 = question.getAnswer_Ph_2();
+                String imagePath03 = question.getAnswer_Ph_3();
+//
+//                Log.d("TAG", "imagePath00: " + imagePath00);
+//                Log.d("TAG", "imagePath01: " + imagePath01);
+//                Log.d("TAG", "imagePath02: " + imagePath02);
+//                Log.d("TAG", "imagePath03: " + imagePath03);
+//
+
+                Log.d("TAG", "ID: " +question.getQuestionID() );
+
+                if (imagePath00.trim().isEmpty()) {
+                    imagePath00 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
+
+                }
+                if (imagePath01.trim().isEmpty()) {
+                    imagePath01 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
+
+                }
+                if (imagePath02.trim().isEmpty()) {
+                    imagePath02 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
+
+//                    Log.d("TAG", "NextQuestion: " + 22);
+                }
+                if (imagePath03.trim().isEmpty()) {
+                    imagePath03 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
+//                    Log.d("TAG", "NextQuestion: " + 232);
+                }
+                Picasso.get()
+                        .load(imagePath00)
+                        .error(R.drawable.thinking)
+                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .fit()
+                        .into(Img00);
+                Picasso.get()
+                        .load(imagePath01)
+                        .error(R.drawable.thinking)
+                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .fit()
+                        .into(Img01);
+                Picasso.get()
+                        .load(imagePath02)
+                        .error(R.drawable.thinking)
+                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .fit()
+                        .into(Img02);
+                Picasso.get()
+                        .load(imagePath03)
+                        .error(R.drawable.thinking)
+                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .fit()
+                        .into(Img03);
 
                 Txt_00.setText(question.getAnswer_00());
                 Txt_01.setText(question.getAnswer_01());
@@ -145,89 +210,57 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
                 Txt_Question.setText(question.getQuestion());
 
-
+            }
 
         } else {
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
 
             DataBaseM.UpdateUserQuestions(Answers);
 
-            startActivity(new Intent(Gameplay.this,ShareLink.class));
-            this.finish();
+            startActivity(new Intent(Gameplay.this, ShareLink.class));
+            finish();
+
+
 
         }
 
     }
 
-    private void ButtonsStatue(boolean Statue) {
+    private void CardStatue(int i) {
 
-        if (Statue) {
-            for (Object item : ClickAbles) {
-                if (item instanceof ImageView) {
-                    ((ImageView) item).setClickable(true);
-                    ((ImageView) item).setVisibility(View.VISIBLE);
-                } else {
-                    ((TextView) item).setClickable(false);
-                    ((TextView) item).setVisibility(View.GONE);
-                }
-            }
-            IsImage = true;
+        if (i == 2) {
+
+            Linear_00.setVisibility(View.VISIBLE);
+            Linear_01.setVisibility(View.GONE);
         } else {
-            for (Object item : ClickAbles) {
-                if (item instanceof ImageView) {
-                    ((ImageView) item).setClickable(false);
-                    ((ImageView) item).setVisibility(View.GONE);
-                } else {
-                    ((TextView) item).setClickable(true);
-                    ((TextView) item).setVisibility(View.VISIBLE);
-                }
-            }
-            IsImage = false;
+
+            Linear_00.setVisibility(View.VISIBLE);
+            Linear_01.setVisibility(View.VISIBLE);
         }
     }
 
 
     @Override
     public void onClick(View v) {
-        if (IsImage) {
-            ImageView image = (ImageView) v;
 
-            int Answer = GetItemId(image.getTag().toString(), true);
-            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
-            Answers.put(mQuestions.get(index).getQuestionID()+"", Answer);
-        } else {
-            TextView text = (TextView) v;
-            int Answer = GetItemId(text.getTag().toString(), false);
-            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " +Answer);
-            Answers.put(mQuestions.get(index).getQuestionID()+"", Answer);
-        }
+        CardView Card = (CardView) v;
+        int Answer = GetItemId(Card.getTag().toString());
+        Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
+        Answers.put(mQuestions.get(index).getQuestionID() + "", Answer);
+
         NextQuestion(++index);
     }
 
-    private int GetItemId(String id, boolean a) {
-
-        if (a) {
-            switch (id) {
-                case "Img_00":
-                    return 0;
-                case "Img_01":
-                    return 1;
-                case "Img_02":
-                    return 2;
-                case "Img_03":
-                    return 3;
-            }
-        } else {
-            switch (id) {
-                case "Txt_00":
-                    return 0;
-                case "Txt_01":
-                    return 1;
-                case "Txt_02":
-                    return 2;
-                case "Txt_03":
-                    return 3;
-            }
+    private int GetItemId(String id) {
+        switch (id) {
+            case "Card_00":
+                return 0;
+            case "Card_01":
+                return 1;
+            case "Card_02":
+                return 2;
+            case "Card_03":
+                return 3;
         }
         return 0;
     }
@@ -241,7 +274,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
+//                                Log.d("TAG", document.getId() + " => " + document.getData());
                                 Question Qu = document.toObject(Question.class);
                                 mQuestions.add(Qu);
                             }

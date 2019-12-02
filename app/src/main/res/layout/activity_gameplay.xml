@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/QuestionLayout"

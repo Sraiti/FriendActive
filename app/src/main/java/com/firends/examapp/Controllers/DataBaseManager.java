@@ -98,9 +98,9 @@ public class DataBaseManager {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 HashMap<String, Integer> forms = (HashMap<String, Integer>) documentSnapshot.get("friends");
+
                 String id= (String) documentSnapshot.getData().get("idToken");
-                Toast.makeText(context, String.valueOf(forms.values()
-                ), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, String.valueOf(forms.get(0)), Toast.LENGTH_SHORT).show();
 
             }
         });

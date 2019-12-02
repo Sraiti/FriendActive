@@ -1,5 +1,6 @@
 package com.firends.examapp.Controllers;
 
+import android.content.Context;
 import android.renderscript.Sampler;
 import android.util.Log;
 import android.widget.Toast;
@@ -88,6 +89,21 @@ public class DataBaseManager {
     public void addInvite(String IdUser,String UserInvited){
         _MyInvitations.put(UserInvited,false);
         //db.collection("Users").document(IdUser).update(_MyInvitations);
+    }
+
+
+    public void getFriendAnswers(final Context context){
+        DocumentReference docRef = db.collection("Notifications").document("ginPstaRFJQBqax8p6OkkGEPJ2w2");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                HashMap<String, Integer> forms = (HashMap<String, Integer>) documentSnapshot.get("friends");
+                String id= (String) documentSnapshot.getData().get("idToken");
+                Toast.makeText(context, String.valueOf(forms.values()
+                ), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 }

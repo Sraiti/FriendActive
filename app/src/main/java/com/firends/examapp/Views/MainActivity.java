@@ -1,40 +1,25 @@
 package com.firends.examapp.Views;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firends.examapp.Model.User;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.dynamiclinks.DynamicLink;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "mytag";
-    Button gamPlay,ResutlsButton,InvitationsButton;
+    Button gamPlay, ResutlsButton, InvitationsButton;
     public static String mydomine = "https://examapp.page.link";
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
@@ -47,34 +32,34 @@ public class MainActivity extends AppCompatActivity {
         dynamicLinkManager = new DynamicLinkManager(this);
 
         gamPlay = findViewById(R.id.GamePlay);
-        ResutlsButton=findViewById(R.id.Bt_Results);
-        InvitationsButton=findViewById(R.id.bt_Invitations);
+        ResutlsButton = findViewById(R.id.Bt_Results);
+        InvitationsButton = findViewById(R.id.bt_Invitations);
 
-         gamPlay.setOnClickListener(new View.OnClickListener() {
+        gamPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Gameplay.class));
+                startActivity(new Intent(MainActivity.this, Gameplay.class));
 
             }
         });
 
-         ResutlsButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-
-             }
-         });
+        ResutlsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, FriendsAnswers.class));
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast =Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
                 View toastView = toast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.colordark2));
                 TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                 v.setTextColor(getResources().getColor(R.color.white));
-               
+
                 toast.show();
                 startRate();
             }
@@ -82,10 +67,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playGame(View view) {
-        startActivity(new Intent(MainActivity.this,Gameplay.class));
+        startActivity(new Intent(MainActivity.this, Gameplay.class));
     }
-
-
 
 
     private void startRate() {

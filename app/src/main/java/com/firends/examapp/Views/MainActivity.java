@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -11,8 +12,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firends.examapp.Model.User;
@@ -22,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
@@ -53,6 +57,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+         ResutlsButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+
+             }
+         });
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast =Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
+                View toastView = toast.getView();
+                toastView.setBackgroundColor(getResources().getColor(R.color.colordark2));
+                TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                v.setTextColor(getResources().getColor(R.color.white));
+               
+                toast.show();
+                startRate();
+            }
+        });
     }
 
     public void playGame(View view) {
@@ -60,35 +86,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void buildDynamiclink(){
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(mydomine+"="+User.currentUser.get_IdUser()))
-                .setDomainUriPrefix(mydomine)
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder(getPackageName()).build())
-                // Set parameters
-                // ...
-                .buildShortDynamicLink().addOnCompleteListener((Activity) this, new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
-                            Intent intent2 = new Intent();
-                            intent2.setAction(Intent.ACTION_SEND);
-                            intent2.setType("text/plain");
-                            intent2.putExtra(Intent.EXTRA_TEXT, shortLink.toString() );
-                            startActivity(Intent.createChooser(intent2, "Share via"));
 
-                            Toast.makeText(MainActivity.this, shortLink.toString(), Toast.LENGTH_LONG).show();
-                        } else {
 
-                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
+    private void startRate() {
+        Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        // To count with Play market backstack, After pressing back button,
+        // to taken back to our application, we need to add following flags to intent.
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+        }
     }
-
-
 }

@@ -1,5 +1,9 @@
 package com.firends.examapp.Views;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.Question;
+import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,16 +30,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Gameplay extends AppCompatActivity implements View.OnClickListener {
-
-
+public class FriendGameplay extends AppCompatActivity implements  View.OnClickListener {
     ImageView Img00, Img01, Img02, Img03;
     TextView Txt_00, Txt_01, Txt_02, Txt_03, Txt_Question;
     CardView Card_00, Card_01, Card_02, Card_03;
 
-
     LinearLayout Linear_00, Linear_01;
     FirebaseFirestore db;
+
+    String UserID;
 
     List<Question> mQuestions = new ArrayList<>();
     List<LinearLayout> ClickAbles = new ArrayList<>();
@@ -50,10 +50,16 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
     HashMap<String, Integer> Answers = new HashMap<>();
 
+    User user;
+    int Point;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gameplay);
+        setContentView(R.layout.activity_friend_gameplay);
+
+
 
         //Views
         Img00 = findViewById(R.id.id_image1);
@@ -80,15 +86,22 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
         Txt_Question = findViewById(R.id.txt_Ques);
 
+        Intent a = getIntent();
+        UserID = a.getStringExtra("UserID");
 
+        Point =0;
         //DataBase
         db = FirebaseFirestore.getInstance();
 
-        GetData(new FireBaseCallBack() {
+        GetData(new  FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
 
+                Answers=user.get_MyQuestion();
                 NextQuestion(index);
+
+
+
             }
         });
 
@@ -101,9 +114,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         ClickAbles.add(Linear_00);
         ClickAbles.add(Linear_01);
 
-
     }
-
     private void NextQuestion(int index) {
         if (index < totalQues) {
             Question question = mQuestions.get(index);
@@ -113,10 +124,6 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                 // Set Images With Picasso.
                 String imagePath00 = question.getAnswer_Ph_0();
                 String imagePath01 = question.getAnswer_Ph_1();
-
-//
-//                Log.d("TAG", "imagePath00: " + imagePath00);
-//                Log.d("TAG", "imagePath01: " + imagePath01);
 
                 Log.d("TAG", "ID: " +question.getQuestionID() );
 
@@ -156,12 +163,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                 String imagePath01 = question.getAnswer_Ph_1();
                 String imagePath02 = question.getAnswer_Ph_2();
                 String imagePath03 = question.getAnswer_Ph_3();
-//
-//                Log.d("TAG", "imagePath00: " + imagePath00);
-//                Log.d("TAG", "imagePath01: " + imagePath01);
-//                Log.d("TAG", "imagePath02: " + imagePath02);
-//                Log.d("TAG", "imagePath03: " + imagePath03);
-//
+
 
                 Log.d("TAG", "ID: " +question.getQuestionID() );
 
@@ -217,13 +219,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
             }
 
         } else {
-            Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
-
-            DataBaseM.UpdateUserQuestions(Answers);
-
-            startActivity(new Intent(Gameplay.this, ShareLink.class));
-            finish();
-
+            Toast.makeText(this, "Questions Done "+ Point, Toast.LENGTH_SHORT).show();
 
 
         }
@@ -248,9 +244,15 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         CardView Card = (CardView) v;
-        int Answer = GetItemId(Card.getTag().toString());
-        Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
-        Answers.put(mQuestions.get(index).getQuestionID() + "", Answer);
+        int FriendAnswer = GetItemId(Card.getTag().toString());
+        Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
+
+        int MyAnswer=Answers.get(mQuestions.get(index).getQuestionID()+"");
+        if (FriendAnswer==MyAnswer){
+            Point=Point+10;
+        }
+
+
 
         NextQuestion(++index);
     }
@@ -286,10 +288,16 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                             Log.d("TAG", "Error getting documents: ", task.getException());
                         }
                         totalQues = mQuestions.size();
-                        fireBaseCallBack.OnCallback(mQuestions);
                     }
                 });
-
+        db.collection("Users").document(UserID)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+                fireBaseCallBack.OnCallback(mQuestions);
+            }
+        });
 
 
     }
@@ -297,6 +305,5 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
     private interface FireBaseCallBack {
         void OnCallback(List<Question> QuestionList);
     }
-
 
 }

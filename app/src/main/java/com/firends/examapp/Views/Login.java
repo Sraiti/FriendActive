@@ -31,6 +31,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.List;
@@ -109,7 +110,8 @@ public class Login extends AppCompatActivity {
                 NewUser.set_Image(user.getPhotoUrl().toString());
                 Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
                 User.currentUser=NewUser;
-                manager.AddUser(NewUser,user.getIdToken(true).toString());
+                String TokenId = FirebaseInstanceId.getInstance().getToken();
+                manager.AddUser(NewUser,TokenId);
                 if (Invite.InvitedUser!=null)
                     manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
 
@@ -143,7 +145,8 @@ public class Login extends AppCompatActivity {
                             NewUser.set_Image(user.getPhotoUrl().toString());
                             Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
                             User.currentUser=NewUser;
-                            manager.AddUser(NewUser,user.getIdToken(true).toString());
+                            String TokenId = FirebaseInstanceId.getInstance().getToken();
+                            manager.AddUser(NewUser,TokenId);
                             if (Invite.InvitedUser!=null)
                             manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
 

@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
 
     private Context mContext;
     static final int RC_SIGN_IN = 123;
-    private static final String TAG = "mytag";
+    private static final String TAG = "TAG";
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     Button ButtonLogin;

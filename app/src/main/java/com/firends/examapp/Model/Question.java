@@ -4,14 +4,13 @@ public class Question {
 
     int QuestionID;
     String Question;
-    String Answer_00,Answer_01,Answer_02,Answer_03,Answer_Ph_0,Answer_Ph_1,Answer_Ph_2,Answer_Ph_3;
-
+    String Answer_00, Answer_01, Answer_02, Answer_03, Answer_Ph_0, Answer_Ph_1, Answer_Ph_2, Answer_Ph_3;
+    int Type;
 
     public Question() {
     }
 
-    public Question(int questionID, String question, String answer_00, String answer_01, String answer_02,
-                    String answer_03, String answer_Ph_0, String answer_Ph_1, String answer_Ph_2, String answer_Ph_3) {
+    public Question(int questionID, String question, String answer_00, String answer_01, String answer_02, String answer_03, String answer_Ph_0, String answer_Ph_1, String answer_Ph_2, String answer_Ph_3, int type) {
         QuestionID = questionID;
         Question = question;
         Answer_00 = answer_00;
@@ -22,6 +21,7 @@ public class Question {
         Answer_Ph_1 = answer_Ph_1;
         Answer_Ph_2 = answer_Ph_2;
         Answer_Ph_3 = answer_Ph_3;
+        Type = type;
     }
 
     public int getQuestionID() {
@@ -102,5 +102,13 @@ public class Question {
 
     public void setAnswer_Ph_3(String answer_Ph_3) {
         Answer_Ph_3 = answer_Ph_3;
+    }
+
+    public int getType() {
+        return Type;
+    }
+
+    public void setType(int type) {
+        Type = type;
     }
 }

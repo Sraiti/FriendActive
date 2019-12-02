@@ -45,8 +45,18 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.MainActivity"></activity>
-        <activity android:name=".Views.Gameplay"></activity>
+        <activity android:name=".Views.MainActivity">
+
+        </activity>
+        <activity android:name=".Views.ShareLink">
+
+        </activity>
+        <activity android:name=".Views.Gameplay">
+
+        </activity>
+
+
+
     </application>
 
 </manifest>

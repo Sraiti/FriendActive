@@ -1,5 +1,6 @@
 package com.firends.examapp.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,15 +50,15 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_gameplay);
 
         //Views
-        Img00 = findViewById(R.id.Img_00);
-        Img01 = findViewById(R.id.Img_01);
-        Img02 = findViewById(R.id.Img_02);
-        Img03 = findViewById(R.id.Img_03);
+        Img00 = findViewById(R.id.id_image1);
+        Img01 = findViewById(R.id.id_image2);
+        Img02 = findViewById(R.id.id_image3);
+        Img03 = findViewById(R.id.id_image4);
 
-        Txt_00 = findViewById(R.id.Txt_00);
-        Txt_01 = findViewById(R.id.Txt_01);
-        Txt_02 = findViewById(R.id.Txt_02);
-        Txt_03 = findViewById(R.id.Txt_03);
+        Txt_00 = findViewById(R.id.id_txt1);
+        Txt_01 = findViewById(R.id.id_txt2);
+        Txt_02 = findViewById(R.id.id_txt3);
+        Txt_03 = findViewById(R.id.id_txt4);
 
 
         Txt_Question = findViewById(R.id.txt_Ques);
@@ -100,9 +101,8 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         if (index < totalQues) {
 
             Question question = mQuestions.get(index);
-            Log.d("TAG", "question.getImage() =" + question.getImage());
-            String QuestionType = question.getImage();
-            if (QuestionType.equals("Y")) {
+
+
                 //Make All TextViews UnClickAble
                 ButtonsStatue(true);
 
@@ -133,7 +133,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
                 Txt_Question.setText(question.getQuestion());
 
-            } else {
+
                 //Make All ImageViews UnClickAble
                 ButtonsStatue(false);
                 Log.d("TAG", "TextViews TEAM");
@@ -145,12 +145,15 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
                 Txt_Question.setText(question.getQuestion());
 
-            }
+
 
         } else {
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
 
             DataBaseM.UpdateUserQuestions(Answers);
+
+            startActivity(new Intent(Gameplay.this,ShareLink.class));
+            this.finish();
 
         }
 

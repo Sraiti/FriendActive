@@ -108,10 +108,10 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
                 Log.d("TAG", "IMAGEVIEWS TEAM");
                 // Set Images With Picasso.
-                String imagePath00 = question.getAnswer_00();
-                String imagePath01 = question.getAnswer_01();
-                String imagePath02 = question.getAnswer_02();
-                String imagePath03 = question.getAnswer_03();
+                String imagePath00 = question.getAnswer_Ph_0();
+                String imagePath01 = question.getAnswer_Ph_1();
+                String imagePath02 = question.getAnswer_Ph_2();
+                String imagePath03 = question.getAnswer_Ph_3();
 
                 Picasso.get()
                         .load(imagePath00)

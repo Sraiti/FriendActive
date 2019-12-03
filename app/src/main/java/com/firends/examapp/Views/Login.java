@@ -1,46 +1,36 @@
 package com.firends.examapp.Views;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class Login extends AppCompatActivity {
 
@@ -51,7 +41,7 @@ public class Login extends AppCompatActivity {
     //GoogleSignInClient mGoogleSignInClient;
     private SignInButton ButtonLogin;
     private DataBaseManager manager;
-    private View dailogName;
+    private View dialogName;
     private LayoutInflater inflater;
 
 
@@ -66,8 +56,8 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         inflater = this.getLayoutInflater();
-        dailogName = inflater.inflate(R.layout.dialog_getname, null);
-        showdialogname();
+        dialogName = inflater.inflate(R.layout.dialog_getname, null);
+
         //get invitation link
 
 
@@ -115,22 +105,41 @@ public class Login extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // Successfully signed in
-                Toast.makeText(mContext, "ok", Toast.LENGTH_SHORT).show();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                User NewUser=new User();
+
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                final User NewUser = new User();
                 NewUser.set_IdUser(user.getUid());
-                NewUser.set_UserName(user.getDisplayName());
                 NewUser.set_Image(user.getPhotoUrl().toString());
+                if (user.getDisplayName() == null) {
+                    showdialogname();
+                    dialogName.findViewById(R.id.bt_getname).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EditText name=dialogName.findViewById(R.id.txt_name);
+                            if (!name.equals("")){
+                                NewUser.set_UserName(name.getText().toString());
+                                manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
+                                User.currentUser = NewUser;
+                                if (Invite.InvitedUser != null)
+                                    manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                                Login.this.finish();
+                            }else {
+                                Toast.makeText(mContext, "Please Entry Your Name", Toast.LENGTH_SHORT).show();
+                            }
 
+                        }
+                    });
+                } else {
 
-                Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-                User.currentUser=NewUser;
-                manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
-                if (Invite.InvitedUser!=null)
-                    manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
-
-                startActivity(new Intent(Login.this,MainActivity.class));
+                    NewUser.set_UserName(user.getDisplayName());
+                    User.currentUser = NewUser;
+                    manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
+                    if (Invite.InvitedUser != null)
+                        manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
+                    startActivity(new Intent(Login.this, MainActivity.class));
+                    Login.this.finish();
+                }
 
 
                 // ...
@@ -144,6 +153,7 @@ public class Login extends AppCompatActivity {
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -158,18 +168,20 @@ public class Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             //Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                            User NewUser=new User();
+                            User NewUser = new User();
                             NewUser.set_IdUser(user.getUid());
-                            NewUser.set_UserName(user.getDisplayName());
                             NewUser.set_Image(user.getPhotoUrl().toString());
-                            Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                            User.currentUser=NewUser;
-                            manager.AddUser(NewUser,"");
-                            if (Invite.InvitedUser!=null)
-                            manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
+                            if (user.getDisplayName() == null) {
+                                showdialogname();
 
-                            startActivity(new Intent(Login.this,MainActivity.class));
-
+                            } else {
+                                NewUser.set_UserName(user.getDisplayName());
+                                User.currentUser = NewUser;
+                                manager.AddUser(NewUser, "");
+                                if (Invite.InvitedUser != null)
+                                    manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                            }
 
 
                         } else {
@@ -198,8 +210,8 @@ public class Login extends AppCompatActivity {
             NewUser.set_UserName(currentUser.getDisplayName());
             NewUser.set_Image(currentUser.getPhotoUrl().toString());
             User.currentUser = NewUser;
-            if (Invite.InvitedUser!=null)
-                manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
+            if (Invite.InvitedUser != null)
+                manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
             startActivity(new Intent(this, MainActivity.class));
             this.finish();
             //Toast.makeText(mContext, currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
@@ -208,10 +220,10 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public void showdialogname(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(Login.this);
-        builder.setView(dailogName)
-        .setCancelable(false);
+    public void showdialogname() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+        builder.setView(dialogName)
+                .setCancelable(false);
 
         builder.show();
     }

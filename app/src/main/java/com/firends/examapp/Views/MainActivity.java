@@ -9,11 +9,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
     private String link;
+    private LinearLayout adView;
+    private ads_manager adsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,31 @@ public class MainActivity extends AppCompatActivity {
         ResutlsButton = findViewById(R.id.Bt_Results);
         InvitationsButton = findViewById(R.id.bt_Invitations);
         btLink=findViewById(R.id.bt_link);
+        adView=findViewById(R.id.adView);
+        adsManager=ads_manager.getInstance();
+        adsManager.fbLoadBanner(this)
+                .setAdListener(new AdListener() {
+                    @Override
+                    public void onError(Ad ad, AdError adError) {
+                        Toast.makeText(mContext, adError.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onAdLoaded(Ad ad) {
+                        Toast.makeText(mContext, "load", Toast.LENGTH_SHORT).show();
+                        adView.addView(adsManager.fbadView);
+                    }
+
+                    @Override
+                    public void onAdClicked(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void onLoggingImpression(Ad ad) {
+
+                    }
+                });
 
 
         gamPlay.setOnClickListener(new View.OnClickListener() {

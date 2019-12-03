@@ -27,5 +27,7 @@
 
     <string name="facebook_application_id" translatable="false">510276979578676</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb510276979578676</string>
+    <string name="facebook_banner_id">510276979578676_510684702871237</string>
+    <string name="facebook_interstitial">510276979578676_510685786204462</string>
 
 </resources>

@@ -99,7 +99,7 @@ public class DataBaseManager {
                 HashMap<String, Integer> forms = (HashMap<String, Integer>) documentSnapshot.get("friends");
 
                 for (HashMap.Entry<String, Integer> item : forms.entrySet()) {
-                    Toast.makeText(context, item.getKey().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, item.getKey(), Toast.LENGTH_SHORT).show();
                     friendAnswersList.add(new FriendAnswer(item.getKey(), String.valueOf(item.getValue())));
                 }
 

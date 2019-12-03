@@ -7,8 +7,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.firends.examapp.Model.FriendAnswer;
 import com.firends.examapp.Model.Notification;
 import com.firends.examapp.Model.User;
+import com.firends.examapp.Views.FriendsAnswers;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,7 +22,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DataBaseManager {
@@ -92,18 +96,24 @@ public class DataBaseManager {
     }
 
 
-    public void getFriendAnswers(final Context context){
-        DocumentReference docRef = db.collection("Notifications").document("ginPstaRFJQBqax8p6OkkGEPJ2w2");
+    public List<Object> getFriendAnswers(final Context context){
+        final List<Object> friendAnswersList =new ArrayList<>();
+        DocumentReference docRef = db.collection("Notifications").document(User.currentUser.get_IdUser());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 HashMap<String, Integer> forms = (HashMap<String, Integer>) documentSnapshot.get("friends");
 
-                String id= (String) documentSnapshot.getData().get("idToken");
-                Toast.makeText(context, String.valueOf(forms.get(0)), Toast.LENGTH_SHORT).show();
+                for (HashMap.Entry<String, Integer> item :forms.entrySet()){
+                    Toast.makeText(context, item.getKey().toString(), Toast.LENGTH_SHORT).show();
+                    friendAnswersList.add(new FriendAnswer(item.getKey(),String.valueOf(item.getValue())));
+                }
 
+                FriendsAnswers.adapter.notifyDataSetChanged();
             }
         });
+
+        return friendAnswersList;
     }
 
 }

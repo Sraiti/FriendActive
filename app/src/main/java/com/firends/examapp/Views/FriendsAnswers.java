@@ -25,10 +25,7 @@ public class FriendsAnswers extends AppCompatActivity {
 
         manager=new DataBaseManager();
         manager.getFriendAnswers(this);
-        friendAnswersList=new ArrayList<>();
-        friendAnswersList.add(new FriendAnswer("ahd",12));
-        friendAnswersList.add(new FriendAnswer("ahd",13));
-        friendAnswersList.add(new FriendAnswer("ahd",45));
+
         RecyclerView mRecyclerView = findViewById(R.id.Receycl_FriendsAnswers);
 
 
@@ -44,7 +41,7 @@ public class FriendsAnswers extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         // Specify an adapter.
-        adapter = new AdapterFriendAnswer(this, friendAnswersList);
+        adapter = new AdapterFriendAnswer(this, manager.getFriendAnswers(this));
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

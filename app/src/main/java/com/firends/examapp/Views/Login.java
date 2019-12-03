@@ -28,9 +28,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.List;
@@ -80,7 +82,9 @@ public class Login extends AppCompatActivity {
 
     private void signIn() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.GoogleBuilder().build());
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build());
 
 // Create and launch sign-in intent
         startActivityForResult(
@@ -107,13 +111,13 @@ public class Login extends AppCompatActivity {
                 NewUser.set_IdUser(user.getUid());
                 NewUser.set_UserName(user.getDisplayName());
                 NewUser.set_Image(user.getPhotoUrl().toString());
-                Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,user.getDisplayName(), Toast.LENGTH_SHORT).show();
                 User.currentUser=NewUser;
-                manager.AddUser(NewUser,user.getIdToken(true).toString());
+                manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
                 if (Invite.InvitedUser!=null)
                     manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
 
-                //startActivity(new Intent(Login.this,MainActivity.class));
+                startActivity(new Intent(Login.this,MainActivity.class));
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
@@ -143,7 +147,7 @@ public class Login extends AppCompatActivity {
                             NewUser.set_Image(user.getPhotoUrl().toString());
                             Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
                             User.currentUser=NewUser;
-                            manager.AddUser(NewUser,user.getIdToken(true).toString());
+                            manager.AddUser(NewUser,"");
                             if (Invite.InvitedUser!=null)
                             manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
 

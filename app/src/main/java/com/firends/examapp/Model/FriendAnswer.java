@@ -3,9 +3,9 @@ package com.firends.examapp.Model;
 public class FriendAnswer {
 
     public String _UserName;
-    public int Point;
+    public String  Point;
 
-    public FriendAnswer(String _UserName, int point) {
+    public FriendAnswer(String _UserName, String  point) {
         this._UserName = _UserName;
         Point = point;
     }
@@ -18,11 +18,11 @@ public class FriendAnswer {
         this._UserName = _UserName;
     }
 
-    public int getPoint() {
+    public String  getPoint() {
         return Point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(String  point) {
         Point = point;
     }
 }

@@ -84,8 +84,7 @@ public class Invite extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent intent =new Intent(Invite.this,FriendGameplay.class);
-                intent.putExtra("UserID",InvitedUser);
+                Intent intent =new Intent(Invite.this,Login.class);
                 startActivity(intent);
                 Invite.this.finish();
             }

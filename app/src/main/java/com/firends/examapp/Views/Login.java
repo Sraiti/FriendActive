@@ -118,12 +118,11 @@ public class Login extends AppCompatActivity {
                             EditText name=dialogName.findViewById(R.id.txt_name);
                             if (!name.equals("")){
                                 NewUser.set_UserName(name.getText().toString());
+                                ShareLink.editor.putString("name",name.getText().toString());
+                                ShareLink.editor.commit();
                                 manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
                                 User.currentUser = NewUser;
-                                if (Invite.InvitedUser != null)
-                                    manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
-                                startActivity(new Intent(Login.this, MainActivity.class));
-                                Login.this.finish();
+                                startAvtivity();
                             }else {
                                 Toast.makeText(mContext, "Please Entry Your Name", Toast.LENGTH_SHORT).show();
                             }
@@ -135,10 +134,7 @@ public class Login extends AppCompatActivity {
                     NewUser.set_UserName(user.getDisplayName());
                     User.currentUser = NewUser;
                     manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
-                    if (Invite.InvitedUser != null)
-                        manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
-                    startActivity(new Intent(Login.this, MainActivity.class));
-                    Login.this.finish();
+                    startAvtivity();
                 }
 
 
@@ -210,10 +206,7 @@ public class Login extends AppCompatActivity {
             NewUser.set_UserName(currentUser.getDisplayName());
             NewUser.set_Image(currentUser.getPhotoUrl().toString());
             User.currentUser = NewUser;
-            if (Invite.InvitedUser != null)
-                manager.addInvite(Invite.InvitedUser, NewUser.get_IdUser());
-            startActivity(new Intent(this, MainActivity.class));
-            this.finish();
+            startAvtivity();
             //Toast.makeText(mContext, currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         }
 
@@ -226,5 +219,19 @@ public class Login extends AppCompatActivity {
                 .setCancelable(false);
 
         builder.show();
+    }
+
+
+    public void startAvtivity(){
+        if (Invite.InvitedUser != null){
+            Intent intent=new Intent(Login.this,FriendGameplay.class);
+            intent.putExtra("UserID",Invite.InvitedUser);
+            startActivity(intent);
+            this.finish();
+        }else {
+            startActivity(new Intent(this, MainActivity.class));
+            this.finish();
+        }
+
     }
 }

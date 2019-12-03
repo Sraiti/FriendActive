@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
         dynamicLinkManager = new DynamicLinkManager(this);
-        link=ShareLink.getLinkFromShered(this);
+        link=ShareLink.getLinkFromShered(this,"link");
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton = findViewById(R.id.Bt_Results);
         InvitationsButton = findViewById(R.id.bt_Invitations);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ShareLink.getLinkFromShered(mContext).contains("Share Link With your Friends"))
+                if (link.contains("Share Link With your Friends"))
                 {
                     Toast.makeText(mContext, "Please Create Your Quiz", Toast.LENGTH_SHORT).show();
                     return;

@@ -33,7 +33,7 @@ public class ShareLink extends AppCompatActivity {
     private Uri shortLink;
     private TextView dynamicLink;
     public static SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    public static SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,11 +105,16 @@ public class ShareLink extends AppCompatActivity {
         Toast.makeText(ShareLink.this, shortLink.toString()+" is Copyed ", Toast.LENGTH_LONG).show();
     }
 
-    public static String getLinkFromShered(Context context){
+    public static String getLinkFromShered(Context context,String Object){
         String link=null;
-        if (sharedPreferences==null)
+        if (sharedPreferences==null){
             sharedPreferences=context.getSharedPreferences("linkInfo",MODE_PRIVATE);
-        link=sharedPreferences.getString("link","Share Link With your Friends");
+            editor=sharedPreferences.edit();
+        }
+
+        link=sharedPreferences.getString(Object,"Share Link With your Friends");
         return link;
     }
+
+
 }

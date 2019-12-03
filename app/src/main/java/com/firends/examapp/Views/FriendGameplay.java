@@ -97,14 +97,20 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
             @Override
             public void OnCallback(List<Question> QuestionList) {
 
-                Answers=user.get_MyQuestion();
                 NextQuestion(index);
 
 
 
             }
         });
-
+        db.collection("Users").document(UserID)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+                Answers=user.get_MyQuestion();
+            }
+        });
 
         Card_00.setOnClickListener(this);
         Card_01.setOnClickListener(this);
@@ -219,9 +225,12 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
             }
 
         } else {
+
+            DataBaseM.UpdatingMyMap(UserID,Point);
             Toast.makeText(this, "Questions Done "+ Point, Toast.LENGTH_SHORT).show();
 
-
+            startActivity(new Intent(FriendGameplay.this, Login.class));
+            finish();
         }
 
     }
@@ -288,16 +297,11 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
                             Log.d("TAG", "Error getting documents: ", task.getException());
                         }
                         totalQues = mQuestions.size();
+                        fireBaseCallBack.OnCallback(mQuestions);
+
                     }
                 });
-        db.collection("Users").document(UserID)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                user = documentSnapshot.toObject(User.class);
-                fireBaseCallBack.OnCallback(mQuestions);
-            }
-        });
+
 
 
     }

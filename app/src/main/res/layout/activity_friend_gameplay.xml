@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.Gameplay">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/QuestionLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/txt_Ques"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/sarala"
-            android:gravity="center"
-            android:text="Question"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
-
-    </androidx.cardview.widget.CardView>
+    tools:context=".Views.FriendGameplay">
 
     <LinearLayout
         android:id="@+id/QuestionLayout"
@@ -38,12 +15,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:id="@+id/txt_Ques"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sarala"
+                android:gravity="center"
+                android:text="Question"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/Linear_00"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -69,7 +66,7 @@
                         android:id="@+id/id_image1"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        app:srcCompat="@drawable/thinking" />
+                        app:srcCompat="@drawable/image_loading" />
 
                     <TextView
                         android:id="@+id/id_txt1"
@@ -105,7 +102,7 @@
                         android:id="@+id/id_image2"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        app:srcCompat="@drawable/thinking" />
+                        app:srcCompat="@drawable/image_loading" />
 
                     <TextView
                         android:id="@+id/id_txt2"
@@ -122,7 +119,7 @@
         <LinearLayout
             android:id="@+id/Linear_01"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -148,7 +145,7 @@
                         android:id="@+id/id_image3"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        app:srcCompat="@drawable/thinking" />
+                        app:srcCompat="@drawable/image_loading" />
 
                     <TextView
                         android:id="@+id/id_txt3"
@@ -184,7 +181,7 @@
                         android:id="@+id/id_image4"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        app:srcCompat="@drawable/thinking" />
+                        app:srcCompat="@drawable/image_loading" />
 
                     <TextView
                         android:id="@+id/id_txt4"

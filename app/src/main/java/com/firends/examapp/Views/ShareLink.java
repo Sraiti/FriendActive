@@ -8,6 +8,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -31,11 +32,15 @@ public class ShareLink extends AppCompatActivity {
     private static final String TAG = "mytag";
     private Uri shortLink;
     private TextView dynamicLink;
+    public static SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_link);
         dynamicLink=findViewById(R.id.mydynamiclink);
+        sharedPreferences=getSharedPreferences("linkInfo",MODE_PRIVATE);
+        editor=sharedPreferences.edit();
 
         buildDynamiclink();
     }
@@ -57,6 +62,8 @@ public class ShareLink extends AppCompatActivity {
                             shortLink = task.getResult().getShortLink();
                             Uri flowchartLink = task.getResult().getPreviewLink();
                            dynamicLink.setText(shortLink.toString());
+                           editor.putString("link",shortLink.toString());
+                           editor.commit();
 
 
                         } else {
@@ -96,5 +103,13 @@ public class ShareLink extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("mylink", shortLink.toString());
         clipboard.setPrimaryClip(clip);
         Toast.makeText(ShareLink.this, shortLink.toString()+" is Copyed ", Toast.LENGTH_LONG).show();
+    }
+
+    public static String getLinkFromShered(Context context){
+        String link=null;
+        if (sharedPreferences==null)
+            sharedPreferences=context.getSharedPreferences("linkInfo",MODE_PRIVATE);
+        link=sharedPreferences.getString("link","Share Link With your Friend");
+        return link;
     }
 }

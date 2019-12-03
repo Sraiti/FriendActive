@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,10 +20,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "mytag";
-    Button gamPlay, ResutlsButton, InvitationsButton;
+    Button gamPlay, ResutlsButton, InvitationsButton,btLink;
     public static String mydomine = "https://examapp.page.link";
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
+    private String link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
         dynamicLinkManager = new DynamicLinkManager(this);
-
+        link=ShareLink.getLinkFromShered(this);
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton = findViewById(R.id.Bt_Results);
         InvitationsButton = findViewById(R.id.bt_Invitations);
+        btLink=findViewById(R.id.bt_link);
+
 
         gamPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, FriendsAnswers.class));
+            }
+        });
+        btLink.setText(link);
+        btLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent();
+                intent2.setAction(Intent.ACTION_SEND);
+                intent2.setType("text/plain");
+                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName+ " Wants To Test Friendship With You Download App and Start Test "+ link );
+                startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });
 

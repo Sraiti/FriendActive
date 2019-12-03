@@ -218,14 +218,10 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
         } else {
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
-
             DataBaseM.UpdateUserQuestions(Answers);
 
             startActivity(new Intent(Gameplay.this, ShareLink.class));
             finish();
-
-
-
         }
 
     }

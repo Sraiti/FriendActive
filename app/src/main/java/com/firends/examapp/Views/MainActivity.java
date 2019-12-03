@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,10 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(mContext, FriendsAnswers.class));
             }
         });
-        btLink.setText(link);
+        btLink.setText("Share Link With Your Friends");
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ShareLink.getLinkFromShered(mContext).contains("Share Link With your Friends"))
+                {
+                    Toast.makeText(mContext, "Please Create Your Quiz", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent2 = new Intent();
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
@@ -77,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
                 toast.show();
                 startRate();
+            }
+        });
+        InvitationsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "Empty", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -101,4 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
         }
     }
+
+
+
 }

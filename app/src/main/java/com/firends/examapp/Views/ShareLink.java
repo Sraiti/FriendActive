@@ -109,7 +109,7 @@ public class ShareLink extends AppCompatActivity {
         String link=null;
         if (sharedPreferences==null)
             sharedPreferences=context.getSharedPreferences("linkInfo",MODE_PRIVATE);
-        link=sharedPreferences.getString("link","Share Link With your Friend");
+        link=sharedPreferences.getString("link","Share Link With your Friends");
         return link;
     }
 }

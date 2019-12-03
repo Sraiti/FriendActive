@@ -139,14 +139,14 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
 
                 Picasso.get()
                         .load(imagePath00)
-                        .error(R.drawable.thinking)
-                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .error(R.drawable.image_loading)
+                        .placeholder(getResources().getDrawable(R.drawable.image_loading))
                         .fit()
                         .into(Img00);
                 Picasso.get()
                         .load(imagePath01)
-                        .error(R.drawable.thinking)
-                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .error(R.drawable.image_loading)
+                        .placeholder(getResources().getDrawable(R.drawable.image_loading))
                         .fit()
                         .into(Img01);
 
@@ -186,26 +186,26 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
                 }
                 Picasso.get()
                         .load(imagePath00)
-                        .error(R.drawable.thinking)
-                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .error(R.drawable.image_loading)
+                        .placeholder(getResources().getDrawable(R.drawable.image_loading))
                         .fit()
                         .into(Img00);
                 Picasso.get()
                         .load(imagePath01)
-                        .error(R.drawable.thinking)
-                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .error(R.drawable.image_loading)
+                        .placeholder(getResources().getDrawable(R.drawable.image_loading))
                         .fit()
                         .into(Img01);
                 Picasso.get()
                         .load(imagePath02)
-                        .error(R.drawable.thinking)
-                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .error(R.drawable.image_loading)
+                        .placeholder(getResources().getDrawable(R.drawable.image_loading))
                         .fit()
                         .into(Img02);
                 Picasso.get()
                         .load(imagePath03)
-                        .error(R.drawable.thinking)
-                        .placeholder(getResources().getDrawable(R.drawable.thinking))
+                        .error(R.drawable.image_loading)
+                        .placeholder(getResources().getDrawable(R.drawable.image_loading))
                         .fit()
                         .into(Img03);
 

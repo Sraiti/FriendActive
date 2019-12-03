@@ -32,6 +32,8 @@ public class Invite extends AppCompatActivity {
     private Button startTest;
     public String TAG = "data";
     public static String InvitedUser;
+
+    Button Start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,10 @@ public class Invite extends AppCompatActivity {
         avi = findViewById(R.id.avi);
         startTest=findViewById(R.id.bt_invite_start);
         startTest.setVisibility(View.GONE);
+
+
+
+
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -77,7 +83,9 @@ public class Invite extends AppCompatActivity {
 
 
 
-                startActivity(new Intent(Invite.this,Login.class));
+                Intent intent =new Intent(Invite.this,FriendGameplay.class);
+                intent.putExtra("UserID",InvitedUser);
+                startActivity(intent);
                 Invite.this.finish();
             }
         });

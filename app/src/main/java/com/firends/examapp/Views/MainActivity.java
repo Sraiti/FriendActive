@@ -7,13 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
@@ -22,11 +26,71 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "mytag";
-    Button gamPlay, ResutlsButton, InvitationsButton,btLink;
+    Button gamPlay, ResutlsButton, InvitationsButton, btLink;
     public static String mydomine = "https://examapp.page.link";
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
     private String link;
+
+    AlertDialog.Builder builder;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.privacy: {
+
+                try {
+                    builder.show();
+                } catch (Exception e) {
+                }
+                break;
+            }
+            case R.id.contact_us: {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:" + getResources().getString(R.string.Emailrecerver)));
+                    intent.putExtra(Intent.EXTRA_EMAIL, getResources().getString(R.string.Emailrecerver));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
+
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+                break;
+            }
+
+            case R.id.nav_share: {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                    String shareMessage = "\nLet me recommend you this application\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id="
+                                    + getPackageName())));
+                }
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +98,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
         dynamicLinkManager = new DynamicLinkManager(this);
-        link=ShareLink.getLinkFromShered(this);
+        link = ShareLink.getLinkFromShered(this);
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton = findViewById(R.id.Bt_Results);
         InvitationsButton = findViewById(R.id.bt_Invitations);
-        btLink=findViewById(R.id.bt_link);
+        btLink = findViewById(R.id.bt_link);
+
+
+        WebView webView = new WebView(this);
+
+        webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webView.loadUrl("https://www.gdprprivacynotice.com/live.php?token=B3lA6OADYaUJLUGAs2VVS4IsydGUsgPX");
+        builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true);
+        builder.setView(webView);
 
 
         gamPlay.setOnClickListener(new View.OnClickListener() {
@@ -59,15 +135,14 @@ public class MainActivity extends AppCompatActivity {
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ShareLink.getLinkFromShered(mContext).contains("Share Link With your Friends"))
-                {
+                if (ShareLink.getLinkFromShered(mContext).contains("Share Link With your Friends")) {
                     Toast.makeText(mContext, "Please Create Your Quiz", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent2 = new Intent();
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName+ " Wants To Test Friendship With You Download App and Start Test "+ link );
+                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " Wants To Test Friendship With You Download App and Start Test " + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });
@@ -114,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
                     Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
         }
     }
-
 
 
 }

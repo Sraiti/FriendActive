@@ -98,6 +98,7 @@ public class Invite extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
+
                 Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
             }
         });

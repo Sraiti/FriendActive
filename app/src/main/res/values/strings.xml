@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Exam</string>
 
-
     <string name="nav_header_title">Sure Betting Tips</string>
     <string name="nav_header_subtitle">specialones@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -24,4 +23,9 @@
     <string name="sendEmail">Send Email</string>
     <string name="Emailrecerver">specialonse@gmail.com</string>
     <string name="dialog_close_msg">ARE YOU SURE YOU WANT TO QUITE</string>
+
+
+    <string name="facebook_application_id" translatable="false">510276979578676</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb510276979578676</string>
+
 </resources>

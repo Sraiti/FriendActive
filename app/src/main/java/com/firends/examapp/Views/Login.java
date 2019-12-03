@@ -1,9 +1,12 @@
 package com.firends.examapp.Views;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -32,10 +35,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class Login extends AppCompatActivity {
 
@@ -43,9 +48,11 @@ public class Login extends AppCompatActivity {
     static final int RC_SIGN_IN = 123;
     private static final String TAG = "mytag";
     FirebaseAuth mAuth;
-    GoogleSignInClient mGoogleSignInClient;
+    //GoogleSignInClient mGoogleSignInClient;
     private SignInButton ButtonLogin;
     private DataBaseManager manager;
+    private View dailogName;
+    private LayoutInflater inflater;
 
 
     @Override
@@ -58,18 +65,21 @@ public class Login extends AppCompatActivity {
         ButtonLogin = findViewById(R.id.bt_login);
         mAuth = FirebaseAuth.getInstance();
 
+        inflater = this.getLayoutInflater();
+        dailogName = inflater.inflate(R.layout.dialog_getname, null);
+        showdialogname();
         //get invitation link
 
 
         //-------------------------
 
-        GoogleSignInOptions gso = new GoogleSignInOptions
+        /*GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder()
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
 
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +92,7 @@ public class Login extends AppCompatActivity {
 
     private void signIn() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.PhoneBuilder().build());
+                new AuthUI.IdpConfig.GoogleBuilder().build());
 
 // Create and launch sign-in intent
         startActivityForResult(
@@ -105,21 +113,30 @@ public class Login extends AppCompatActivity {
 
 
             if (resultCode == RESULT_OK) {
+
                 // Successfully signed in
+                Toast.makeText(mContext, "ok", Toast.LENGTH_SHORT).show();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 User NewUser=new User();
                 NewUser.set_IdUser(user.getUid());
                 NewUser.set_UserName(user.getDisplayName());
                 NewUser.set_Image(user.getPhotoUrl().toString());
-                Toast.makeText(mContext,user.getDisplayName(), Toast.LENGTH_SHORT).show();
+
+
+                Toast.makeText(mContext, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+
                 User.currentUser=NewUser;
                 manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
                 if (Invite.InvitedUser!=null)
                     manager.addInvite(Invite.InvitedUser,NewUser.get_IdUser());
 
                 startActivity(new Intent(Login.this,MainActivity.class));
+
+
                 // ...
             } else {
+
+
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
@@ -191,5 +208,11 @@ public class Login extends AppCompatActivity {
 
     }
 
+    public void showdialogname(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(Login.this);
+        builder.setView(dailogName)
+        .setCancelable(false);
 
+        builder.show();
+    }
 }

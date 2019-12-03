@@ -19,6 +19,8 @@ import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -68,6 +70,7 @@ public class ShareLink extends AppCompatActivity {
 
 
     public void shareLink(View view) {
+
         if (shortLink==null){
             Toast.makeText(this, "please Try Again", Toast.LENGTH_SHORT).show();
             return;

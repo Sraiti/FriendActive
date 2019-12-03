@@ -1,23 +1,22 @@
 package com.firends.examapp.Controllers;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.InterstitialAdListener;
+import com.facebook.ads.NativeAd;
+import com.facebook.ads.NativeAdListener;
 import com.firends.examapp.R;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+
 
 
 public class ads_manager {
+    private final String TAG = "mytagads";
 
-
-
+    private NativeAd nativeAd;
     public com.facebook.ads.AdView fbadView;
     public com.facebook.ads.InterstitialAd mInterstitialAdfb;
 
@@ -115,5 +114,47 @@ public class ads_manager {
 
     }
 
+    public void LoadNative(Context context){
+        nativeAd = new NativeAd(context, context.getResources().getString(R.string.fb_native));
+
+        nativeAd.setAdListener(new NativeAdListener() {
+            @Override
+            public void onMediaDownloaded(Ad ad) {
+                // Native ad finished downloading all assets
+                Log.e(TAG, "Native ad finished downloading all assets.");
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Native ad failed to load
+                Log.e(TAG, "Native ad failed to load: " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Native ad is loaded and ready to be displayed
+                Log.d(TAG, "Native ad is loaded and ready to be displayed!");
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Native ad clicked
+                Log.d(TAG, "Native ad clicked!");
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Native ad impression
+                Log.d(TAG, "Native ad impression logged!");
+            }
+        });
+
+        // Request an ad
+        nativeAd.loadAd();
+
+    }
+    public NativeAd showNative(){
+        return nativeAd;
+    }
 
 }

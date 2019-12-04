@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout adViewBanner;
     private ads_manager adsManager;
 
-    private View adView;
+    private View adViewDialog;
     private LayoutInflater inflater;
 
     private NativeAdLayout nativeAdLayout;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
         AudienceNetworkAds.initialize(this);
         inflater = this.getLayoutInflater();
-        adView = inflater.inflate(R.layout.dialog_getname, null);
+        adViewDialog = inflater.inflate(R.layout.dialog_ads_native, null);
 
         dynamicLinkManager = new DynamicLinkManager(this);
         link = ShareLink.getLinkFromShered(this, "link");
@@ -201,26 +203,26 @@ public class MainActivity extends AppCompatActivity {
         nativeAd.unregisterView();
 
         // Add the Ad view into the ad container.
-        nativeAdLayout = adView.findViewById(R.id.native_ad_container);
+        nativeAdLayout = adViewDialog.findViewById(R.id.native_ad_container);
         LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
         // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
-        adView = (LinearLayout) inflater.inflate(R.layout.dialog_ads_native, nativeAdLayout, false);
-        nativeAdLayout.addView(adView);
+        LinearLayout AdViewFb = (LinearLayout) inflater.inflate(R.layout.native_ad_layout, nativeAdLayout, false);
+        nativeAdLayout.addView(AdViewFb);
 
         // Add the AdOptionsView
-        LinearLayout adChoicesContainer = findViewById(R.id.ad_choices_container);
+        LinearLayout adChoicesContainer = AdViewFb.findViewById(R.id.ad_choices_container);
         AdOptionsView adOptionsView = new AdOptionsView(MainActivity.this, nativeAd, nativeAdLayout);
         adChoicesContainer.removeAllViews();
         adChoicesContainer.addView(adOptionsView, 0);
 
         // Create native UI using the ad metadata.
-        AdIconView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
-        TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
-        MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
-        TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
-        TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
-        TextView sponsoredLabel = adView.findViewById(R.id.native_ad_sponsored_label);
-        Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
+        AdIconView nativeAdIcon = AdViewFb.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = AdViewFb.findViewById(R.id.native_ad_title);
+        MediaView nativeAdMedia = AdViewFb.findViewById(R.id.native_ad_media);
+        TextView nativeAdSocialContext = AdViewFb.findViewById(R.id.native_ad_social_context);
+        TextView nativeAdBody = AdViewFb.findViewById(R.id.native_ad_body);
+        TextView sponsoredLabel = AdViewFb.findViewById(R.id.native_ad_sponsored_label);
+        Button nativeAdCallToAction = AdViewFb.findViewById(R.id.native_ad_call_to_action);
 
         // Set the Text.
         nativeAdTitle.setText(nativeAd.getAdvertiserName());
@@ -237,13 +239,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Register the Title and CTA button to listen for clicks.
         nativeAd.registerViewForInteraction(
-                adView,
+                AdViewFb,
                 nativeAdMedia,
                 nativeAdIcon,
                 clickableViews);
+
     }
 
 
-
-
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                .setView(adViewDialog);
+        builder.show();
+        //super.onBackPressed();
+    }
 }

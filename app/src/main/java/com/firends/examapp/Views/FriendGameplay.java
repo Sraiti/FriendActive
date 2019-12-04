@@ -1,9 +1,5 @@
 package com.firends.examapp.Views;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.Question;
@@ -226,10 +226,9 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
 
         } else {
 
-            DataBaseM.UpdatingMyMap(UserID,Point);
+            DataBaseM.UpdatingMyMap(UserID,Point,this);
             Toast.makeText(this, "Questions Done "+ Point, Toast.LENGTH_SHORT).show();
-
-            startActivity(new Intent(FriendGameplay.this, Login.class));
+            startActivity(new Intent(FriendGameplay.this, MainActivity.class));
             finish();
         }
 

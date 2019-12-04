@@ -10,12 +10,12 @@ import com.firends.examapp.Model.FriendAnswer;
 import com.firends.examapp.Model.Notification;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.Views.FriendsAnswers;
+import com.firends.examapp.Views.ShareLink;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,7 +110,7 @@ public class DataBaseManager {
         return friendAnswersList;
     }
 
-    public void UpdatingMyMap(final String UserID, final int Point) {
+    public void UpdatingMyMap(final String UserID, final int Point,final Context context) {
 
          DocumentReference docRef = db.collection("Notifications").document(UserID);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -118,7 +118,7 @@ public class DataBaseManager {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 HashMap<String, Integer> form = (HashMap<String, Integer>) documentSnapshot.get("friends");
 
-                form.put(User.currentUser.get_UserName(),Point);
+                form.put(ShareLink.getLinkFromShered(context,"name"),Point);
 
                 db.collection("Notifications").document(UserID)
 

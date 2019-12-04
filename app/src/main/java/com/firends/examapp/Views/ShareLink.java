@@ -1,8 +1,5 @@
 package com.firends.examapp.Views;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -15,13 +12,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -34,6 +32,7 @@ public class ShareLink extends AppCompatActivity {
     private TextView dynamicLink;
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +40,7 @@ public class ShareLink extends AppCompatActivity {
         dynamicLink=findViewById(R.id.mydynamiclink);
         sharedPreferences=getSharedPreferences("linkInfo",MODE_PRIVATE);
         editor=sharedPreferences.edit();
+        editor.apply();
 
         buildDynamiclink();
     }

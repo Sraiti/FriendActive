@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,13 +56,17 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
     private ads_manager adsManager;
     private LinearLayout adView;
+    private ProgressBar progressBar;
+    private int CounterProgress = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
-        adsManager=ads_manager.getInstance();
-        adView=findViewById(R.id.adView);
+        adsManager = ads_manager.getInstance();
+        adView = findViewById(R.id.adView);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgress(CounterProgress);
         adsManager.loadFbInterstitial(this);
         adsManager.fbLoadBanner(this);
         adsManager.fbadView.setAdListener(new AdListener() {
@@ -137,7 +142,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
     private void NextQuestion(int index) {
         if (index < totalQues) {
             Question question = mQuestions.get(index);
-
+            progressBar.setProgress(CounterProgress++);
             if (question.getType() == 2) {
                 CardStatue(2);
                 // Set Images With Picasso.
@@ -244,6 +249,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
                 Txt_Question.setText(question.getQuestion());
 
+
             }
 
         } else {
@@ -252,8 +258,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
             if (adsManager.mInterstitialAdfb.isAdLoaded())
                 adsManager.mInterstitialAdfb.show();
 
-            else
-            {
+            else {
                 startActivity(new Intent(Gameplay.this, ShareLink.class));
                 finish();
             }

@@ -226,9 +226,11 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
 
         } else {
 
-            DataBaseM.UpdatingMyMap(UserID,Point,this);
-            Toast.makeText(this, "Questions Done "+ Point, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(FriendGameplay.this, MainActivity.class));
+            DataBaseM.UpdatingMyMap(UserID, Point, this);
+            Toast.makeText(this, "Questions Done " + Point, Toast.LENGTH_SHORT).show();
+            Intent a = new Intent(FriendGameplay.this, Done.class);
+            a.putExtra("Points", Point);
+            startActivity(a);
             finish();
         }
 

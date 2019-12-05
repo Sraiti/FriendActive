@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FriendGameplay extends AppCompatActivity implements  View.OnClickListener {
+public class FriendGameplay extends AppCompatActivity implements View.OnClickListener {
     ImageView Img00, Img01, Img02, Img03;
     TextView Txt_00, Txt_01, Txt_02, Txt_03, Txt_Question;
     CardView Card_00, Card_01, Card_02, Card_03;
@@ -44,7 +44,6 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
     List<LinearLayout> ClickAbles = new ArrayList<>();
     int totalQues;
     int index = 0;
-    boolean IsImage;
 
     DataBaseManager DataBaseM = new DataBaseManager();
 
@@ -53,12 +52,13 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
     User user;
     int Point;
 
+    boolean ClickAble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_gameplay);
-
+        ClickAble= false;
 
 
         //Views
@@ -89,28 +89,24 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
         Intent a = getIntent();
         UserID = a.getStringExtra("UserID");
 
-        Point =0;
+        Point = 0;
         //DataBase
         db = FirebaseFirestore.getInstance();
-
-        GetData(new  FireBaseCallBack() {
+        GetFreindData(new FireBaseCallBackDataFriend() {
+            @Override
+            public void OnCallback() {
+                ClickAble=true;
+            }
+        });
+        GetData(new FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
-
                 NextQuestion(index);
 
 
+            }
+        });
 
-            }
-        });
-        db.collection("Users").document(UserID)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                user = documentSnapshot.toObject(User.class);
-                Answers=user.get_MyQuestion();
-            }
-        });
 
         Card_00.setOnClickListener(this);
         Card_01.setOnClickListener(this);
@@ -121,6 +117,21 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
         ClickAbles.add(Linear_01);
 
     }
+
+    private void GetFreindData(final FireBaseCallBackDataFriend fireBaseCallBack) {
+        db.collection("Users").document(UserID)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+                Log.d("TAG", documentSnapshot.getId() + " => " + documentSnapshot.getData());
+
+                Answers = user.get_MyQuestion();
+                fireBaseCallBack.OnCallback();
+            }
+        });
+    }
+
     private void NextQuestion(int index) {
         if (index < totalQues) {
             Question question = mQuestions.get(index);
@@ -131,7 +142,7 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
                 String imagePath00 = question.getAnswer_Ph_0();
                 String imagePath01 = question.getAnswer_Ph_1();
 
-                Log.d("TAG", "ID: " +question.getQuestionID() );
+                Log.d("TAG", "ID: " + question.getQuestionID());
 
                 if (imagePath00.trim().isEmpty()) {
                     imagePath00 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
@@ -171,7 +182,7 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
                 String imagePath03 = question.getAnswer_Ph_3();
 
 
-                Log.d("TAG", "ID: " +question.getQuestionID() );
+                Log.d("TAG", "ID: " + question.getQuestionID());
 
                 if (imagePath00.trim().isEmpty()) {
                     imagePath00 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
@@ -226,9 +237,11 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
 
         } else {
 
-            DataBaseM.UpdatingMyMap(UserID,Point,this);
-            Toast.makeText(this, "Questions Done "+ Point, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(FriendGameplay.this, MainActivity.class));
+            DataBaseM.UpdatingMyMap(UserID, Point, this);
+            Toast.makeText(this, "Questions Done " + Point, Toast.LENGTH_SHORT).show();
+            Intent a = new Intent(FriendGameplay.this, Done.class);
+            a.putExtra("Points", Point);
+            startActivity(a);
             finish();
         }
 
@@ -250,19 +263,16 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
-        CardView Card = (CardView) v;
-        int FriendAnswer = GetItemId(Card.getTag().toString());
-        Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
-
-        int MyAnswer=Answers.get(mQuestions.get(index).getQuestionID()+"");
-        if (FriendAnswer==MyAnswer){
-            Point=Point+10;
+        if (ClickAble&&totalQues>index) {
+            CardView Card = (CardView) v;
+            int FriendAnswer = GetItemId(Card.getTag().toString());
+            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
+            int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID() + "");
+            if (FriendAnswer == MyAnswer) {
+                Point = Point + 10;
+            }
+            NextQuestion(++index);
         }
-
-
-
-        NextQuestion(++index);
     }
 
     private int GetItemId(String id) {
@@ -302,9 +312,11 @@ public class FriendGameplay extends AppCompatActivity implements  View.OnClickLi
                 });
 
 
-
     }
 
+    private interface FireBaseCallBackDataFriend {
+        void OnCallback();
+    }
     private interface FireBaseCallBack {
         void OnCallback(List<Question> QuestionList);
     }

@@ -13,7 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.InterstitialAdListener;
 import com.firends.examapp.Controllers.DataBaseManager;
+import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.Model.Question;
 import com.firends.examapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,11 +55,38 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
     HashMap<String, Integer> Answers = new HashMap<>();
 
+    private ads_manager adsManager;
+    private LinearLayout adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
+        adsManager=ads_manager.getInstance();
+        adView=findViewById(R.id.adView);
+        adsManager.loadFbInterstitial(this);
+        adsManager.fbLoadBanner(this);
+        adsManager.fbadView.setAdListener(new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
 
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                adView.addView(adsManager.fbadView);
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+
+            }
+        });
         //Views
         Img00 = findViewById(R.id.id_image1);
         Img01 = findViewById(R.id.id_image2);
@@ -219,9 +251,49 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         } else {
             Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
             DataBaseM.UpdateUserQuestions(Answers);
+            if (adsManager.mInterstitialAdfb.isAdLoaded())
+                adsManager.mInterstitialAdfb.show();
 
-            startActivity(new Intent(Gameplay.this, ShareLink.class));
-            finish();
+            else
+            {
+                startActivity(new Intent(Gameplay.this, ShareLink.class));
+                finish();
+            }
+
+
+            adsManager.mInterstitialAdfb.setAdListener(new InterstitialAdListener() {
+                @Override
+                public void onInterstitialDisplayed(Ad ad) {
+
+                }
+
+                @Override
+                public void onInterstitialDismissed(Ad ad) {
+                    startActivity(new Intent(Gameplay.this, ShareLink.class));
+                    finish();
+                }
+
+                @Override
+                public void onError(Ad ad, AdError adError) {
+
+                }
+
+                @Override
+                public void onAdLoaded(Ad ad) {
+
+                }
+
+                @Override
+                public void onAdClicked(Ad ad) {
+
+                }
+
+                @Override
+                public void onLoggingImpression(Ad ad) {
+
+                }
+            });
+
         }
 
     }

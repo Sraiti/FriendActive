@@ -13,12 +13,26 @@
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/flatui_wet_asphalt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="center"
+        android:text="Sign In  And Start Test With Your Friends Now"
+        android:textColor="@color/color6"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/bt_login"

@@ -52,5 +52,8 @@ dependencies {
     //Facebook
     implementation 'com.facebook.android:facebook-android-sdk:4.41.0'
 
+    //Ticker
+    implementation 'com.robinhood.ticker:ticker:2.0.2'
+
 }
 apply plugin: 'com.google.gms.google-services'

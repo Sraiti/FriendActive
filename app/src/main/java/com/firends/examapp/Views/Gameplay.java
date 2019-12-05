@@ -22,9 +22,7 @@ import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.Model.Question;
 import com.firends.examapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -150,7 +148,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 //                Log.d("TAG", "imagePath00: " + imagePath00);
 //                Log.d("TAG", "imagePath01: " + imagePath01);
 
-                Log.d("TAG", "ID: " +question.getQuestionID() );
+                Log.d("TAG", "ID: " + question.getQuestionID());
 
                 if (imagePath00.trim().isEmpty()) {
                     imagePath00 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
@@ -195,7 +193,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 //                Log.d("TAG", "imagePath03: " + imagePath03);
 //
 
-                Log.d("TAG", "ID: " +question.getQuestionID() );
+                Log.d("TAG", "ID: " + question.getQuestionID());
 
                 if (imagePath00.trim().isEmpty()) {
                     imagePath00 = "https://firebasestorage.googleapis.com/v0/b/friendsexam-f39db.appspot.com/o/4-Unique-Placeholder-Image-Services-for-Designers.png?alt=media&token=6e8be0a4-cc7b-4f52-8053-f71e187b2597";
@@ -314,13 +312,14 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        if (totalQues > index) {
+            CardView Card = (CardView) v;
+            int Answer = GetItemId(Card.getTag().toString());
+            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
+            Answers.put(mQuestions.get(index).getQuestionID() + "", Answer);
 
-        CardView Card = (CardView) v;
-        int Answer = GetItemId(Card.getTag().toString());
-        Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
-        Answers.put(mQuestions.get(index).getQuestionID() + "", Answer);
-
-        NextQuestion(++index);
+            NextQuestion(++index);
+        }
     }
 
     private int GetItemId(String id) {
@@ -357,7 +356,6 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                         fireBaseCallBack.OnCallback(mQuestions);
                     }
                 });
-
 
 
     }

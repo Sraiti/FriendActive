@@ -18,7 +18,8 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6560477533466455~3990228007" />
 
-        <activity android:name=".Views.FriendsAnswers"></activity>
+        <activity android:name=".Views.FriendsAnswers">
+        </activity>
         <activity
             android:name=".Views.Invite"
             android:theme="@style/AppTheme2">
@@ -38,16 +39,19 @@
             android:theme="@style/AppTheme2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.MainActivity"></activity>
-        <activity android:name=".Views.ShareLink"></activity>
+        <activity android:name=".Views.MainActivity">
+        </activity>
+        <activity android:name=".Views.ShareLink">
+        </activity>
         <activity android:name=".Views.Gameplay"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2">
+        </activity>
+        <activity android:name=".Views.Done">
+        </activity>
     </application>
 
 </manifest>

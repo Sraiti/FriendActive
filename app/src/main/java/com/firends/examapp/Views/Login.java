@@ -127,6 +127,8 @@ public class Login extends AppCompatActivity {
                 } else {
 
                     NewUser.set_UserName(user.getDisplayName());
+                    editor.putString("name", user.getDisplayName());
+                    editor.commit();
                     User.currentUser = NewUser;
                     manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
                     startAvtivity();

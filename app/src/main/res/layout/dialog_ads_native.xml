@@ -57,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/open_sans_semibold"
             android:gravity="center"
             android:text="@string/dialog_close_msg"
             android:textColor="@color/flatui_midnight_blue"
@@ -66,6 +67,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -96,7 +98,7 @@
                         app:srcCompat="@drawable/ic_star_black_24dp" />
 
                     <Button
-                        android:id="@+id/doneBtn"
+                        android:id="@+id/idRate"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="end"
@@ -137,7 +139,7 @@
                         app:srcCompat="@drawable/ic_call_missed_outgoing_black_24dp" />
 
                     <Button
-                        android:id="@+id/doneBtn"
+                        android:id="@+id/idExit"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="end"

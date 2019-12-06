@@ -55,6 +55,15 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     boolean ClickAble;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_gameplay);
@@ -269,7 +278,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
             Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
             int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID() + "");
             if (FriendAnswer == MyAnswer) {
-                Point = Point + 10;
+                Point = Point + 1;
             }
             NextQuestion(++index);
         }

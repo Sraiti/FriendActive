@@ -114,18 +114,19 @@ public class Login extends AppCompatActivity {
                             if (!name.equals("")) {
                                 NewUser.set_UserName(name.getText().toString());
                                 editor.putString("name", name.getText().toString());
-                                editor.apply();
+                                editor.commit();
                                 manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
                                 User.currentUser = NewUser;
                                 startAvtivity();
                             } else {
                                 Toast.makeText(mContext, "Please Entry Your Name", Toast.LENGTH_SHORT).show();
-                            }
 
+                            }
                         }
                     });
                 } else {
-
+                    editor.putString("name", user.getDisplayName());
+                    editor.commit();
                     NewUser.set_UserName(user.getDisplayName());
                     User.currentUser = NewUser;
                     manager.AddUser(NewUser, FirebaseInstanceId.getInstance().getToken());
@@ -155,7 +156,6 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-
             User NewUser = new User();
             NewUser.set_IdUser(currentUser.getUid());
             NewUser.set_UserName(currentUser.getDisplayName());

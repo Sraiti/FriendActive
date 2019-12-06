@@ -265,7 +265,6 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void GetData(final FireBaseCallBack fireBaseCallBack) {
-
         db.collection("Questions").orderBy("QuestionID")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -284,8 +283,6 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                         fireBaseCallBack.OnCallback(mQuestions);
                     }
                 });
-
-
     }
 
     private interface FireBaseCallBack {

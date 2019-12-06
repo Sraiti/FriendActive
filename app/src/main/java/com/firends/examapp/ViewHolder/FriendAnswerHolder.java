@@ -10,8 +10,9 @@ import com.firends.examapp.R;
 
 public class FriendAnswerHolder extends RecyclerView.ViewHolder {
 
-        public TextView _UserName;
-        public TextView Point;
+    public TextView _UserName;
+    public TextView Point;
+
     public FriendAnswerHolder(@NonNull View itemView) {
         super(itemView);
 

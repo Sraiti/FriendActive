@@ -32,8 +32,7 @@ public class Done extends AppCompatActivity {
     Button btn_Share;
     String path;
     ImageView imageView;
-    Intent share = new Intent(Intent.ACTION_SEND);
-    int Point;
+     int Point;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +47,7 @@ public class Done extends AppCompatActivity {
         tickerView.setCharacterLists(TickerUtils.provideNumberList());
         tickerView.setAnimationDuration(2500);
         imageView=findViewById(R.id.imageView5);
-        share.setType("image/jpeg");
-        tickerView.setText(Txt_point.getText().toString(),true);
+         tickerView.setText(Txt_point.getText().toString(),true);
 
         btn_Share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +57,13 @@ public class Done extends AppCompatActivity {
                 imageView.setImageBitmap(b);
                 btn_Share.setBackgroundColor(Color.parseColor("#999999"));
                 storeScreenshot(b,"Image");
-                share.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
-                startActivity(Intent.createChooser(share, "Share Image"));
+
             }
         });
 
     }
     public void storeScreenshot(Bitmap bitmap, String filename) {
-          path = Environment.getExternalStorageDirectory().toString() + "/" + filename;
+        path = Environment.getExternalStorageDirectory().toString() + "/" + filename;
         Log.d(TAG, "storeScreenshot: "+path);
         OutputStream out = null;
         File imageFile = new File(path);
@@ -92,5 +89,14 @@ public class Done extends AppCompatActivity {
             }
 
         }
+        File cache = getApplicationContext().getExternalCacheDir();
+        File sharefile = new File(cache, path);
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("image/*");
+        share.putExtra(Intent.EXTRA_STREAM,
+                Uri.parse("file://" + sharefile));
+
+        startActivity(Intent.createChooser(share,
+                "Share Image"));
     }
 }

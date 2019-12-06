@@ -110,37 +110,20 @@ public class DataBaseManager {
         return friendAnswersList;
     }
 
-    public void UpdatingMyMap(final String UserID, final int Point,final Context context) {
-
-         DocumentReference docRef = db.collection("Notifications").document(UserID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                HashMap<String, Integer> form = (HashMap<String, Integer>) documentSnapshot.get("friends");
-
-                form.put(ShareLink.getLinkFromShered(context,"name"),Point);
-
-                db.collection("Notifications").document(UserID)
-
-                        .update("friends", form)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully Updated!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
-
-            }
-        });
+    public void UpdatingMyMap(final String UserID, final int Point, final Context context) {
 
 
+        HashMap<String, Integer> friends =new  HashMap<String, Integer>();
 
+        String Name=ShareLink.getLinkFromShered(context, "name");
+        friends.put(Name, Point);
+
+        Notification note = new Notification();
+        note.setFriends(friends);
+        db.collection("Notifications").document(UserID)
+                .update(
+                 "friends."+Name, friends.get(Name)
+        );
 
 
     }

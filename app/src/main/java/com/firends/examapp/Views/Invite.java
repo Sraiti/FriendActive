@@ -107,6 +107,14 @@ public class Invite extends AppCompatActivity {
                         .into(imageInvitedUser);
 
             }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Intent intent =new Intent(Invite.this,Login.class);
+                startActivity(intent);
+                Invite.this.finish();
+            }
         });
     }
 }

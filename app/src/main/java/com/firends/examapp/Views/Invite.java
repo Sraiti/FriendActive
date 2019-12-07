@@ -5,22 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,6 +31,8 @@ public class Invite extends AppCompatActivity {
     private Button startTest;
     public String TAG = "data";
     public static String InvitedUser=null;
+    public static String InvitedUserName=null;
+
 
     private ImageView imageInvitedUser;
     private TextView txtInvite;
@@ -100,6 +98,7 @@ public class Invite extends AppCompatActivity {
                 User user = documentSnapshot.toObject(User.class);
                 //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
                 txtInvite.setText(user._UserName+ " wants to test friendship with you");
+                InvitedUserName=user._UserName;
                 Picasso.get()
                         .load(user.get_Image())
                         .placeholder(R.drawable.image_loading)

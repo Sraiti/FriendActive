@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     LinearLayout Linear_00, Linear_01;
     FirebaseFirestore db;
 
-    String UserID;
+    String UserID,UserName;
 
     List<Question> mQuestions = new ArrayList<>();
     List<LinearLayout> ClickAbles = new ArrayList<>();
@@ -53,6 +54,8 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     int Point;
 
     boolean ClickAble;
+    private ProgressBar progressBar;
+    private int CounterProgress = 1;
 
     @Override
     public void onBackPressed() {
@@ -94,9 +97,12 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         Linear_01.setVisibility(View.GONE);
 
         Txt_Question = findViewById(R.id.txt_Ques);
+        progressBar = findViewById(R.id.progressBar2);
+        progressBar.setProgress(CounterProgress);
 
         Intent a = getIntent();
         UserID = a.getStringExtra("UserID");
+        UserName=a.getStringExtra("UserName");
 
         Point = 0;
         //DataBase
@@ -143,7 +149,11 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
     private void NextQuestion(int index) {
         if (index < totalQues) {
+            progressBar.setProgress(CounterProgress++);
             Question question = mQuestions.get(index);
+            String Question =question.getQuestionfriend();
+            String a=Question.replace("####",UserName);
+            Txt_Question.setText(a);
 
             if (question.getType() == 2) {
                 CardStatue(2);
@@ -180,7 +190,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
                 Txt_01.setText(question.getAnswer_01());
 
 
-                Txt_Question.setText(question.getQuestion());
+
 
             } else {
                 CardStatue(4);
@@ -240,7 +250,6 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
                 Txt_02.setText(question.getAnswer_02());
                 Txt_03.setText(question.getAnswer_03());
 
-                Txt_Question.setText(question.getQuestion());
 
             }
 

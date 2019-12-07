@@ -180,8 +180,9 @@ public class Login extends AppCompatActivity {
 
 
     public void startAvtivity() {
-        if (Invite.InvitedUser != null) {
+        if (Invite.InvitedUser != null&&Invite.InvitedUserName!=null) {
             Intent intent = new Intent(Login.this, FriendGameplay.class);
+             intent.putExtra("UserName", Invite.InvitedUserName);
             intent.putExtra("UserID", Invite.InvitedUser);
             startActivity(intent);
             this.finish();

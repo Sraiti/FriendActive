@@ -62,7 +62,7 @@ public class DataBaseManager {
         });
     }
 
-    public void UpdateUserQuestions(HashMap<String, Integer> MyQues) {
+    public void UpdateUserQuestions(final HashMap<String, Integer> MyQues) {
 
         db.collection("Users").document(User.currentUser._IdUser)
 
@@ -105,6 +105,12 @@ public class DataBaseManager {
 
                 FriendsAnswers.adapter.notifyDataSetChanged();
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Log.d(TAG, "onFailure: "+e.getMessage());
+            }
         });
 
         return friendAnswersList;
@@ -113,17 +119,17 @@ public class DataBaseManager {
     public void UpdatingMyMap(final String UserID, final int Point, final Context context) {
 
 
-        HashMap<String, Integer> friends =new  HashMap<String, Integer>();
+        HashMap<String, Integer> friends = new HashMap<String, Integer>();
 
-        String Name=ShareLink.getLinkFromShered(context, "name");
+        String Name = ShareLink.getLinkFromShered(context, "name");
         friends.put(Name, Point);
 
         Notification note = new Notification();
         note.setFriends(friends);
         db.collection("Notifications").document(UserID)
                 .update(
-                 "friends."+Name, friends.get(Name)
-        );
+                        "friends." + Name, friends.get(Name)
+                );
 
 
     }

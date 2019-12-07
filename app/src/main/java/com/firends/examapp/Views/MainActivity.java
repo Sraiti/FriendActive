@@ -142,13 +142,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 adsManager.showFbInterstitial(mContext);
                 if (link.contains("Share Link With your Friends")) {
-                    Toast.makeText(mContext, "Please Create Your Quiz", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please Create Your Test First", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent2 = new Intent();
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " Wants To Test Friendship With You Download App and Start Test " + link);
+                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " Let's Test Our Friendship Download This App and Start The Test " + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
                 View toastView = toast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.colordark2));
-                TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                TextView v =   toast.getView().findViewById(android.R.id.message);
                 v.setTextColor(getResources().getColor(R.color.white));
 
                 toast.show();

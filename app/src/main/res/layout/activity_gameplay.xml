@@ -21,7 +21,7 @@
     <LinearLayout
         android:id="@+id/QuestionLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
             app:cardElevation="3dp">
 
@@ -49,6 +49,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/sarala"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:text="Question"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
@@ -67,7 +68,7 @@
         <LinearLayout
             android:id="@+id/Linear_00"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -146,7 +147,7 @@
         <LinearLayout
             android:id="@+id/Linear_01"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView

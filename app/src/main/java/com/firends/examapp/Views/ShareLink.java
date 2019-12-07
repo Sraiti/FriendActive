@@ -102,7 +102,7 @@ public class ShareLink extends AppCompatActivity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("mylink", shortLink.toString());
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(ShareLink.this, shortLink.toString()+" is Copyed ", Toast.LENGTH_LONG).show();
+        Toast.makeText(ShareLink.this, shortLink.toString()+" is Copied ", Toast.LENGTH_LONG).show();
     }
 
     public static String getLinkFromShered(Context context,String Object){

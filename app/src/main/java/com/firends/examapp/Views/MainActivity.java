@@ -6,7 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +29,7 @@ import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
+import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
@@ -50,6 +55,66 @@ public class MainActivity extends AppCompatActivity {
 
     private NativeAdLayout nativeAdLayout;
 
+    AlertDialog.Builder builder;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.privacy: {
+
+                try {
+                    builder.show();
+                } catch (Exception e) {
+                }
+                break;
+            }
+            case R.id.contact_us: {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:" + getResources().getString(R.string.Emailrecerver)));
+                    intent.putExtra(Intent.EXTRA_EMAIL, getResources().getString(R.string.Emailrecerver));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
+
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+                break;
+            }
+
+            case R.id.nav_share: {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                    String shareMessage = "\nI Challenge you To a friendship test on \n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id="
+                                    + getPackageName())));
+                }
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +123,19 @@ public class MainActivity extends AppCompatActivity {
         AudienceNetworkAds.initialize(this);
         inflater = this.getLayoutInflater();
         adViewDialog = inflater.inflate(R.layout.dialog_ads_native, null);
+
+
+        WebView webView = new WebView(this);
+
+        webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webView.loadUrl("https://www.gdprprivacynotice.com/live.php?token=B3lA6OADYaUJLUGAs2VVS4IsydGUsgPX");
+        builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true);
+        builder.setView(webView);
+
 
         dynamicLinkManager = new DynamicLinkManager(this);
         link = ShareLink.getLinkFromShered(this, "link");
@@ -136,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(mContext, FriendsAnswers.class));
             }
         });
-        btLink.setText("Share Link With Your Friends");
+        btLink.setText("Share Test Link With Your Friends");
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
                 View toastView = toast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.colordark2));
-                TextView v =   toast.getView().findViewById(android.R.id.message);
+                TextView v = toast.getView().findViewById(android.R.id.message);
                 v.setTextColor(getResources().getColor(R.color.white));
 
                 toast.show();
@@ -257,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.finish();
             }
         });
-        Button Rate=adViewDialog.findViewById(R.id.idRate);
+        Button Rate = adViewDialog.findViewById(R.id.idRate);
         Rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

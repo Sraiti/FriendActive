@@ -32,6 +32,7 @@
                 android:layout_gravity="bottom"
                 android:max="20"
                 android:progress="1" />
+
             <TextView
                 android:id="@+id/txt_Ques"
                 android:layout_width="match_parent"
@@ -80,7 +81,7 @@
                         android:id="@+id/id_txt1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sarala"
+                        android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:text="Exemple 1"
                         android:textSize="18sp" />
@@ -116,7 +117,7 @@
                         android:id="@+id/id_txt2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sarala"
+                        android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:text="Exemple 1"
                         android:textSize="18sp" />
@@ -159,7 +160,7 @@
                         android:id="@+id/id_txt3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sarala"
+                        android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:text="Exemple 1"
                         android:textSize="18sp" />
@@ -195,7 +196,7 @@
                         android:id="@+id/id_txt4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sarala"
+                        android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:text="Exemple 1"
                         android:textSize="18sp" />

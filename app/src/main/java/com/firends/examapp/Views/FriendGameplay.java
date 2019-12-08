@@ -57,15 +57,14 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     private ProgressBar progressBar;
     private int CounterProgress = 1;
 
+    Intent intent = new Intent(FriendGameplay.this, MainActivity.class);
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-
-
-
+        startActivity(intent);
+        finish();
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

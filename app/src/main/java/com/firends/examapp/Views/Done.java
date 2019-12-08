@@ -1,102 +1,78 @@
 package com.firends.examapp.Views;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firends.examapp.BuildConfig;
 import com.firends.examapp.R;
-import com.firends.examapp.Utils.Screenshot;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class Done extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     TextView Txt_point;
-    Button btn_Share;
-    String path;
-    ImageView imageView;
-     int Point;
+    Button Btn_Share, Btn_Home;
+
+    int Point;
+    Intent intent = new Intent(Done.this, MainActivity.class);
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_done);
 
-        Txt_point=findViewById(R.id.txt_point);
-        btn_Share=findViewById(R.id.btn_Share);
-        Intent a =getIntent();
-        Point=a.getIntExtra("Points",0);
-        Txt_point.setText("Your score is : "+Point);
+        Txt_point = findViewById(R.id.txt_point);
+        Intent a = getIntent();
+        Point = a.getIntExtra("Points", 0);
+        Txt_point.setText("Your score is : " + Point);
         final TickerView tickerView = findViewById(R.id.tickerView);
         tickerView.setCharacterLists(TickerUtils.provideNumberList());
         tickerView.setAnimationDuration(2500);
-        imageView=findViewById(R.id.imageView5);
-         tickerView.setText(Txt_point.getText().toString(),true);
+        tickerView.setText(Txt_point.getText().toString(), true);
 
-        btn_Share.setOnClickListener(new View.OnClickListener() {
+
+        Btn_Home = findViewById(R.id.btn_home);
+        Btn_Share = findViewById(R.id.btn_share);
+
+
+        Btn_Share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Bitmap b = Screenshot.takescreenshotOfRootView(imageView);
-                imageView.setImageBitmap(b);
-                btn_Share.setBackgroundColor(Color.parseColor("#999999"));
-                storeScreenshot(b,"Image");
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                String shareMessage = "\nMy Score Is :" + Point;
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n" +
+                        "Challenge You friends And Find out how much they really know about you  \n";
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, "choose one"));
 
             }
         });
+        Btn_Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    }
-    public void storeScreenshot(Bitmap bitmap, String filename) {
-        path = Environment.getExternalStorageDirectory().toString() + "/" + filename;
-        Log.d(TAG, "storeScreenshot: "+path);
-        OutputStream out = null;
-        File imageFile = new File(path);
+                startActivity(intent);
 
-        try {
-            out = new FileOutputStream(imageFile);
-            // choose JPEG format
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                finish();
 
-            out.flush();
-        } catch (FileNotFoundException e) {
-            // manage exception ...
-        } catch (IOException e) {
-            // manage exception ...
-        } finally {
-
-            try {
-                if (out != null) {
-                    out.close();
-                }
-
-            } catch (Exception exc) {
             }
-
-        }
-        File cache = getApplicationContext().getExternalCacheDir();
-        File sharefile = new File(cache, path);
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.setType("image/*");
-        share.putExtra(Intent.EXTRA_STREAM,
-                Uri.parse("file://" + sharefile));
-
-        startActivity(Intent.createChooser(share,
-                "Share Image"));
+        });
     }
+
 }

@@ -53,7 +53,7 @@ public class Done extends AppCompatActivity {
         Txt_point.setText("Your score is : " + Point);
         nameInvitedUser.setText(Invite.invitedUser.get_UserName());
         nameCurrentUser.setText(sharedPreferences.getString("name", "You"));
-        txtFriendship.setText(Point * 10 + "%");
+        txtFriendship.setText(Point * 100 / 20 + "%");
         Picasso.get()
                 .load(User.currentUser._Image)
                 .error(R.drawable.image_loading)

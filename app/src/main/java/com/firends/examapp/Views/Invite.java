@@ -36,6 +36,7 @@ public class Invite extends AppCompatActivity {
 
     private ImageView imageInvitedUser;
     private TextView txtInvite;
+    public static User invitedUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,12 +96,12 @@ public class Invite extends AppCompatActivity {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User user = documentSnapshot.toObject(User.class);
+                invitedUser = documentSnapshot.toObject(User.class);
                 //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
-                txtInvite.setText(user._UserName+ " wants to test friendship with you");
-                InvitedUserName=user._UserName;
+                txtInvite.setText(invitedUser._UserName + " wants to test friendship with you");
+                InvitedUserName = invitedUser._UserName;
                 Picasso.get()
-                        .load(user.get_Image())
+                        .load(invitedUser.get_Image())
                         .placeholder(R.drawable.image_loading)
                         .error(R.mipmap.ic_launcher)
                         .into(imageInvitedUser);

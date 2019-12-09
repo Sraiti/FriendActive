@@ -6,6 +6,115 @@
     android:layout_height="match_parent"
     tools:context=".Views.Done">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/txt_point"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:elevation="1dp"
+                app:shape_circle_borderColor="@color/colorAccent"
+                app:shape_circle_borderWidth="0.4dp">
+
+                <ImageView
+                    android:id="@+id/id_image_invitedUser"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0" />
+
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:id="@+id/txt_invitedUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Invited User"
+                android:textColor="@color/flatui_wet_asphalt"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Friendship"
+                android:textColor="@color/flatui_alizarin"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_semibold"
+                android:gravity="center"
+                android:text="60%"
+                android:textColor="@color/colordark2"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:elevation="1dp"
+                app:shape_circle_borderColor="@color/colorAccent"
+                app:shape_circle_borderWidth="0.4dp">
+
+                <ImageView
+                    android:id="@+id/id_currentUser"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0" />
+
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:id="@+id/txt_currentUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="currentUser"
+                android:textColor="@color/flatui_wet_asphalt"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txt_point"
         android:layout_width="wrap_content"
@@ -60,7 +169,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="0"
-                app:srcCompat="@drawable/ic_home_black_24dp" />
+                app:srcCompat="@drawable/ic_home_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
 
             <Button
                 android:id="@+id/btn_home"
@@ -111,7 +221,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="0"
-                app:srcCompat="@drawable/ic_share_black_24dp" />
+                app:srcCompat="@drawable/ic_share_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
 
             <Button
                 android:id="@+id/btn_share"

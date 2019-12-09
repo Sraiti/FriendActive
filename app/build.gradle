@@ -55,5 +55,10 @@ dependencies {
     //Ticker
     implementation 'com.robinhood.ticker:ticker:2.0.2'
 
+
+    implementation 'com.github.florent37:shapeofview:1.1.1'
+
+
+
 }
 apply plugin: 'com.google.gms.google-services'

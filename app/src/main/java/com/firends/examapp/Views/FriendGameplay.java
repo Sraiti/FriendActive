@@ -14,7 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
 import com.firends.examapp.Controllers.DataBaseManager;
+import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.Model.Question;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
@@ -57,6 +61,9 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     private ProgressBar progressBar;
     private int CounterProgress = 1;
 
+    private ads_manager adsManager;
+    private LinearLayout adView;
+
     Intent intent;
 
     @Override
@@ -71,7 +78,8 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_friend_gameplay);
         ClickAble= false;
         intent = new Intent(FriendGameplay.this, MainActivity.class);
-
+        adsManager = ads_manager.getInstance();
+        adView = findViewById(R.id.adView);
         //Views
         Img00 = findViewById(R.id.id_image1);
         Img01 = findViewById(R.id.id_image2);
@@ -120,7 +128,28 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
             }
         });
+        adsManager.fbLoadBanner(this);
+        adsManager.fbadView.setAdListener(new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
 
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                adView.addView(adsManager.fbadView);
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+
+            }
+        });
 
         Card_00.setOnClickListener(this);
         Card_01.setOnClickListener(this);

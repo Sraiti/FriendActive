@@ -1,6 +1,7 @@
 package com.firends.examapp.Views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,19 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
-import com.robinhood.ticker.TickerUtils;
-import com.robinhood.ticker.TickerView;
 import com.squareup.picasso.Picasso;
 
 public class Done extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    TextView Txt_point;
+    TextView Txt_point, nameInvitedUser, nameCurrentUser, txtFriendship;
     Button Btn_Share, Btn_Home;
     private ImageView imgInvitedUser, imgCurrentUser;
 
     int Point;
-    Intent intent = new Intent(Done.this, MainActivity.class);
+    Intent intent;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onBackPressed() {
@@ -37,21 +37,23 @@ public class Done extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_done);
-
+        sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
+        intent = new Intent(Done.this, MainActivity.class);
         Btn_Home = findViewById(R.id.btn_home);
         Btn_Share = findViewById(R.id.btn_share);
         Txt_point = findViewById(R.id.txt_point);
         imgCurrentUser = findViewById(R.id.id_currentUser);
         imgInvitedUser = findViewById(R.id.id_image_invitedUser);
+        nameCurrentUser = findViewById(R.id.txt_currentUser);
+        nameInvitedUser = findViewById(R.id.txt_invitedUser);
+        txtFriendship = findViewById(R.id.txt_friendship);
 
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
         Txt_point.setText("Your score is : " + Point);
-        final TickerView tickerView = findViewById(R.id.tickerView);
-        tickerView.setCharacterLists(TickerUtils.provideNumberList());
-        tickerView.setAnimationDuration(2500);
-        tickerView.setText(Txt_point.getText().toString(), true);
-
+        nameInvitedUser.setText(Invite.invitedUser.get_UserName());
+        nameCurrentUser.setText(sharedPreferences.getString("name", "You"));
+        txtFriendship.setText(Point * 10 + "%");
         Picasso.get()
                 .load(User.currentUser._Image)
                 .error(R.drawable.image_loading)
@@ -63,7 +65,7 @@ public class Done extends AppCompatActivity {
                 .error(R.drawable.image_loading)
                 .placeholder(getResources().getDrawable(R.drawable.image_loading))
                 .fit()
-                .into(imgCurrentUser);
+                .into(imgInvitedUser);
 
         Btn_Share.setOnClickListener(new View.OnClickListener() {
             @Override

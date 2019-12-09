@@ -57,7 +57,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     private ProgressBar progressBar;
     private int CounterProgress = 1;
 
-    Intent intent = new Intent(FriendGameplay.this, MainActivity.class);
+    Intent intent;
 
     @Override
     public void onBackPressed() {
@@ -70,7 +70,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_gameplay);
         ClickAble= false;
-
+        intent = new Intent(FriendGameplay.this, MainActivity.class);
 
         //Views
         Img00 = findViewById(R.id.id_image1);

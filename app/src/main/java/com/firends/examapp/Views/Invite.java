@@ -46,7 +46,7 @@ public class Invite extends AppCompatActivity {
         startTest=findViewById(R.id.bt_invite_start);
         imageInvitedUser=findViewById(R.id.id_image_invitedUser);
         txtInvite=findViewById(R.id.invite_text);
-        startTest.setVisibility(View.GONE);
+        startTest.setClickable(false);
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -64,7 +64,7 @@ public class Invite extends AppCompatActivity {
                             getInfoUserById(InvitedUser);
                         }
                         avi.hide();
-                        startTest.setVisibility(View.VISIBLE);
+
 
 
                     }
@@ -105,6 +105,7 @@ public class Invite extends AppCompatActivity {
                         .placeholder(R.drawable.image_loading)
                         .error(R.mipmap.ic_launcher)
                         .into(imageInvitedUser);
+                startTest.setClickable(true);
 
             }
         })

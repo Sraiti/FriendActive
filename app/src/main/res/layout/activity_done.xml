@@ -43,6 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/open_sans_semibold"
+                android:gravity="center"
                 android:text="Invited User"
                 android:textColor="@color/flatui_wet_asphalt"
                 android:textSize="18sp" />
@@ -66,7 +68,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txt_friendship"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_semibold"
@@ -105,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/open_sans_semibold"
                 android:gravity="center"
                 android:text="currentUser"
                 android:textColor="@color/flatui_wet_asphalt"
@@ -127,15 +130,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.robinhood.ticker.TickerView
-        android:id="@+id/tickerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="73dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_point" />
 
 
     <androidx.cardview.widget.CardView
@@ -195,12 +189,12 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintBottom_toTopOf="@+id/cardView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tickerView"
-        app:layout_constraintVertical_bias="0.79">
+        app:layout_constraintTop_toBottomOf="@+id/txt_point"
+        app:layout_constraintVertical_bias="0.85">
 
         <LinearLayout
             android:layout_width="match_parent"

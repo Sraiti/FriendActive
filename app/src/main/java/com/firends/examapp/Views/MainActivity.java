@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webView.loadUrl("https://www.gdprprivacynotice.com/live.php?token=B3lA6OADYaUJLUGAs2VVS4IsydGUsgPX");
+        webView.loadUrl("https://www.gdprprivacynotice.com/live.php?token=oxD0M7OlZYeQFmkq0MpSpgqb1RJby7Ke");
         builder = new AlertDialog.Builder(this);
 
         builder.setCancelable(true);

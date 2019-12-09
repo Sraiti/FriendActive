@@ -20,8 +20,7 @@ public class Done extends AppCompatActivity {
     Button Btn_Share, Btn_Home;
 
     int Point;
-    Intent intent = new Intent(Done.this, MainActivity.class);
-
+    Intent intent;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -33,6 +32,7 @@ public class Done extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_done);
+        intent = new Intent(Done.this, MainActivity.class);
 
         Txt_point = findViewById(R.id.txt_point);
         Intent a = getIntent();

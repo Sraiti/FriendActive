@@ -42,7 +42,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "mytag";
-    Button gamPlay, ResutlsButton, InvitationsButton, btLink;
+    Button gamPlay, ResutlsButton, btLink;
     public static String mydomine = "https://examapp.page.link";
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
@@ -141,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
         link = ShareLink.getLinkFromShered(this, "link");
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton = findViewById(R.id.Bt_Results);
-        InvitationsButton = findViewById(R.id.bt_Invitations);
-        btLink = findViewById(R.id.bt_link);
+         btLink = findViewById(R.id.bt_link);
         adViewBanner = findViewById(R.id.adView);
         adsManager = ads_manager.getInstance();
         adsManager.loadFbInterstitial(this);
@@ -245,12 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 startRate();
             }
         });
-        InvitationsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, "Empty", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     public void playGame(View view) {

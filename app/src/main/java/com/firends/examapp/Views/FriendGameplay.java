@@ -287,6 +287,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "Questions Done " + Point, Toast.LENGTH_SHORT).show();
             Intent a = new Intent(FriendGameplay.this, Done.class);
             a.putExtra("Points", Point);
+            a.putExtra("TotalQuestion", totalQues);
             startActivity(a);
             finish();
         }

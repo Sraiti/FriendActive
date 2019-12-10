@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -284,7 +283,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         } else {
 
             DataBaseM.UpdatingMyMap(UserID, Point, this);
-            Toast.makeText(this, "Questions Done " + Point, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Questions Done " + Point, Toast.LENGTH_SHORT).show();
             Intent a = new Intent(FriendGameplay.this, Done.class);
             a.putExtra("Points", Point);
             a.putExtra("TotalQuestion", totalQues);

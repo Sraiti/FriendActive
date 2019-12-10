@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -253,7 +252,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
             }
 
         } else {
-            Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
             DataBaseM.UpdateUserQuestions(Answers);
             if (adsManager.mInterstitialAdfb.isAdLoaded())
                 adsManager.mInterstitialAdfb.show();

@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAdListener(new AdListener() {
                     @Override
                     public void onError(Ad ad, AdError adError) {
-                        Toast.makeText(mContext, adError.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, adError.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAdLoaded(Ad ad) {
-                Toast.makeText(mContext, "native loaded", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "native loaded", Toast.LENGTH_SHORT).show();
                 inflateAd(adsManager.showNative());
             }
 

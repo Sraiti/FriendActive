@@ -43,7 +43,12 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.MainActivity">
+        <activity
+            android:name=".Views.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+
+            >
+
         </activity>
         <activity android:name=".Views.ShareLink">
         </activity>

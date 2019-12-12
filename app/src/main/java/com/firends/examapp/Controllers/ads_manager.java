@@ -12,25 +12,21 @@ import com.facebook.ads.NativeAdListener;
 import com.firends.examapp.R;
 
 
-
 public class ads_manager {
+    public static ads_manager Instance;
     private final String TAG = "mytagads";
-
-    private NativeAd nativeAd;
     public com.facebook.ads.AdView fbadView;
     public com.facebook.ads.InterstitialAd mInterstitialAdfb;
 
 
     public int counterads = 0;
-    public static ads_manager Instance;
+    private NativeAd nativeAd;
 
     public static ads_manager getInstance() {
         if (Instance == null)
             Instance = new ads_manager();
         return Instance;
     }
-
-
 
 
     public com.facebook.ads.AdView fbLoadBanner(final Context context) {
@@ -48,9 +44,6 @@ public class ads_manager {
 
         return fbadView;
     }
-
-
-
 
 
     public com.facebook.ads.InterstitialAd loadFbInterstitial(final Context context) {
@@ -108,13 +101,13 @@ public class ads_manager {
             if (mInterstitialAdfb.isAdLoaded())
                 mInterstitialAdfb.show();
             else loadFbInterstitial(context);
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 
     }
 
-    public void LoadNative(Context context){
+    public void LoadNative(Context context) {
         nativeAd = new NativeAd(context, context.getResources().getString(R.string.fb_native));
 
         nativeAd.setAdListener(new NativeAdListener() {
@@ -153,7 +146,8 @@ public class ads_manager {
         nativeAd.loadAd();
 
     }
-    public NativeAd showNative(){
+
+    public NativeAd showNative() {
         return nativeAd;
     }
 

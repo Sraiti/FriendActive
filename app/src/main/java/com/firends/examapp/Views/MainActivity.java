@@ -42,20 +42,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "mytag";
-    Button gamPlay, ResutlsButton, btLink;
     public static String mydomine = "https://examapp.page.link";
+    Button gamPlay, ResutlsButton, btLink;
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
+    AlertDialog.Builder builder;
     private String link;
     private LinearLayout adViewBanner;
     private ads_manager adsManager;
-
     private View adViewDialog;
     private LayoutInflater inflater;
-
     private NativeAdLayout nativeAdLayout;
-
-    AlertDialog.Builder builder;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         link = ShareLink.getLinkFromShered(this, "link");
         gamPlay = findViewById(R.id.GamePlay);
         ResutlsButton = findViewById(R.id.Bt_Results);
-         btLink = findViewById(R.id.bt_link);
+        btLink = findViewById(R.id.bt_link);
         adViewBanner = findViewById(R.id.adView);
         adsManager = ads_manager.getInstance();
         adsManager.loadFbInterstitial(this);

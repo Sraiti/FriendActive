@@ -20,11 +20,10 @@ public class Done extends AppCompatActivity {
     private static final String TAG = "TAG";
     TextView Txt_point, nameInvitedUser, nameCurrentUser, txtFriendship;
     Button Btn_Share, Btn_Home;
-    private ImageView imgInvitedUser, imgCurrentUser;
     int TotalQuestions;
-
     int Point;
     Intent intent;
+    private ImageView imgInvitedUser, imgCurrentUser;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -51,11 +50,11 @@ public class Done extends AppCompatActivity {
 
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
-        TotalQuestions=a.getIntExtra("TotalQuestion",20);
+        TotalQuestions = a.getIntExtra("TotalQuestion", 20);
         Txt_point.setText("Your score is : " + Point);
         nameInvitedUser.setText(Invite.invitedUser.get_UserName());
         nameCurrentUser.setText(sharedPreferences.getString("name", "You"));
-        txtFriendship.setText((Point * 100)/TotalQuestions+ "%");
+        txtFriendship.setText((Point * 100) / TotalQuestions + "%");
         Picasso.get()
                 .load(User.currentUser._Image)
                 .error(R.drawable.image_loading)

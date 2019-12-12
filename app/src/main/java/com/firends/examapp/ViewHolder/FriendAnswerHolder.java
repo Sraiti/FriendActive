@@ -16,9 +16,8 @@ public class FriendAnswerHolder extends RecyclerView.ViewHolder {
     public FriendAnswerHolder(@NonNull View itemView) {
         super(itemView);
 
-        _UserName=itemView.findViewById(R.id.id_userName);
-        Point=itemView.findViewById(R.id.id_point);
-
+        _UserName = itemView.findViewById(R.id.id_userName);
+        Point = itemView.findViewById(R.id.id_point);
 
 
     }

@@ -4,7 +4,6 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.firends.examapp.R;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;

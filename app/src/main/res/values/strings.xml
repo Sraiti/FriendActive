@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">Test Friendship</string>
+    <string name="app_name">Friendactive-Friendship challenge test</string>
 
     <string name="nav_header_subtitle">specialones@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="ad_unit_id">ca-app-pub-6560477533466455/1130446163</string>
+    <string name="ad_unit_id">ca-app-pub-6560477533466455/1130446112</string>
 
     <string name="facebook_app_id" translatable="false">465018920810426</string>
     <string name="ad_attribution" translatable="false">Ad</string>
     <string name="gdbr">gdpr</string>
     <string name="url_privacy">https://www.gdprprivacynotice.com/live.php?token=B3lA6OADYaUJLUGAs2VVS4IsydGUsgPX</string>
-    <string name="publisher_id">pub-6560477533466499</string>
+    <string name="publisher_id">pub-6560477533466400</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_share">Share</string>

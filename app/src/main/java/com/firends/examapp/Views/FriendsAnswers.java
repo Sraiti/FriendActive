@@ -8,28 +8,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firends.examapp.Adapters.AdapterFriendAnswer;
 import com.firends.examapp.Controllers.DataBaseManager;
-import com.firends.examapp.Model.FriendAnswer;
 import com.firends.examapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsAnswers extends AppCompatActivity {
     public static RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     public List<Object> friendAnswersList;
     DataBaseManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_answers);
 
-        manager=new DataBaseManager();
+        manager = new DataBaseManager();
         manager.getFriendAnswers(this);
 
         RecyclerView mRecyclerView = findViewById(R.id.Receycl_FriendsAnswers);
-
-
-
 
 
         // Use this setting to improve performance if you know that changes

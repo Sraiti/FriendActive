@@ -52,8 +52,8 @@
                 <com.github.florent37.shapeofview.shapes.CircleView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:elevation="1dp"
                     android:layout_gravity="center"
+                    android:elevation="1dp"
                     app:shape_circle_borderColor="@color/colorAccent"
                     app:shape_circle_borderWidth="0.4dp">
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,28 +26,28 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 public class Invite extends AppCompatActivity {
+    public static String InvitedUser = null;
+    public static String InvitedUserName = null;
+    public static User invitedUser;
+    public String TAG = "data";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private com.wang.avi.AVLoadingIndicatorView avi;
     private Context mContext;
     private Button startTest;
-    public String TAG = "data";
-    public static String InvitedUser=null;
-    public static String InvitedUserName=null;
-
-
     private ImageView imageInvitedUser;
     private TextView txtInvite;
-    public static User invitedUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
         mContext = this;
         avi = findViewById(R.id.avi);
-        startTest=findViewById(R.id.bt_invite_start);
-        imageInvitedUser=findViewById(R.id.id_image_invitedUser);
-        txtInvite=findViewById(R.id.invite_text);
-        startTest.setClickable(false);
+        startTest = findViewById(R.id.bt_invite_start);
+        imageInvitedUser = findViewById(R.id.id_image_invitedUser);
+        txtInvite = findViewById(R.id.invite_text);
+        startTest.setEnabled(false);
+        //invitedUser._UserName="Your Friend";
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -58,12 +59,14 @@ public class Invite extends AppCompatActivity {
                         if (pendingDynamicLinkData != null) {
                             deepLink = pendingDynamicLinkData.getLink();
 
-                            InvitedUser=deepLink.toString();
-                            InvitedUser=InvitedUser.substring(InvitedUser.lastIndexOf("=")+1);
-                            //Toast.makeText(mContext, InvitedUser, Toast.LENGTH_SHORT).show();
+                            InvitedUser = deepLink.toString();
+                            InvitedUser = InvitedUser.substring(InvitedUser.lastIndexOf("=") + 1);
+                            //st.makeText(mContext, InvitedUser, Toast.LENGTH_SHORT).show();
                             getInfoUserById(InvitedUser);
+                        } else {
+                            StartActivity();
                         }
-                        avi.hide();
+
 
 
 
@@ -73,8 +76,8 @@ public class Invite extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         avi.hide();
-                        startActivity(new Intent(Invite.this,Login.class));
-                        Invite.this.finish();
+                        Toast.makeText(mContext, "non dynamic link", Toast.LENGTH_SHORT).show();
+                        StartActivity();
                     }
                 });
 
@@ -83,14 +86,12 @@ public class Invite extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent intent =new Intent(Invite.this,Login.class);
-                startActivity(intent);
-                Invite.this.finish();
+                StartActivity();
             }
         });
     }
 
-    public void getInfoUserById(String userId){
+    public void getInfoUserById(String userId) {
 
         DocumentReference docRef = db.collection("Users").document(userId);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -105,17 +106,26 @@ public class Invite extends AppCompatActivity {
                         .placeholder(R.drawable.image_loading)
                         .error(R.mipmap.ic_launcher)
                         .into(imageInvitedUser);
-                startTest.setClickable(true);
+                startTest.setEnabled(true);
+                avi.hide();
+                //if (invitedUser._UserName.contains("Your Friend"));
 
             }
         })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Intent intent =new Intent(Invite.this,Login.class);
-                startActivity(intent);
-                Invite.this.finish();
-            }
-        });
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        StartActivity();
+                    }
+                })
+        ;
     }
+
+    public void StartActivity() {
+        Intent intent = new Intent(Invite.this, Login.class);
+        startActivity(intent);
+        Invite.this.finish();
+    }
+
+
 }

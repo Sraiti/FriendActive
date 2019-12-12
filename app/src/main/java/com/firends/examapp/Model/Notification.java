@@ -4,11 +4,14 @@ import java.util.HashMap;
 
 public class Notification {
     String IdToken;
-    HashMap<String,Integer> Friends=new HashMap<>();
+    HashMap<String, Integer> Friends = new HashMap<>();
 
     public Notification(String idToken, HashMap<String, Integer> friends) {
         IdToken = idToken;
         Friends = friends;
+    }
+
+    public Notification() {
     }
 
     public String getIdToken() {
@@ -26,7 +29,4 @@ public class Notification {
     public void setFriends(HashMap<String, Integer> friends) {
         Friends = friends;
     }
-
-    public Notification( ) {
-     }
 }

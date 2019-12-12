@@ -1,19 +1,15 @@
 package com.firends.examapp.Model;
 
-import android.net.Uri;
-
 import java.util.HashMap;
 
 public class User {
+    public static User currentUser;
     public String _IdUser;
     public String _UserName;
     public String _Image;
-    public HashMap<String ,Integer> _MyQuestion=new HashMap<>();
-    public HashMap<String ,Object> _FriendAnswer=new HashMap<>();
-    public HashMap<String ,Object> _MyInvitations=new HashMap<>();
-
-    public static User currentUser;
-
+    public HashMap<String, Integer> _MyQuestion = new HashMap<>();
+    public HashMap<String, Object> _FriendAnswer = new HashMap<>();
+    public HashMap<String, Object> _MyInvitations = new HashMap<>();
 
 
     public User() {
@@ -43,11 +39,11 @@ public class User {
         this._Image = _Image;
     }
 
-    public HashMap< String, Integer> get_MyQuestion() {
+    public HashMap<String, Integer> get_MyQuestion() {
         return _MyQuestion;
     }
 
-    public void set_MyQuestion(HashMap< String, Integer> _MyQuestion) {
+    public void set_MyQuestion(HashMap<String, Integer> _MyQuestion) {
         this._MyQuestion = _MyQuestion;
     }
 

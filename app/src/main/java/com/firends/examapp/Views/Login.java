@@ -27,18 +27,17 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    private Context mContext;
     static final int RC_SIGN_IN = 123;
     private static final String TAG = "mytag";
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor editor;
     FirebaseAuth mAuth;
+    private Context mContext;
     //GoogleSignInClient mGoogleSignInClient;
     private SignInButton ButtonLogin;
     private DataBaseManager manager;
     private View dialogName;
     private LayoutInflater inflater;
-    public static SharedPreferences sharedPreferences;
-    public static SharedPreferences.Editor editor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +153,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
         sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.apply();
+        editor.commit();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -180,9 +179,9 @@ public class Login extends AppCompatActivity {
 
 
     public void startAvtivity() {
-        if (Invite.InvitedUser != null&&Invite.InvitedUserName!=null) {
+        if (Invite.InvitedUser != null && Invite.InvitedUserName != null) {
             Intent intent = new Intent(Login.this, FriendGameplay.class);
-             intent.putExtra("UserName", Invite.InvitedUserName);
+            intent.putExtra("UserName", Invite.InvitedUserName);
             intent.putExtra("UserID", Invite.InvitedUser);
             startActivity(intent);
             this.finish();

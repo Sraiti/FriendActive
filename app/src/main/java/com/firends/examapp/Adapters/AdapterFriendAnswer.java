@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firends.examapp.Model.FriendAnswer;
@@ -30,10 +29,9 @@ public class AdapterFriendAnswer extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int MENU_ITEM_VIEW_TYPE = 0;
 
     private static final int UNIFIED_NATIVE_AD_VIEW_TYPE = 1;
-
-    private Context mContext;
     List<FriendAnswer> MatchList;
     List<UnifiedNativeAd> NativeList;
+    private Context mContext;
     private List<Object> mRecyclerViewItems = new ArrayList<>();
 
     public AdapterFriendAnswer(Context context, List<Object> recyclerViewItems) {
@@ -96,8 +94,6 @@ public class AdapterFriendAnswer extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 AnswerHolder._UserName.setText(menuItem.get_UserName());
                 AnswerHolder.Point.setText(String.valueOf(menuItem.getPoint()));
-
-
 
 
         }

@@ -22,11 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataBaseManager {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     public String TAG = "TAG";
     public HashMap<String, Object> _MyInvitations = new HashMap<>();
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void AddUser(User user, String IdToken) {
 
@@ -109,7 +107,7 @@ public class DataBaseManager {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Log.d(TAG, "onFailure: "+e.getMessage());
+                Log.d(TAG, "onFailure: " + e.getMessage());
             }
         });
 

@@ -42,7 +42,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     LinearLayout Linear_00, Linear_01;
     FirebaseFirestore db;
 
-    String UserID,UserName;
+    String UserID, UserName;
 
     List<Question> mQuestions = new ArrayList<>();
     List<LinearLayout> ClickAbles = new ArrayList<>();
@@ -57,13 +57,11 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     int Point;
 
     boolean ClickAble;
+    Intent intent;
     private ProgressBar progressBar;
     private int CounterProgress = 1;
-
     private ads_manager adsManager;
     private LinearLayout adView;
-
-    Intent intent;
 
     @Override
     public void onBackPressed() {
@@ -71,11 +69,12 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
         finish();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_gameplay);
-        ClickAble= false;
+        ClickAble = false;
         intent = new Intent(FriendGameplay.this, MainActivity.class);
         adsManager = ads_manager.getInstance();
         adView = findViewById(R.id.adView);
@@ -108,7 +107,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
         Intent a = getIntent();
         UserID = a.getStringExtra("UserID");
-        UserName=a.getStringExtra("UserName");
+        UserName = a.getStringExtra("UserName");
 
         Point = 0;
         //DataBase
@@ -116,7 +115,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         GetFreindData(new FireBaseCallBackDataFriend() {
             @Override
             public void OnCallback() {
-                ClickAble=true;
+                ClickAble = true;
             }
         });
         GetData(new FireBaseCallBack() {
@@ -178,8 +177,8 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         if (index < totalQues) {
             progressBar.setProgress(CounterProgress++);
             Question question = mQuestions.get(index);
-            String Question =question.getQuestionfriend();
-            String a=Question.replace("####",UserName);
+            String Question = question.getQuestionfriend();
+            String a = Question.replace("####", UserName);
             Txt_Question.setText(a);
 
             if (question.getType() == 2) {
@@ -215,8 +214,6 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
                 Txt_00.setText(question.getAnswer_00());
                 Txt_01.setText(question.getAnswer_01());
-
-
 
 
             } else {
@@ -309,7 +306,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (ClickAble&&totalQues>index) {
+        if (ClickAble && totalQues > index) {
             CardView Card = (CardView) v;
             int FriendAnswer = GetItemId(Card.getTag().toString());
             Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
@@ -363,6 +360,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     private interface FireBaseCallBackDataFriend {
         void OnCallback();
     }
+
     private interface FireBaseCallBack {
         void OnCallback(List<Question> QuestionList);
     }

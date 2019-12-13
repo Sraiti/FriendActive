@@ -30,4 +30,11 @@
     <string name="facebook_interstitial">510276979578676_510685786204462</string>
     <string name="fb_native">510276979578676_510702959536078</string>
 
+
+    <string-array name="Language">
+        <item>English</item>
+        <item>français</item>
+        <item>العربية</item>
+    </string-array>
+
 </resources>

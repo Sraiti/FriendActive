@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +40,7 @@ public class Login extends AppCompatActivity {
     private DataBaseManager manager;
     private View dialogName;
     private LayoutInflater inflater;
+    private Spinner spinnerLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +50,14 @@ public class Login extends AppCompatActivity {
 
         mContext = this;
         ButtonLogin = findViewById(R.id.bt_login);
+        spinnerLanguage = findViewById(R.id.spinner_lg);
         mAuth = FirebaseAuth.getInstance();
 
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
+        String[] items = new String[]{"", "English", "français", "العربية"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        spinnerLanguage.setAdapter(adapter);
 
         //get invitation link
 
@@ -68,13 +75,23 @@ public class Login extends AppCompatActivity {
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                String Language = spinnerLanguage.getSelectedItem().toString();
+                if (Language.equals(""))
+                    Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
+                else {
+                    editor.putString("Language", Language);
+                    editor.commit();
+                    signIn();
+                }
+
             }
         });
 
     }
 
     private void signIn() {
+
+
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 

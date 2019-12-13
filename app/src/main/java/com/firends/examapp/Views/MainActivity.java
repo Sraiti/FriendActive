@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adsManager.showFbInterstitial(mContext);
+                //adsManager.showFbInterstitial(mContext);
                 if (link.contains("Share Link With your Friends")) {
                     Toast.makeText(mContext, "Please Create Your Test First", Toast.LENGTH_SHORT).show();
                     return;

@@ -156,10 +156,14 @@ public class Login extends AppCompatActivity {
         editor.commit();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null) {
             User NewUser = new User();
             NewUser.set_IdUser(currentUser.getUid());
-            NewUser.set_UserName(currentUser.getDisplayName());
+            if (currentUser.getDisplayName() != null)
+                NewUser.set_UserName(currentUser.getDisplayName());
+            else
+                NewUser.set_UserName(sharedPreferences.getString("name", ""));
             NewUser.set_Image(currentUser.getPhotoUrl().toString());
             User.currentUser = NewUser;
             startAvtivity();

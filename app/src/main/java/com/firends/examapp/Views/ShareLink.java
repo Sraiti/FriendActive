@@ -32,6 +32,7 @@ public class ShareLink extends AppCompatActivity {
     private Uri shortLink;
     private TextView dynamicLink;
 
+
     public static String getLinkFromShered(Context context, String Object) {
         String link = null;
         if (sharedPreferences == null) {
@@ -98,7 +99,7 @@ public class ShareLink extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("text/plain");
-        intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " Wants To Test Friendship With You Download App and Start Test " + shortLink.toString());
+        intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " wants to test friendship with you, Download This App and Start The Test " + shortLink.toString());
         startActivity(Intent.createChooser(intent2, "Share via"));
 
 

@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent();
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " Let's Test Our Friendship Download This App and Start The Test " + link);
+                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " wants to test friendship with you, Download This App and Start The Test " + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });

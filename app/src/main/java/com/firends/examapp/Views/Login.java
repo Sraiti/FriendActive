@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -55,7 +56,7 @@ public class Login extends AppCompatActivity {
 
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
-        String[] items = new String[]{"", "English", "français", "العربية"};
+        String[] items = new String[]{"", "English", "Francais", "العربية"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinnerLanguage.setAdapter(adapter);
 
@@ -79,6 +80,18 @@ public class Login extends AppCompatActivity {
                 if (Language.equals(""))
                     Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
                 else {
+                     switch(Language){
+                         case "English":
+                             Language="en";
+                             break;
+                         case"Francais":
+                             Language="fr";
+                             break;
+                         case"العربية":
+                             Language="ar";
+                             break;
+                     }
+                    Log.d(TAG, "onClick: "+Language);
                     editor.putString("Language", Language);
                     editor.commit();
                     signIn();

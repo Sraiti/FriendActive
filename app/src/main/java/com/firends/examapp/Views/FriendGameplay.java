@@ -118,6 +118,9 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
                 ClickAble = true;
             }
         });
+        String Lang = ShareLink.getLinkFromShered(this,"Language");
+
+
         GetData(new FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
@@ -125,7 +128,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
 
             }
-        });
+        },Lang);
         adsManager.fbLoadBanner(this);
         adsManager.fbadView.setAdListener(new AdListener() {
             @Override
@@ -332,9 +335,9 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         return 0;
     }
 
-    private void GetData(final FireBaseCallBack fireBaseCallBack) {
+    private void GetData(final FireBaseCallBack fireBaseCallBack,String Language) {
 
-        db.collection("Questions").orderBy("QuestionID")
+        db.collection("Questions").whereEqualTo("Language",Language)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

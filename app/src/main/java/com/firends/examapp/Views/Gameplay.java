@@ -118,13 +118,14 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         //DataBase
         db = FirebaseFirestore.getInstance();
 
+        String Lang = ShareLink.getLinkFromShered(this,"Language");
         GetData(new FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
 
                 NextQuestion(index);
             }
-        });
+        },Lang);
 
 
         Card_00.setOnClickListener(this);
@@ -340,8 +341,8 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         return 0;
     }
 
-    private void GetData(final FireBaseCallBack fireBaseCallBack) {
-        db.collection("Questions").orderBy("QuestionID")
+    private void GetData(final FireBaseCallBack fireBaseCallBack,String Language) {
+        db.collection("Questions").whereEqualTo("Language",Language)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

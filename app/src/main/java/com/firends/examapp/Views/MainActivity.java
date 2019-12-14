@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private NativeAdLayout nativeAdLayout;
 
+    String ShareLinkText;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -121,7 +122,22 @@ public class MainActivity extends AppCompatActivity {
         inflater = this.getLayoutInflater();
         adViewDialog = inflater.inflate(R.layout.dialog_ads_native, null);
 
+        String Lang =ShareLink.getLinkFromShered(getApplicationContext(),"Language");
+        switch(Lang){
+            case "en":
 
+                ShareLinkText=" wants to test friendship with you, Download This App and Start The Test ";
+                break;
+            case"fr":
+                ShareLinkText=" vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  " ;
+
+
+                break;
+            case"ar":
+                ShareLinkText=" يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي " ;
+
+                break;
+        }
         WebView webView = new WebView(this);
 
         webView.getSettings().setLoadsImagesAutomatically(true);
@@ -222,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent();
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " wants to test friendship with you, Download This App and Start The Test " + link);
+
+                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + ShareLinkText + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });

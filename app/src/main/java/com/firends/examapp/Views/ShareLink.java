@@ -31,6 +31,7 @@ public class ShareLink extends AppCompatActivity {
     DynamicLinkManager dynamicLinkManager;
     private Uri shortLink;
     private TextView dynamicLink;
+    String ShareLinkText;
 
 
     public static String getLinkFromShered(Context context, String Object) {
@@ -52,6 +53,23 @@ public class ShareLink extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.apply();
+
+        String Lang =ShareLink.getLinkFromShered(getApplicationContext(),"Language");
+        switch(Lang){
+            case "en":
+
+                ShareLinkText=" wants to test friendship with you, Download This App and Start The Test ";
+                break;
+            case"fr":
+                ShareLinkText=" vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  " ;
+
+
+                break;
+            case"ar":
+                ShareLinkText=" يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي " ;
+
+                break;
+        }
 
         buildDynamiclink();
     }
@@ -99,7 +117,7 @@ public class ShareLink extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("text/plain");
-        intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + " wants to test friendship with you, Download This App and Start The Test " + shortLink.toString());
+        intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + ShareLinkText + shortLink.toString());
         startActivity(Intent.createChooser(intent2, "Share via"));
 
 

@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(mContext, FriendsAnswers.class));
             }
         });
-        btLink.setText("Share Test Link With Your Friends");
+        btLink.setText(R.string.text_share);
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

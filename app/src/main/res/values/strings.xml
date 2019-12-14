@@ -29,6 +29,9 @@
     <string name="facebook_banner_id">510276979578676_510684702871237</string>
     <string name="facebook_interstitial">510276979578676_510685786204462</string>
     <string name="fb_native">510276979578676_510702959536078</string>
+    <string name="invitetext">wants to test friendship with you</string>
+    <string name="text_share">Share Test Link With Your Friends</string>
+    <string name="Yourscoor">Your score is :</string>
 
 
     <string-array name="Language">

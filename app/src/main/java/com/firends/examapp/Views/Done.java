@@ -51,7 +51,7 @@ public class Done extends AppCompatActivity {
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
         TotalQuestions = a.getIntExtra("TotalQuestion", 20);
-        Txt_point.setText("Your score is : " + Point);
+        Txt_point.setText(R.string.Yourscoor + Point);
         nameInvitedUser.setText(Invite.invitedUser.get_UserName());
         nameCurrentUser.setText(sharedPreferences.getString("name", "You"));
         txtFriendship.setText((Point * 100) / TotalQuestions + "%");

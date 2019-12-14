@@ -99,7 +99,7 @@ public class Invite extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 invitedUser = documentSnapshot.toObject(User.class);
                 //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
-                txtInvite.setText(invitedUser._UserName + " wants to test friendship with you");
+                txtInvite.setText(invitedUser._UserName + R.string.invitetext);
                 InvitedUserName = invitedUser._UserName;
                 Picasso.get()
                         .load(invitedUser.get_Image())

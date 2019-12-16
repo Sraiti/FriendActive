@@ -12,11 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintBottom_toTopOf="@+id/txtlogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944"
-        tools:layout_editor_absoluteX="-34dp">
+        app:layout_constraintVertical_bias="0.90999997">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,12 +54,13 @@
         android:background="@color/flatui_wet_asphalt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtlogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_semibold"

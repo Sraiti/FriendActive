@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
+import com.firends.examapp.Utils.language;
 import com.squareup.picasso.Picasso;
 
 public class Done extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class Done extends AppCompatActivity {
     Intent intent;
     private ImageView imgInvitedUser, imgCurrentUser;
     private SharedPreferences sharedPreferences;
-
+    private language language;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -39,6 +40,7 @@ public class Done extends AppCompatActivity {
         setContentView(R.layout.activity_done);
         sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
         intent = new Intent(Done.this, MainActivity.class);
+        language = com.firends.examapp.Utils.language.getInstance();
         Btn_Home = findViewById(R.id.btn_home);
         Btn_Share = findViewById(R.id.btn_share);
         Txt_point = findViewById(R.id.txt_point);
@@ -50,6 +52,8 @@ public class Done extends AppCompatActivity {
 
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
+        Btn_Home.setText(language.languageArray.get("bthome"));
+        Btn_Home.setText(language.languageArray.get("btshare"));
         TotalQuestions = a.getIntExtra("TotalQuestion", 20);
         Txt_point.setText(R.string.Yourscoor + Point);
         nameInvitedUser.setText(Invite.invitedUser.get_UserName());

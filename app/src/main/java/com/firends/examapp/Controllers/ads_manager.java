@@ -100,7 +100,8 @@ public class ads_manager {
         try {
             if (mInterstitialAdfb.isAdLoaded())
                 mInterstitialAdfb.show();
-            else loadFbInterstitial(context);
+            else
+                loadFbInterstitial(context);
         } catch (Exception ex) {
 
         }

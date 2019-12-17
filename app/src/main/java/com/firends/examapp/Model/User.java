@@ -7,6 +7,7 @@ public class User {
     public String _IdUser;
     public String _UserName;
     public String _Image;
+    public String languageUser;
     public HashMap<String, Integer> _MyQuestion = new HashMap<>();
     public HashMap<String, Object> _FriendAnswer = new HashMap<>();
     public HashMap<String, Object> _MyInvitations = new HashMap<>();
@@ -61,5 +62,13 @@ public class User {
 
     public void set_MyInvitations(HashMap<String, Object> _MyInvitations) {
         this._MyInvitations = _MyInvitations;
+    }
+
+    public String getLanguageUser() {
+        return languageUser;
+    }
+
+    public void setLanguageUser(String languageUser) {
+        this.languageUser = languageUser;
     }
 }

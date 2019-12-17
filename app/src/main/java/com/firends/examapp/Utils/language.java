@@ -19,7 +19,13 @@ public class language {
     public HashMap<String, String> languageArray = new HashMap<>();
 
     public void AddLanguage(Context context) {
-        String Lang = ShareLink.getLinkFromShered(context, "Language");
+        String Lang;
+        try {
+            Lang = ShareLink.getLinkFromShered(context, "Language");
+        } catch (Exception ex) {
+            Lang = "en";
+        }
+
         if (Lang.equals("ar")) {
             languageArray.put("shareText", " يدعوك لإكتشاف مدي قوة صداقتكم حمل التطبيق و إقبل التحدي ");
             languageArray.put("Create", "إنشاء الاختبار");
@@ -30,6 +36,9 @@ public class language {
             languageArray.put("start", "بدء اللعبة");
             languageArray.put("bthome", "الصفحة الرئيسية");
             languageArray.put("btshare", "مشاركة");
+            languageArray.put("copy", "نسخ");
+            languageArray.put("txtShare", "شارك هذا الرابط مع أصدقائك");
+
 
         } else if (Lang.equals("fr")) {
             languageArray.put("shareText", " vous invite à tester  l'amitié avec vous, téléchargez  l'application et lancez le test ");
@@ -41,6 +50,8 @@ public class language {
             languageArray.put("start", "démarrer jeu");
             languageArray.put("bthome", "accueil");
             languageArray.put("btshare", "partager");
+            languageArray.put("copy", "copie");
+            languageArray.put("txtShare", "Partagez ce lien avec vos amis");
         } else {
             languageArray.put("shareText", " wants to test friendship with you, Download This App and Start The Test ");
             languageArray.put("Create", "Create  Test");
@@ -51,6 +62,9 @@ public class language {
             languageArray.put("start", "start game");
             languageArray.put("bthome", "Home");
             languageArray.put("btshare", "Share");
+            languageArray.put("copy", "copy");
+            languageArray.put("txtShare", "Share This Link With Your Friends");
+            languageArray.put("txtInvit", " wants to test friendship with you");
         }
 
     }

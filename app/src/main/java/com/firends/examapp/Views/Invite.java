@@ -3,6 +3,7 @@ package com.firends.examapp.Views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
+import com.firends.examapp.Utils.language;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -36,19 +38,23 @@ public class Invite extends AppCompatActivity {
     private Button startTest;
     private ImageView imageInvitedUser;
     private TextView txtInvite;
-
+    private language language;
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
         mContext = this;
+        language = com.firends.examapp.Utils.language.getInstance();
         avi = findViewById(R.id.avi);
         startTest = findViewById(R.id.bt_invite_start);
         imageInvitedUser = findViewById(R.id.id_image_invitedUser);
         txtInvite = findViewById(R.id.invite_text);
         startTest.setEnabled(false);
         //invitedUser._UserName="Your Friend";
-
+        sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
@@ -99,7 +105,10 @@ public class Invite extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 invitedUser = documentSnapshot.toObject(User.class);
                 //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
-                txtInvite.setText(invitedUser._UserName + R.string.invitetext);
+                editor.putString("Language", invitedUser.getLanguageUser());
+                editor.commit();
+                language.AddLanguage(mContext);
+                txtInvite.setText(invitedUser._UserName + language.languageArray.get("txtInvit"));
                 InvitedUserName = invitedUser._UserName;
                 Picasso.get()
                         .load(invitedUser.get_Image())

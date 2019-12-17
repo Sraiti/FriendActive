@@ -79,26 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
         gamPlay.setText(language.languageArray.get("Create"));
         ResutlsButton.setText(language.languageArray.get("Results"));
-        btLink.setText(language.languageArray.get("btShare"));
+        btLink.setText(language.languageArray.get("txtShare"));
         ShareLinkText = language.languageArray.get("shareText");
 
 
         String Lang = ShareLink.getLinkFromShered(getApplicationContext(), "Language");
-        switch (Lang) {
-            case "en":
 
-                ShareLinkText = " wants to test friendship with you, Download This App and Start The Test ";
-                break;
-            case "fr":
-                ShareLinkText = " vous invite à tester  l'amitié avec vous, téléchargez  l'application et lancez le test  ";
-
-
-                break;
-            case "ar":
-                ShareLinkText = " يدعوك لإكتشاف مدي قوة صداقتكم حمل التطبيق و إقبل التحدي ";
-
-                break;
-        }
         WebView webView = new WebView(this);
 
         webView.getSettings().setLoadsImagesAutomatically(true);
@@ -180,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(mContext, FriendsAnswers.class));
             }
         });
-        btLink.setText(R.string.text_share);
+
         btLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

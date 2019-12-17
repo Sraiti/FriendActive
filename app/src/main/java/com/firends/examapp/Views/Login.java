@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,6 +47,7 @@ public class Login extends AppCompatActivity {
     private LayoutInflater inflater;
     private Spinner spinnerLanguage;
     private language languag;
+    private String lg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,8 @@ public class Login extends AppCompatActivity {
         final String[] items = new String[]{"", "English", "Francais", "العربية"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinnerLanguage.setAdapter(adapter);
-
+        sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         //get invitation link
 
 
@@ -83,19 +84,19 @@ public class Login extends AppCompatActivity {
         spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String Language = items[i];
-                switch (Language) {
+                lg = items[i];
+                switch (lg) {
                     case "English":
-                        Language = "en";
+                        lg = "en";
                         break;
                     case "Francais":
-                        Language = "fr";
+                        lg = "fr";
                         break;
                     case "العربية":
-                        Language = "ar";
+                        lg = "ar";
                         break;
                 }
-                editor.putString("Language", Language);
+                editor.putString("Language", lg);
                 editor.commit();
                 languag.AddLanguage(mContext);
                 logintext.setText(languag.languageArray.get("loginText"));
@@ -111,27 +112,13 @@ public class Login extends AppCompatActivity {
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Language = spinnerLanguage.getSelectedItem().toString();
-                if (Language.equals(""))
-                    Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
-                else {
-                     switch(Language){
-                         case "English":
-                             Language="en";
-                             break;
-                         case"Francais":
-                             Language="fr";
-                             break;
-                         case"العربية":
-                             Language="ar";
-                             break;
-                     }
-                    Log.d(TAG, "onClick: "+Language);
-                    editor.putString("Language", Language);
-                    editor.commit();
 
-                    signIn();
+                if (lg.equals("")) {
+                    Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                signIn();
+
 
             }
         });
@@ -170,6 +157,7 @@ public class Login extends AppCompatActivity {
                 final User NewUser = new User();
                 NewUser.set_IdUser(user.getUid());
                 NewUser.set_Image(user.getPhotoUrl().toString());
+                NewUser.setLanguageUser(lg);
                 if (user.getDisplayName() == null) {
                     showdialogname();
                     TextView EntryName = dialogName.findViewById(R.id.txtEntryName);

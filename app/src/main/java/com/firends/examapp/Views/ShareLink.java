@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
+import com.firends.examapp.Utils.language;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -30,8 +32,10 @@ public class ShareLink extends AppCompatActivity {
     public static SharedPreferences.Editor editor;
     DynamicLinkManager dynamicLinkManager;
     private Uri shortLink;
-    private TextView dynamicLink;
+    private TextView dynamicLink, txtshare;
     String ShareLinkText;
+    private language language;
+    private Button btnShare, btncopy;
 
 
     public static String getLinkFromShered(Context context, String Object) {
@@ -49,27 +53,21 @@ public class ShareLink extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_link);
+        language = com.firends.examapp.Utils.language.getInstance();
         dynamicLink = findViewById(R.id.mydynamiclink);
+        btnShare = findViewById(R.id.btnshare);
+        txtshare = findViewById(R.id.txtShare);
+        btncopy = findViewById(R.id.btncopy);
         sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.apply();
 
-        String Lang =ShareLink.getLinkFromShered(getApplicationContext(),"Language");
-        switch(Lang){
-            case "en":
-
-                ShareLinkText=" wants to test friendship with you, Download This App and Start The Test ";
-                break;
-            case"fr":
-                ShareLinkText=" vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  " ;
+        txtshare.setText(language.languageArray.get("txtShare"));
+        btnShare.setText(language.languageArray.get("btshare"));
+        btncopy.setText(language.languageArray.get("copy"));
 
 
-                break;
-            case"ar":
-                ShareLinkText=" يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي " ;
-
-                break;
-        }
+        String Lang = language.languageArray.get("shareText");
 
         buildDynamiclink();
     }

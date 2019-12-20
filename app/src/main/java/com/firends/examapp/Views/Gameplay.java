@@ -16,7 +16,6 @@ import androidx.cardview.widget.CardView;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
-import com.facebook.ads.InterstitialAdListener;
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.Model.Question;
@@ -66,7 +65,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         adView = findViewById(R.id.adView);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(CounterProgress);
-        adsManager.loadFbInterstitial(this);
+        //adsManager.loadFbInterstitial(this);
         adsManager.fbLoadBanner(this);
         adsManager.fbadView.setAdListener(new AdListener() {
             @Override
@@ -255,16 +254,13 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         } else {
             //Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
             DataBaseM.UpdateUserQuestions(Answers);
-            if (adsManager.mInterstitialAdfb.isAdLoaded())
-                adsManager.mInterstitialAdfb.show();
 
-            else {
                 startActivity(new Intent(Gameplay.this, ShareLink.class));
                 finish();
-            }
 
 
-            adsManager.mInterstitialAdfb.setAdListener(new InterstitialAdListener() {
+
+           /* adsManager.mInterstitialAdfb.setAdListener(new InterstitialAdListener() {
                 @Override
                 public void onInterstitialDisplayed(Ad ad) {
 
@@ -295,7 +291,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
                 public void onLoggingImpression(Ad ad) {
 
                 }
-            });
+            });*/
 
         }
 

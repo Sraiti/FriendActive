@@ -33,6 +33,7 @@ import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
+import com.firends.examapp.Utils.language;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -54,63 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private NativeAdLayout nativeAdLayout;
 
     String ShareLinkText;
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+    private language language;
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.privacy: {
-
-                try {
-                    builder.show();
-                } catch (Exception e) {
-                }
-                break;
-            }
-            case R.id.contact_us: {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_SENDTO);
-                    intent.setData(Uri.parse("mailto:" + getResources().getString(R.string.Emailrecerver)));
-                    intent.putExtra(Intent.EXTRA_EMAIL, getResources().getString(R.string.Emailrecerver));
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
-
-                    startActivity(intent);
-                } catch (Exception e) {
-                    //e.toString();
-                }
-                break;
-            }
-
-            case R.id.nav_share: {
-                try {
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                    String shareMessage = "\nI Challenge you To a friendship test on \n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                    startActivity(Intent.createChooser(shareIntent, "choose one"));
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id="
-                                    + getPackageName())));
-                }
-                break;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,17 +66,36 @@ public class MainActivity extends AppCompatActivity {
         AudienceNetworkAds.initialize(this);
         inflater = this.getLayoutInflater();
         adViewDialog = inflater.inflate(R.layout.dialog_ads_native, null);
+        dynamicLinkManager = new DynamicLinkManager(this);
+        link = ShareLink.getLinkFromShered(this, "link");
+        gamPlay = findViewById(R.id.GamePlay);
+        ResutlsButton = findViewById(R.id.Bt_Results);
+        btLink = findViewById(R.id.bt_link);
+        adViewBanner = findViewById(R.id.adView);
+        adsManager = ads_manager.getInstance();
+        language = com.firends.examapp.Utils.language.getInstance();
+        language.AddLanguage(mContext);
 
-        String Lang =ShareLink.getLinkFromShered(getApplicationContext(),"Language");
-        switch(Lang){
+        gamPlay.setText(language.languageArray.get("Create"));
+        ResutlsButton.setText(language.languageArray.get("Results"));
+        btLink.setText(language.languageArray.get("btShare"));
+        ShareLinkText = language.languageArray.get("shareText");
+
+
+        String Lang = ShareLink.getLinkFromShered(getApplicationContext(), "Language");
+        switch (Lang) {
             case "en":
-                ShareLinkText=" wants to test friendship with you, Download This App and Start The Test ";
+
+                ShareLinkText = " wants to test friendship with you, Download This App and Start The Test ";
                 break;
-            case"fr":
-                ShareLinkText=" vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  " ;
+            case "fr":
+                ShareLinkText = " vous invite à tester  l'amitié avec vous, téléchargez  l'application et lancez le test  ";
+
+
                 break;
-            case"ar":
-                ShareLinkText=" يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي " ;
+            case "ar":
+                ShareLinkText = " يدعوك لإكتشاف مدي قوة صداقتكم حمل التطبيق و إقبل التحدي ";
+
                 break;
         }
         WebView webView = new WebView(this);
@@ -145,14 +110,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(webView);
 
 
-        dynamicLinkManager = new DynamicLinkManager(this);
-        link = ShareLink.getLinkFromShered(this, "link");
-        gamPlay = findViewById(R.id.GamePlay);
-        ResutlsButton = findViewById(R.id.Bt_Results);
-        btLink = findViewById(R.id.bt_link);
-        adViewBanner = findViewById(R.id.adView);
-        adsManager = ads_manager.getInstance();
-        adsManager.loadFbInterstitial(this);
+        //adsManager.loadFbInterstitial(this);
         adsManager.fbLoadBanner(this)
                 .setAdListener(new AdListener() {
                     @Override
@@ -326,6 +284,69 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        link = ShareLink.getLinkFromShered(this, "link");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.privacy: {
+
+                try {
+                    builder.show();
+                } catch (Exception e) {
+                }
+                break;
+            }
+            case R.id.contact_us: {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:" + getResources().getString(R.string.Emailrecerver)));
+                    intent.putExtra(Intent.EXTRA_EMAIL, getResources().getString(R.string.Emailrecerver));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
+
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+                break;
+            }
+
+            case R.id.nav_share: {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                    String shareMessage = "\nI Challenge you To a friendship test on \n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id="
+                                    + getPackageName())));
+                }
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onBackPressed() {

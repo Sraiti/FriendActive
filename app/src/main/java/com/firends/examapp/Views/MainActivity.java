@@ -31,7 +31,6 @@ import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
 import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Controllers.ads_manager;
-import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -125,17 +124,13 @@ public class MainActivity extends AppCompatActivity {
         String Lang =ShareLink.getLinkFromShered(getApplicationContext(),"Language");
         switch(Lang){
             case "en":
-
                 ShareLinkText=" wants to test friendship with you, Download This App and Start The Test ";
                 break;
             case"fr":
                 ShareLinkText=" vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  " ;
-
-
                 break;
             case"ar":
                 ShareLinkText=" يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي " ;
-
                 break;
         }
         WebView webView = new WebView(this);
@@ -239,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
 
-                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + ShareLinkText + link);
+                intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(MainActivity.this,"name") + ShareLinkText + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });

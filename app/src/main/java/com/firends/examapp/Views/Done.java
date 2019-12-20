@@ -2,15 +2,19 @@ package com.firends.examapp.Views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firends.examapp.BuildConfig;
+import com.firends.examapp.Controllers.Screenshot;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.squareup.picasso.Picasso;
@@ -23,10 +27,11 @@ public class Done extends AppCompatActivity {
     int TotalQuestions;
     int Point;
     Intent intent;
+    ImageView imageView;
+    LinearLayout linearLayout;
     private ImageView imgInvitedUser, imgCurrentUser;
     private SharedPreferences sharedPreferences;
-
-    @Override
+     @Override
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(intent);
@@ -47,7 +52,9 @@ public class Done extends AppCompatActivity {
         nameCurrentUser = findViewById(R.id.txt_currentUser);
         nameInvitedUser = findViewById(R.id.txt_invitedUser);
         txtFriendship = findViewById(R.id.txt_friendship);
+        linearLayout=findViewById(R.id.Screen_layout);
 
+        imageView =findViewById(R.id.image);
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
         TotalQuestions = a.getIntExtra("TotalQuestion", 20);
@@ -68,18 +75,29 @@ public class Done extends AppCompatActivity {
                 .fit()
                 .into(imgInvitedUser);
 
+
         Btn_Share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                String shareMessage = "\nMy Score Is :" + Point;
+//                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                shareIntent.setType("text/plain");
+//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+          String shareMessage = "\nMy Score Is :" + Point;
                 shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n" +
                         "Challenge You friends And Find out how much they really know about you  \n";
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                startActivity(Intent.createChooser(shareIntent, "choose one"));
+//                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+//                startActivity(Intent.createChooser(shareIntent, "choose one"));
+
+
+                Bitmap b=Screenshot.TakeScreenshotRootView(linearLayout);
+                Uri uri =Screenshot.saveImageExternal(b,Done.this);
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setType("image/png");
+                startActivity(intent);
 
             }
         });
@@ -93,6 +111,8 @@ public class Done extends AppCompatActivity {
 
             }
         });
+
     }
+
 
 }

@@ -38,6 +38,7 @@ public class language {
             languageArray.put("btshare", "مشاركة");
             languageArray.put("copy", "نسخ");
             languageArray.put("txtShare", "شارك هذا الرابط مع أصدقائك");
+            languageArray.put("txtInvit", " يريد اختبار الصداقة معك ");
 
 
         } else if (Lang.equals("fr")) {
@@ -52,6 +53,7 @@ public class language {
             languageArray.put("btshare", "partager");
             languageArray.put("copy", "copie");
             languageArray.put("txtShare", "Partagez ce lien avec vos amis");
+            languageArray.put("txtInvit", " veut tester l'amitié avec vous ");
         } else {
             languageArray.put("shareText", " wants to test friendship with you, Download This App and Start The Test ");
             languageArray.put("Create", "Create  Test");

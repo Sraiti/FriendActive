@@ -106,9 +106,11 @@ public class Invite extends AppCompatActivity {
                 invitedUser = documentSnapshot.toObject(User.class);
                 //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
                 editor.putString("Language", invitedUser.getLanguageUser());
+                Toast.makeText(mContext, invitedUser.getLanguageUser(), Toast.LENGTH_SHORT).show();
                 editor.commit();
                 language.AddLanguage(mContext);
                 txtInvite.setText(invitedUser._UserName + language.languageArray.get("txtInvit"));
+                startTest.setText(language.languageArray.get("start"));
                 InvitedUserName = invitedUser._UserName;
                 Picasso.get()
                         .load(invitedUser.get_Image())

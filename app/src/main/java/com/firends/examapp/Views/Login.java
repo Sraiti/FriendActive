@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         //get invitation link
-
+        logintext.setText(languag.languageArray.get("loginText"));
 
         //-------------------------
 

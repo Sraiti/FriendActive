@@ -111,7 +111,7 @@ public class ShareLink extends AppCompatActivity {
             return;
         }
 
-
+        ShareLinkText = language.languageArray.get("shareText");
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("text/plain");

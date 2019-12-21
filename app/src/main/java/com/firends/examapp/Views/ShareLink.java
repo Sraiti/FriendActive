@@ -115,7 +115,7 @@ public class ShareLink extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("text/plain");
-        intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + ShareLinkText + shortLink.toString());
+        intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(ShareLink.this,"name") + ShareLinkText + shortLink.toString());
         startActivity(Intent.createChooser(intent2, "Share via"));
 
 

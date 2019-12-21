@@ -163,12 +163,12 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     }
 
     private void GetFreindData(final FireBaseCallBackDataFriend fireBaseCallBack) {
-        db.collection("Users").document(UserID)
+         db.collection("Users").document(UserID)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(User.class);
-                Log.d("TAG", documentSnapshot.getId() + " => " + documentSnapshot.getData());
+                Log.d("Answers", documentSnapshot.getId() + " => " + documentSnapshot.getData());
 
                 Answers = user.get_MyQuestion();
                 fireBaseCallBack.OnCallback();
@@ -313,7 +313,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
             CardView Card = (CardView) v;
             int FriendAnswer = GetItemId(Card.getTag().toString());
             Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
-            int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID() + "");
+            int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID()+"");
             if (FriendAnswer == MyAnswer) {
                 Point = Point + 1;
             }

@@ -31,7 +31,6 @@ import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
 import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Controllers.ads_manager;
-import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
 import com.firends.examapp.Utils.language;
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
 
-                intent2.putExtra(Intent.EXTRA_TEXT, User.currentUser._UserName + ShareLinkText + link);
+                intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(MainActivity.this,"name") + ShareLinkText + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });

@@ -17,6 +17,7 @@ import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Controllers.Screenshot;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
+import com.firends.examapp.Utils.Language;
 import com.squareup.picasso.Picasso;
 
 public class Done extends AppCompatActivity {
@@ -31,13 +32,15 @@ public class Done extends AppCompatActivity {
     LinearLayout linearLayout;
     private ImageView imgInvitedUser, imgCurrentUser;
     private SharedPreferences sharedPreferences;
-     @Override
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(intent);
         finish();
     }
-
+    private Language language;
+    String ShareLinkText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +55,14 @@ public class Done extends AppCompatActivity {
         nameCurrentUser = findViewById(R.id.txt_currentUser);
         nameInvitedUser = findViewById(R.id.txt_invitedUser);
         txtFriendship = findViewById(R.id.txt_friendship);
-        linearLayout=findViewById(R.id.Screen_layout);
+        linearLayout = findViewById(R.id.Screen_layout);
 
-        imageView =findViewById(R.id.image);
+        language = Language.getInstance();
+        language.AddLanguage(this);
+
+          ShareLinkText = language.languageArray.get("shareText");
+
+        imageView = findViewById(R.id.image);
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
         TotalQuestions = a.getIntExtra("TotalQuestion", 20);
@@ -64,14 +72,10 @@ public class Done extends AppCompatActivity {
         txtFriendship.setText((Point * 100) / TotalQuestions + "%");
         Picasso.get()
                 .load(User.currentUser._Image)
-                .error(R.drawable.image_loading)
-                .placeholder(getResources().getDrawable(R.drawable.image_loading))
                 .fit()
                 .into(imgCurrentUser);
         Picasso.get()
                 .load(Invite.invitedUser._Image)
-                .error(R.drawable.image_loading)
-                .placeholder(getResources().getDrawable(R.drawable.image_loading))
                 .fit()
                 .into(imgInvitedUser);
 
@@ -83,15 +87,15 @@ public class Done extends AppCompatActivity {
 //                Intent shareIntent = new Intent(Intent.ACTION_SEND);
 //                shareIntent.setType("text/plain");
 //                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-          String shareMessage = "\nMy Score Is :" + Point;
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n" +
-                        "Challenge You friends And Find out how much they really know about you  \n";
+                String shareMessage = "My Score Is :" + Point;
+                shareMessage = shareMessage + "\nhttps://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n" +
+                        ShareLinkText;
 //                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 //                startActivity(Intent.createChooser(shareIntent, "choose one"));
 
 
-                Bitmap b=Screenshot.TakeScreenshotRootView(linearLayout);
-                Uri uri =Screenshot.saveImageExternal(b,Done.this);
+                Bitmap b = Screenshot.TakeScreenshotRootView(linearLayout);
+                Uri uri = Screenshot.saveImageExternal(b, Done.this);
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_STREAM, uri);
                 intent.putExtra(Intent.EXTRA_TEXT, shareMessage);

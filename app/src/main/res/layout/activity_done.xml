@@ -16,28 +16,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.github.florent37.shapeofview.shapes.CircleView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/id_image_invitedUser"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:elevation="1dp"
-                app:shape_circle_borderColor="@color/colorAccent"
-                app:shape_circle_borderWidth="0.4dp">
+                android:layout_weight="0"
 
-                <ImageView
-                    android:id="@+id/id_image_invitedUser"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0" />
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="0.4dp"/>
 
-
-            </com.github.florent37.shapeofview.shapes.CircleView>
 
             <TextView
                 android:id="@+id/txt_invitedUser"
@@ -85,23 +79,15 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.github.florent37.shapeofview.shapes.CircleView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/id_currentUser"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:elevation="1dp"
-                app:shape_circle_borderColor="@color/colorAccent"
-                app:shape_circle_borderWidth="0.4dp">
+                android:layout_weight="0"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="0.4dp"/>
 
-                <ImageView
-                    android:id="@+id/id_currentUser"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0" />
-
-
-            </com.github.florent37.shapeofview.shapes.CircleView>
 
             <TextView
                 android:id="@+id/txt_currentUser"

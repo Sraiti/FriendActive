@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Friendactive-Friendship challenge test</string>
+    <string name="app_name">Friendactive-Friendship</string>
 
     <string name="nav_header_subtitle">specialones@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -9,7 +9,7 @@
 
     <string name="facebook_app_id" translatable="false">465018920810426</string>
     <string name="ad_attribution" translatable="false">Ad</string>
-    <string name="gdbr">gdpr</string>
+    <string name="gdbr" translatable="false">gdpr</string>
     <string name="url_privacy">https://www.gdprprivacynotice.com/live.php?token=B3lA6OADYaUJLUGAs2VVS4IsydGUsgPX</string>
     <string name="publisher_id">pub-6560477533466400</string>
 
@@ -17,7 +17,7 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Rate</string>
     <string name="privacy">Privacy Policy</string>
-    <string name="gdpr">GDPR</string>
+    <string name="gdpr" translatable="false">GDPR</string>
     <string name="contact">Contact Us</string>
     <string name="sendEmail">Send Email</string>
     <string name="Emailrecerver">specialonse@gmail.com</string>

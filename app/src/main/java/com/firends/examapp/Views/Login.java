@@ -56,9 +56,11 @@ public class Login extends AppCompatActivity {
 
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
-        String[] items = new String[]{"", "English", "Francais", "العربية"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        spinnerLanguage.setAdapter(adapter);
+        String[] items = new String[]{"English", "Francais", "العربية"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item
+                 , items);
+         spinnerLanguage.setAdapter(adapter);
+
 
         //get invitation link
 

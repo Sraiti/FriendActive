@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
+import com.firends.examapp.Utils.Language;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -37,6 +38,8 @@ public class Invite extends AppCompatActivity {
     private ImageView imageInvitedUser;
     private TextView txtInvite;
 
+    String InviteText;
+    Language language;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,10 @@ public class Invite extends AppCompatActivity {
         txtInvite = findViewById(R.id.invite_text);
         startTest.setEnabled(false);
         //invitedUser._UserName="Your Friend";
+
+        language = Language.getInstance();
+        language.AddLanguage(this);
+        InviteText=language.languageArray.get("InviteText");
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -99,7 +106,7 @@ public class Invite extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 invitedUser = documentSnapshot.toObject(User.class);
                 //Toast.makeText(mContext, user.get_Image(), Toast.LENGTH_SHORT).show();
-                txtInvite.setText(invitedUser._UserName + R.string.invitetext);
+                txtInvite.setText(invitedUser._UserName+" " + InviteText);
                 InvitedUserName = invitedUser._UserName;
                 Picasso.get()
                         .load(invitedUser.get_Image())

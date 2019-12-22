@@ -28,7 +28,7 @@ public class Screenshot  {
     }
 
     public static  Bitmap TakeScreenshotRootView(View view){
-        return TakeScreenshot(view.getRootView()) ;
+        return TakeScreenshot(view);
     }
 
     public static Uri saveImageExternal(Bitmap image, Context context) {

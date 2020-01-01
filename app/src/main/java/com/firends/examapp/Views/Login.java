@@ -35,7 +35,6 @@ public class Login extends AppCompatActivity {
 
     static final int RC_SIGN_IN = 123;
     private static final String TAG = "mytag";
-    private TextView logintext;
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     FirebaseAuth mAuth;
@@ -46,31 +45,28 @@ public class Login extends AppCompatActivity {
     private View dialogName;
     private LayoutInflater inflater;
     private Spinner spinnerLanguage;
-    private language languag;
-    private String lg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         manager = new DataBaseManager();
-        languag = language.getInstance();
 
         mContext = this;
-        logintext = findViewById(R.id.txtlogin);
         ButtonLogin = findViewById(R.id.bt_login);
         spinnerLanguage = findViewById(R.id.spinner_lg);
         mAuth = FirebaseAuth.getInstance();
 
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
-        final String[] items = new String[]{"", "English", "Francais", "العربية"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        spinnerLanguage.setAdapter(adapter);
-        sharedPreferences = getSharedPreferences("linkInfo", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        String[] items = new String[]{"English", "Francais", "العربية"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item
+                 , items);
+         spinnerLanguage.setAdapter(adapter);
+
+
         //get invitation link
-        logintext.setText(languag.languageArray.get("loginText"));
+
 
         //-------------------------
 
@@ -81,44 +77,30 @@ public class Login extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
-        spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                lg = items[i];
-                switch (lg) {
-                    case "English":
-                        lg = "en";
-                        break;
-                    case "Francais":
-                        lg = "fr";
-                        break;
-                    case "العربية":
-                        lg = "ar";
-                        break;
-                }
-                editor.putString("Language", lg);
-                editor.commit();
-                languag.AddLanguage(mContext);
-                logintext.setText(languag.languageArray.get("loginText"));
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (lg.equals("")) {
+                String Language = spinnerLanguage.getSelectedItem().toString();
+                if (Language.equals(""))
                     Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
-                    return;
+                else {
+                     switch(Language){
+                         case "English":
+                             Language="en";
+                             break;
+                         case"Francais":
+                             Language="fr";
+                             break;
+                         case"العربية":
+                             Language="ar";
+                             break;
+                     }
+                    Log.d(TAG, "onClick: "+Language);
+                    editor.putString("Language", Language);
+                    editor.commit();
+                    signIn();
                 }
-                signIn();
-
 
             }
         });
@@ -157,14 +139,8 @@ public class Login extends AppCompatActivity {
                 final User NewUser = new User();
                 NewUser.set_IdUser(user.getUid());
                 NewUser.set_Image(user.getPhotoUrl().toString());
-                NewUser.setLanguageUser(lg);
                 if (user.getDisplayName() == null) {
                     showdialogname();
-                    TextView EntryName = dialogName.findViewById(R.id.txtEntryName);
-                    Button btStart = dialogName.findViewById(R.id.bt_getname);
-                    EntryName.setText(languag.languageArray.get("EntryName"));
-                    btStart.setText(languag.languageArray.get("start"));
-
                     dialogName.findViewById(R.id.bt_getname).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

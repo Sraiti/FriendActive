@@ -33,7 +33,7 @@ import com.firends.examapp.BuildConfig;
 import com.firends.examapp.Controllers.ads_manager;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
-import com.firends.examapp.Utils.language;
+import com.firends.examapp.Utils.Language;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -55,15 +55,14 @@ public class MainActivity extends AppCompatActivity {
     private NativeAdLayout nativeAdLayout;
 
     String ShareLinkText;
-    private language language;
+    private Language language;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext = this;
-        AudienceNetworkAds.initialize(this);
+         AudienceNetworkAds.initialize(this);
         inflater = this.getLayoutInflater();
         adViewDialog = inflater.inflate(R.layout.dialog_ads_native, null);
         dynamicLinkManager = new DynamicLinkManager(this);
@@ -73,16 +72,14 @@ public class MainActivity extends AppCompatActivity {
         btLink = findViewById(R.id.bt_link);
         adViewBanner = findViewById(R.id.adView);
         adsManager = ads_manager.getInstance();
-        language = com.firends.examapp.Utils.language.getInstance();
-        language.AddLanguage(mContext);
+        language = Language.getInstance();
+        language.AddLanguage(this);
 
         gamPlay.setText(language.languageArray.get("Create"));
         ResutlsButton.setText(language.languageArray.get("Results"));
-        btLink.setText(language.languageArray.get("txtShare"));
+        btLink.setText(language.languageArray.get("btShare"));
         ShareLinkText = language.languageArray.get("shareText");
 
-
-        String Lang = ShareLink.getLinkFromShered(getApplicationContext(), "Language");
 
         WebView webView = new WebView(this);
 
@@ -178,7 +175,8 @@ public class MainActivity extends AppCompatActivity {
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
 
-                intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(MainActivity.this,"name") + ShareLinkText + link);
+                intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(MainActivity.this,"name")
+                        + ShareLinkText + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });

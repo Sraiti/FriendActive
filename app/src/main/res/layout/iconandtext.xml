@@ -3,11 +3,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <ImageView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_border_color_black_24dp"/>
-    <TextView android:id="@+id/textView"
+
+    <ImageView
+        android:id="@+id/flagicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ABC"/>
+        android:padding="8dp"
+        android:src="@drawable/ar" />
+
+    <TextView
+        android:id="@+id/txt_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="2dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="English"
+        android:textSize="18sp" />
 </LinearLayout>

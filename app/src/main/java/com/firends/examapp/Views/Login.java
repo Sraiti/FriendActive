@@ -5,24 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.firends.examapp.Adapters.LangSpinnerAdapter;
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
-import com.firends.examapp.Utils.language;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,9 +57,11 @@ public class Login extends AppCompatActivity {
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
         String[] items = new String[]{"English", "Francais", "العربية"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item
-                 , items);
-         spinnerLanguage.setAdapter(adapter);
+        int flags[] = {R.drawable.en,R.drawable.fr,R.drawable.ar};
+
+
+        LangSpinnerAdapter Adapter =new LangSpinnerAdapter(this,flags,items);
+        spinnerLanguage.setAdapter(Adapter);
 
 
         //get invitation link

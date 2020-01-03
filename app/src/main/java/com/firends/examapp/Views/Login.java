@@ -57,12 +57,13 @@ public class Login extends AppCompatActivity {
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
         String[] items = new String[]{"English", "Francais", "العربية"};
-        int flags[] = {R.drawable.en,R.drawable.fr,R.drawable.ar};
+        int flags[] = {R.drawable.en, R.drawable.fr, R.drawable.ar};
 
 
-        LangSpinnerAdapter Adapter =new LangSpinnerAdapter(this,flags,items);
+        final LangSpinnerAdapter Adapter = new LangSpinnerAdapter(this, flags, items);
         spinnerLanguage.setAdapter(Adapter);
 
+        spinnerLanguage.setSelection(0);
 
         //get invitation link
 
@@ -80,22 +81,24 @@ public class Login extends AppCompatActivity {
         ButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Language = spinnerLanguage.getSelectedItem().toString();
-                if (Language.equals(""))
+                String Language = Adapter.getItem(spinnerLanguage.getSelectedItemPosition());
+                if (Language.equals("")) {
                     Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
-                else {
-                     switch(Language){
-                         case "English":
-                             Language="en";
-                             break;
-                         case"Francais":
-                             Language="fr";
-                             break;
-                         case"العربية":
-                             Language="ar";
-                             break;
-                     }
-                    Log.d(TAG, "onClick: "+Language);
+
+
+                }else {
+                    switch (Language) {
+                        case "English":
+                            Language = "en";
+                            break;
+                        case "Francais":
+                            Language = "fr";
+                            break;
+                        case "العربية":
+                            Language = "ar";
+                            break;
+                    }
+                    Log.d(TAG, "onClick: " + Language);
                     editor.putString("Language", Language);
                     editor.commit();
                     signIn();

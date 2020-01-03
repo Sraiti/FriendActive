@@ -339,6 +339,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
 
     private void GetData(final FireBaseCallBack fireBaseCallBack,String Language) {
         db.collection("Questions").whereEqualTo("Language",Language)
+                .orderBy("QuestionID")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

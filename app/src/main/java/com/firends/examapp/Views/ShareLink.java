@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,9 @@ public class ShareLink extends AppCompatActivity {
     public static SharedPreferences.Editor editor;
     DynamicLinkManager dynamicLinkManager;
     private Uri shortLink;
-    private TextView dynamicLink;
+    private TextView dynamicLink, Txt_Share;
+    Button btn_copy, btn_share;
+
     String ShareLinkText;
 
 
@@ -54,19 +57,30 @@ public class ShareLink extends AppCompatActivity {
         editor = sharedPreferences.edit();
         editor.apply();
 
-        String Lang =ShareLink.getLinkFromShered(getApplicationContext(),"Language");
-        switch(Lang){
+        Txt_Share = findViewById(R.id.txt_share);
+        btn_copy = findViewById(R.id.btn_copy);
+        btn_share = findViewById(R.id.btn_share);
+        String Lang = ShareLink.getLinkFromShered(getApplicationContext(), "Language");
+        switch (Lang) {
             case "en":
-
-                ShareLinkText=" wants to test friendship with you, Download This App and Start The Test ";
+                ShareLinkText = " wants to test friendship with you, Download This App and Start The Test ";
+                btn_copy.setText("Copy");
+                btn_share.setText("Share");
+                Txt_Share.setText("Share This Link With Your Friends");
                 break;
-            case"fr":
-                ShareLinkText=" vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  " ;
+            case "fr":
+                ShareLinkText = " vous invite à tester  l'amitié avec vous, téléchargez cette application et lancez le test  ";
+                btn_copy.setText("copie");
+                btn_share.setText("Partager");
+                Txt_Share.setText("Partagez votre lien avec vous amies");
 
 
                 break;
-            case"ar":
-                ShareLinkText=" يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي " ;
+            case "ar":
+                ShareLinkText = " يدعوك لإكتشاف مدي قوة صداقتكم حمل هذا التطبيق و إقبل التحدي ";
+                btn_copy.setText("أنسخ");
+                btn_share.setText("أنشر");
+                Txt_Share.setText("شارك رابطك مع الاصدقاء");
 
                 break;
         }
@@ -117,7 +131,7 @@ public class ShareLink extends AppCompatActivity {
         Intent intent2 = new Intent();
         intent2.setAction(Intent.ACTION_SEND);
         intent2.setType("text/plain");
-        intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(ShareLink.this,"name") + ShareLinkText + shortLink.toString());
+        intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(ShareLink.this, "name") + ShareLinkText + shortLink.toString());
         startActivity(Intent.createChooser(intent2, "Share via"));
 
 

@@ -34,7 +34,7 @@
                     android:background="@color/flatui_alizarin" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/txt_share"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/color4"
@@ -62,7 +62,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/btn_copy"
                     android:layout_width="70dp"
                     android:layout_height="40dp"
                     android:layout_weight="0"
@@ -72,7 +72,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_share"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="4dp"

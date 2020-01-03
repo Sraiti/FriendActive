@@ -35,7 +35,7 @@ public class Language {
             languageArray.put("InviteText", " vous invite à tester Votre amitié");
             languageArray.put("Create", "Créer un test");
             languageArray.put("Results", "Résultats des amis");
-            languageArray.put("btShare", "Partagez votre lien avec des amis");
+            languageArray.put("btShare", "Partagez votre lien avec vous amies");
             languageArray.put("loginText", "Connectez-vous et commencez à tester avec vos amis maintenant");
             languageArray.put("FriendReact", "Que pensez-vous du résultat?\n" +
                     "Défiez vos amis et découvrez ce qu'ils savent vraiment de vous.");

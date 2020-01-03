@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startRate() {
-        Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+        Uri uri = Uri.parse("market://details?id=" + MainActivity.this.getPackageName());
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         // To count with Play market backstack, After pressing back button,
         // to taken back to our application, we need to add following flags to intent.
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToMarket);
         } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + MainActivity.this.getPackageName())));
         }
     }
 

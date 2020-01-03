@@ -338,6 +338,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     private void GetData(final FireBaseCallBack fireBaseCallBack,String Language) {
 
         db.collection("Questions").whereEqualTo("Language",Language)
+                .orderBy("QuestionID")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

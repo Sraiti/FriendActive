@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.firends.examapp.Adapters.LangSpinnerAdapter;
 import com.firends.examapp.Controllers.DataBaseManager;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
+import com.firends.examapp.Utils.Language;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +34,7 @@ public class Login extends AppCompatActivity {
 
     static final int RC_SIGN_IN = 123;
     private static final String TAG = "mytag";
+    private TextView logintext;
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     FirebaseAuth mAuth;
@@ -42,12 +45,15 @@ public class Login extends AppCompatActivity {
     private View dialogName;
     private LayoutInflater inflater;
     private Spinner spinnerLanguage;
+    private Language languag;
+    private String lg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         manager = new DataBaseManager();
+        languag = Language.getInstance();
 
         mContext = this;
         ButtonLogin = findViewById(R.id.bt_login);
@@ -57,7 +63,7 @@ public class Login extends AppCompatActivity {
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
         String[] items = new String[]{"English", "Francais", "العربية"};
-        int flags[] = {R.drawable.en,R.drawable.fr,R.drawable.ar};
+        int[] flags = {R.drawable.en, R.drawable.fr, R.drawable.ar};
 
 
         LangSpinnerAdapter Adapter =new LangSpinnerAdapter(this,flags,items);
@@ -65,7 +71,7 @@ public class Login extends AppCompatActivity {
 
 
         //get invitation link
-
+        logintext.setText(languag.languageArray.get("loginText"));
 
         //-------------------------
 

@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firends.examapp.Model.User;
 import com.firends.examapp.R;
 import com.firends.examapp.Utils.DynamicLinkManager;
-import com.firends.examapp.Utils.language;
+import com.firends.examapp.Utils.Language;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -34,7 +34,7 @@ public class ShareLink extends AppCompatActivity {
     private Uri shortLink;
     private TextView dynamicLink, txtshare;
     String ShareLinkText;
-    private language language;
+    private Language language;
     private Button btnShare, btncopy;
 
 
@@ -53,7 +53,7 @@ public class ShareLink extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_link);
-        language = com.firends.examapp.Utils.language.getInstance();
+        language = Language.getInstance();
         dynamicLink = findViewById(R.id.mydynamiclink);
         btnShare = findViewById(R.id.btnshare);
         txtshare = findViewById(R.id.txtShare);

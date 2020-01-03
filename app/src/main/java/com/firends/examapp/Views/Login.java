@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +45,8 @@ public class Login extends AppCompatActivity {
     private LayoutInflater inflater;
     private Spinner spinnerLanguage;
 
+    TextView txt_lang, txt_desc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +58,9 @@ public class Login extends AppCompatActivity {
         spinnerLanguage = findViewById(R.id.spinner_lg);
         mAuth = FirebaseAuth.getInstance();
 
+        txt_desc = findViewById(R.id.txt_desc);
+        txt_lang = findViewById(R.id.txt_Language);
+
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
         String[] items = new String[]{"English", "Francais", "العربية"};
@@ -64,6 +71,33 @@ public class Login extends AppCompatActivity {
         spinnerLanguage.setAdapter(Adapter);
 
         spinnerLanguage.setSelection(0);
+
+        spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String Language = Adapter.getItem(position);
+
+                switch (Language) {
+                    case "English":
+                        txt_lang.setText("Language");
+                        txt_desc.setText("Sign In And Challenge Your Friends ");
+                        break;
+                    case "Francais":
+                        txt_lang.setText("Langue");
+                        txt_desc.setText("Connectez-vous et défiez vos amis");
+                        break;
+                    case "العربية":
+                        txt_lang.setText("اللغة");
+                        txt_desc.setText("تسجل الأن و تحدي أصدقائك");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //get invitation link
 
@@ -84,9 +118,7 @@ public class Login extends AppCompatActivity {
                 String Language = Adapter.getItem(spinnerLanguage.getSelectedItemPosition());
                 if (Language.equals("")) {
                     Toast.makeText(mContext, "Please Choose Language ^^", Toast.LENGTH_SHORT).show();
-
-
-                }else {
+                } else {
                     switch (Language) {
                         case "English":
                             Language = "en";
@@ -103,18 +135,14 @@ public class Login extends AppCompatActivity {
                     editor.commit();
                     signIn();
                 }
-
             }
         });
 
     }
 
     private void signIn() {
-
-
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.GoogleBuilder().build());
-
 // Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
@@ -128,15 +156,10 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-
-
             if (resultCode == RESULT_OK) {
-
                 // Successfully signed in
-
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 final User NewUser = new User();
                 NewUser.set_IdUser(user.getUid());

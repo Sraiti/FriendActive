@@ -117,14 +117,14 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         //DataBase
         db = FirebaseFirestore.getInstance();
 
-        String Lang = ShareLink.getLinkFromShered(this,"Language");
+        String Lang = ShareLink.getLinkFromShered(this, "Language");
         GetData(new FireBaseCallBack() {
             @Override
             public void OnCallback(List<Question> QuestionList) {
 
                 NextQuestion(index);
             }
-        },Lang);
+        }, Lang);
 
 
         Card_00.setOnClickListener(this);
@@ -255,8 +255,8 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
             //Toast.makeText(this, "Questions Done", Toast.LENGTH_SHORT).show();
             DataBaseM.UpdateUserQuestions(Answers);
 
-                startActivity(new Intent(Gameplay.this, ShareLink.class));
-                finish();
+            startActivity(new Intent(Gameplay.this, ShareLink.class));
+            finish();
 
 
 
@@ -337,8 +337,8 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
         return 0;
     }
 
-    private void GetData(final FireBaseCallBack fireBaseCallBack,String Language) {
-        db.collection("Questions").whereEqualTo("Language",Language)
+    private void GetData(final FireBaseCallBack fireBaseCallBack, String Language) {
+        db.collection("Questions").whereEqualTo("Language", Language)
                 .orderBy("QuestionID")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

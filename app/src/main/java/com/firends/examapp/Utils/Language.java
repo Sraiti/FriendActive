@@ -28,7 +28,9 @@ public class Language {
             languageArray.put("btShare", "شارك رابطك مع الاصدقاء");
             languageArray.put("loginText", "سجّل الدخول وابدأ الاختبار مع أصدقائك الآن");
             languageArray.put("FriendReact", "ما رأيك في نتيجة ؟ إختبر أصدقائك و إكتشف ما مدي معرفتهم عنك.");
-
+            languageArray.put("buttonHome", "الصفحة الرئيسية");
+            languageArray.put("buttonshare", "شارك");
+            languageArray.put("..", "");
 
         } else if (Lang.equals("fr")) {
             languageArray.put("shareText", " vous invite à tester Votre amitié , téléchargez  l'application et lancez le test ");
@@ -39,6 +41,9 @@ public class Language {
             languageArray.put("loginText", "Connectez-vous et commencez à tester avec vos amis maintenant");
             languageArray.put("FriendReact", "Que pensez-vous du résultat?\n" +
                     "Défiez vos amis et découvrez ce qu'ils savent vraiment de vous.");
+            languageArray.put("buttonHome", "");
+            languageArray.put("buttonshare", "شارك");
+            languageArray.put("..", "");
 
         } else {
             languageArray.put("shareText", " wants to discover the strength of your friendship,Download This App and Start The Test ");
@@ -49,6 +54,9 @@ public class Language {
             languageArray.put("loginText", "Sign In  And Start Test With Your Friends Now");
             languageArray.put("FriendReact", "What do you think about the result ?" +
                     " Challenge Your friends and Figure out how much they really know about you .");
+            languageArray.put("buttonHome", "");
+            languageArray.put("buttonshare", "");
+            languageArray.put("..", "");
 
         }
 

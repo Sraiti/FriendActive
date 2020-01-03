@@ -11,6 +11,7 @@
         android:id="@+id/Screen_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/com_facebook_auth_dialog_background"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/txt_point"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +31,7 @@
                 android:layout_weight="0"
 
                 app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="0.4dp"/>
+                app:civ_border_width="0.4dp" />
 
 
             <TextView
@@ -86,7 +87,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="0.4dp"/>
+                app:civ_border_width="0.4dp" />
 
 
             <TextView

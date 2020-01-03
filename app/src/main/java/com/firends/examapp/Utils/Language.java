@@ -23,7 +23,6 @@ public class Language {
         if (Lang.equals("ar")) {
             languageArray.put("shareText", " يدعوك لإكتشاف مدي قوة صداقتكم حمل التطبيق و إقبل التحدي ");
             languageArray.put("InviteText", " يدعوك لإكتشاف مدي قوة صداقتكم");
-
             languageArray.put("Create", "إنشاء الاختبار");
             languageArray.put("Results", "نتائج الأصدقاء");
             languageArray.put("btShare", "شارك رابطك مع الاصدقاء");
@@ -34,7 +33,6 @@ public class Language {
         } else if (Lang.equals("fr")) {
             languageArray.put("shareText", " vous invite à tester Votre amitié , téléchargez  l'application et lancez le test ");
             languageArray.put("InviteText", " vous invite à tester Votre amitié");
-
             languageArray.put("Create", "Créer un test");
             languageArray.put("Results", "Résultats des amis");
             languageArray.put("btShare", "Partagez votre lien avec des amis");

@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         ResutlsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mContext, FriendsAnswers.class));
+                startActivity(new Intent(MainActivity.this, FriendsAnswers.class));
             }
         });
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //adsManager.showFbInterstitial(mContext);
                 if (link.contains("Share Link With your Friends")) {
-                    Toast.makeText(mContext, "Please Create Your Test First", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please Create Your Test First", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent2 = new Intent();
@@ -185,12 +185,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(mContext, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(MainActivity.this, "Rate Us ⭐ ⭐ ⭐ ⭐ ⭐", Toast.LENGTH_LONG);
                 View toastView = toast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.colordark2));
                 TextView v = toast.getView().findViewById(android.R.id.message);
                 v.setTextColor(getResources().getColor(R.color.white));
-
                 toast.show();
                 startRate();
             }
@@ -204,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startRate() {
-        Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+        Uri uri = Uri.parse("market://details?id=" + MainActivity.this.getPackageName());
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         // To count with Play market backstack, After pressing back button,
         // to taken back to our application, we need to add following flags to intent.
@@ -215,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToMarket);
         } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + MainActivity.this.getPackageName())));
         }
     }
 

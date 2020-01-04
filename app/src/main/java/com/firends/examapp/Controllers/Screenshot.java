@@ -14,20 +14,20 @@ import java.io.IOException;
 
 import static com.facebook.FacebookSdk.getCacheDir;
 
-public class Screenshot  {
+public class Screenshot {
     private File imagePath;
 
 
-    public static Bitmap TakeScreenshot(View view){
+    public static Bitmap TakeScreenshot(View view) {
 
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache(true);
         Bitmap b = Bitmap.createBitmap(view.getDrawingCache());
         view.setDrawingCacheEnabled(false);
-        return b ;
+        return b;
     }
 
-    public static  Bitmap TakeScreenshotRootView(View view){
+    public static Bitmap TakeScreenshotRootView(View view) {
         return TakeScreenshot(view);
     }
 

@@ -14,16 +14,16 @@ public class LangSpinnerAdapter extends BaseAdapter {
 
 
     Context context;
-    int flags[];
+    int[] flags;
     String[] countryNames;
     LayoutInflater inflter;
 
-    public LangSpinnerAdapter(Context context, int[] flags, String[] countryNames ) {
+    public LangSpinnerAdapter(Context context, int[] flags, String[] countryNames) {
         this.context = context;
         this.flags = flags;
         this.countryNames = countryNames;
         inflter = (LayoutInflater.from(context));
-     }
+    }
 
     @Override
     public int getCount() {
@@ -43,8 +43,8 @@ public class LangSpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflter.inflate(R.layout.iconandtext, null);
-        ImageView icon = (ImageView) convertView.findViewById(R.id.flagicon);
-        TextView names = (TextView) convertView.findViewById(R.id.txt_lang);
+        ImageView icon = convertView.findViewById(R.id.flagicon);
+        TextView names = convertView.findViewById(R.id.txt_lang);
         icon.setImageResource(flags[position]);
         names.setText(countryNames[position]);
         return convertView;

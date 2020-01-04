@@ -32,14 +32,14 @@ public class Invite extends AppCompatActivity {
     public static User invitedUser;
     public String TAG = "data";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String InviteText;
+    Language language;
     private com.wang.avi.AVLoadingIndicatorView avi;
     private Context mContext;
     private Button startTest;
     private ImageView imageInvitedUser;
     private TextView txtInvite;
 
-    String InviteText;
-    Language language;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +73,6 @@ public class Invite extends AppCompatActivity {
                         } else {
                             StartActivity();
                         }
-
-
 
 
                     }

@@ -47,14 +47,13 @@ public class MainActivity extends AppCompatActivity {
     DynamicLinkManager dynamicLinkManager;
     Context mContext;
     AlertDialog.Builder builder;
+    String ShareLinkText;
     private String link;
     private LinearLayout adViewBanner;
     private ads_manager adsManager;
     private View adViewDialog;
     private LayoutInflater inflater;
     private NativeAdLayout nativeAdLayout;
-
-    String ShareLinkText;
     private Language language;
 
 
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         AudienceNetworkAds.initialize(this);
+        AudienceNetworkAds.initialize(this);
         inflater = this.getLayoutInflater();
         adViewDialog = inflater.inflate(R.layout.dialog_ads_native, null);
         dynamicLinkManager = new DynamicLinkManager(this);
@@ -175,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
 
-                intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(MainActivity.this,"name")
+                intent2.putExtra(Intent.EXTRA_TEXT, ShareLink.getLinkFromShered(MainActivity.this, "name")
                         + ShareLinkText + link);
                 startActivity(Intent.createChooser(intent2, "Share via"));
             }

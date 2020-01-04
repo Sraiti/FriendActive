@@ -118,7 +118,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
                 ClickAble = true;
             }
         });
-        String Lang = ShareLink.getLinkFromShered(this,"Language");
+        String Lang = ShareLink.getLinkFromShered(this, "Language");
 
 
         GetData(new FireBaseCallBack() {
@@ -128,7 +128,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
 
             }
-        },Lang);
+        }, Lang);
         adsManager.fbLoadBanner(this);
         adsManager.fbadView.setAdListener(new AdListener() {
             @Override
@@ -163,7 +163,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
     }
 
     private void GetFreindData(final FireBaseCallBackDataFriend fireBaseCallBack) {
-         db.collection("Users").document(UserID)
+        db.collection("Users").document(UserID)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -313,7 +313,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
             CardView Card = (CardView) v;
             int FriendAnswer = GetItemId(Card.getTag().toString());
             Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
-            int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID()+"");
+            int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID() + "");
             if (FriendAnswer == MyAnswer) {
                 Point = Point + 1;
             }
@@ -335,9 +335,9 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         return 0;
     }
 
-    private void GetData(final FireBaseCallBack fireBaseCallBack,String Language) {
+    private void GetData(final FireBaseCallBack fireBaseCallBack, String Language) {
 
-        db.collection("Questions").whereEqualTo("Language",Language)
+        db.collection("Questions").whereEqualTo("Language", Language)
                 .orderBy("QuestionID")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

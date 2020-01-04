@@ -37,6 +37,7 @@ public class Login extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     FirebaseAuth mAuth;
+    TextView txt_lang, txt_desc;
     private Context mContext;
     //GoogleSignInClient mGoogleSignInClient;
     private SignInButton ButtonLogin;
@@ -44,8 +45,6 @@ public class Login extends AppCompatActivity {
     private View dialogName;
     private LayoutInflater inflater;
     private Spinner spinnerLanguage;
-
-    TextView txt_lang, txt_desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class Login extends AppCompatActivity {
         inflater = this.getLayoutInflater();
         dialogName = inflater.inflate(R.layout.dialog_getname, null);
         String[] items = new String[]{"English", "Francais", "العربية"};
-        int flags[] = {R.drawable.en, R.drawable.fr, R.drawable.ar};
+        int[] flags = {R.drawable.en, R.drawable.fr, R.drawable.ar};
 
 
         final LangSpinnerAdapter Adapter = new LangSpinnerAdapter(this, flags, items);

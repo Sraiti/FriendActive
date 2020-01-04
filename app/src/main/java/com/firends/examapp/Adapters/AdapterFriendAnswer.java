@@ -93,7 +93,7 @@ public class AdapterFriendAnswer extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                 AnswerHolder._UserName.setText(menuItem.get_UserName());
-                AnswerHolder.Point.setText(String.valueOf(menuItem.getPoint()));
+                AnswerHolder.Point.setText(menuItem.getPoint() + "/20");
 
 
         }

@@ -30,8 +30,10 @@ public class Done extends AppCompatActivity {
     Intent intent;
     ImageView imageView;
     LinearLayout linearLayout;
+    String ShareLinkText;
     private ImageView imgInvitedUser, imgCurrentUser;
     private SharedPreferences sharedPreferences;
+    private Language language;
 
     @Override
     public void onBackPressed() {
@@ -39,8 +41,7 @@ public class Done extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private Language language;
-    String ShareLinkText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,9 @@ public class Done extends AppCompatActivity {
         language = Language.getInstance();
         language.AddLanguage(this);
 
-          ShareLinkText = language.languageArray.get("shareText");
+        ShareLinkText = language.languageArray.get("shareText");
+        Btn_Home.setText(language.languageArray.get("buttonHome"));
+        Btn_Share.setText(language.languageArray.get("buttonshare"));
 
         imageView = findViewById(R.id.image);
         Intent a = getIntent();

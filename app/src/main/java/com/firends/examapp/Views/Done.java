@@ -23,17 +23,15 @@ import com.squareup.picasso.Picasso;
 public class Done extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    TextView Txt_point, nameInvitedUser, nameCurrentUser, txtFriendship;
+    TextView Txt_point, nameInvitedUser, nameCurrentUser, txtFriendship,txtfriend;
     Button Btn_Share, Btn_Home;
     int TotalQuestions;
     int Point;
     Intent intent;
     ImageView imageView;
     LinearLayout linearLayout;
-    String ShareLinkText;
     private ImageView imgInvitedUser, imgCurrentUser;
     private SharedPreferences sharedPreferences;
-    private Language language;
 
     @Override
     public void onBackPressed() {
@@ -41,7 +39,8 @@ public class Done extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
+    private Language language;
+    String ShareLinkText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,20 +55,28 @@ public class Done extends AppCompatActivity {
         nameCurrentUser = findViewById(R.id.txt_currentUser);
         nameInvitedUser = findViewById(R.id.txt_invitedUser);
         txtFriendship = findViewById(R.id.txt_friendship);
+
         linearLayout = findViewById(R.id.Screen_layout);
 
         language = Language.getInstance();
         language.AddLanguage(this);
 
         ShareLinkText = language.languageArray.get("shareText");
-        Btn_Home.setText(language.languageArray.get("buttonHome"));
-        Btn_Share.setText(language.languageArray.get("buttonshare"));
+        String Lang = ShareLink.getLinkFromShered(getApplicationContext(), "Language");
+        switch (Lang) {
+            case "en":
 
+                break;
+            case "fr":
+                break;
+            case "ar":
+                            break;
+        }
         imageView = findViewById(R.id.image);
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
         TotalQuestions = a.getIntExtra("TotalQuestion", 20);
-        Txt_point.setText(R.string.Yourscoor + Point);
+        Txt_point.setText( "Your score is :"+ Point);
         nameInvitedUser.setText(Invite.invitedUser.get_UserName());
         nameCurrentUser.setText(sharedPreferences.getString("name", "You"));
         txtFriendship.setText((Point * 100) / TotalQuestions + "%");

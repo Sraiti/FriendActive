@@ -107,6 +107,7 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
 
         Intent a = getIntent();
         UserID = a.getStringExtra("UserID");
+        Log.d("UserID", "onCreate: "+UserID);
         UserName = a.getStringExtra("UserName");
 
         Point = 0;
@@ -168,9 +169,11 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(User.class);
-                Log.d("Answers", documentSnapshot.getId() + " => " + documentSnapshot.getData());
+                Log.d("AnswersoF", documentSnapshot.getId() + " => " + documentSnapshot.getData());
 
                 Answers = user.get_MyQuestion();
+
+
                 fireBaseCallBack.OnCallback();
             }
         });
@@ -312,8 +315,10 @@ public class FriendGameplay extends AppCompatActivity implements View.OnClickLis
         if (ClickAble && totalQues > index) {
             CardView Card = (CardView) v;
             int FriendAnswer = GetItemId(Card.getTag().toString());
-            Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
-            int MyAnswer = Answers.get(mQuestions.get(index).getQuestionID() + "");
+            Log.d("TAG: getQuestionID", mQuestions.get(index).getQuestionID() + " : " + FriendAnswer);
+            Log.d("TAg", "onClick: "+Answers.get(index));
+            int MyAnswer = Answers.get(index+"");
+
             if (FriendAnswer == MyAnswer) {
                 Point = Point + 1;
             }

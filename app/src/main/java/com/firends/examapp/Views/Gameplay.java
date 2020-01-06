@@ -317,7 +317,7 @@ public class Gameplay extends AppCompatActivity implements View.OnClickListener 
             CardView Card = (CardView) v;
             int Answer = GetItemId(Card.getTag().toString());
             Log.d("TAG", mQuestions.get(index).getQuestionID() + " : " + Answer);
-            Answers.put(mQuestions.get(index).getQuestionID() + "", Answer);
+            Answers.put(index + "", Answer);
 
             NextQuestion(++index);
         }

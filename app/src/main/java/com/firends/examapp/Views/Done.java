@@ -40,7 +40,7 @@ public class Done extends AppCompatActivity {
         finish();
     }
     private Language language;
-    String ShareLinkText;
+    String ShareLinkText,ScoreText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +61,8 @@ public class Done extends AppCompatActivity {
         language = Language.getInstance();
         language.AddLanguage(this);
 
-        ShareLinkText = language.languageArray.get("shareText");
+        ShareLinkText = language.languageArray.get("FriendReact");
+        ScoreText=language.languageArray.get("result");
         String Lang = ShareLink.getLinkFromShered(getApplicationContext(), "Language");
         switch (Lang) {
             case "en":
@@ -76,7 +77,7 @@ public class Done extends AppCompatActivity {
         Intent a = getIntent();
         Point = a.getIntExtra("Points", 0);
         TotalQuestions = a.getIntExtra("TotalQuestion", 20);
-        Txt_point.setText( "Your score is :"+ Point);
+        Txt_point.setText( ScoreText+ Point);
         nameInvitedUser.setText(Invite.invitedUser.get_UserName());
         nameCurrentUser.setText(sharedPreferences.getString("name", "You"));
         txtFriendship.setText((Point * 100) / TotalQuestions + "%");
@@ -97,7 +98,7 @@ public class Done extends AppCompatActivity {
 //                Intent shareIntent = new Intent(Intent.ACTION_SEND);
 //                shareIntent.setType("text/plain");
 //                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                String shareMessage = "My Score Is :" + Point;
+                String shareMessage = ScoreText + Point;
                 shareMessage = shareMessage + "\nhttps://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n" +
                         ShareLinkText;
 //                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);

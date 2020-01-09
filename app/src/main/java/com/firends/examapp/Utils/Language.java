@@ -31,6 +31,8 @@ public class Language {
             languageArray.put("buttonshare", "شارك");
             languageArray.put("copy", "نسخ");
             languageArray.put("share", "شارك رابطك مع الأصدقاء");
+            languageArray.put("result", "نتيجتك هي :");
+
 
         } else if (Lang.equals("fr")) {
             languageArray.put("shareText", " vous invite à tester Votre amitié , téléchargez  l'application et lancez le test ");
@@ -45,6 +47,8 @@ public class Language {
             languageArray.put("buttonshare", "partager");
             languageArray.put("copy", "copie");
             languageArray.put("share", "partagez votre lien avec vos amis");
+            languageArray.put("result", "Ton score est :");
+
 
         } else {
             languageArray.put("shareText", " wants to discover the strength of your friendship, Download This App and Start The Test ");
@@ -59,6 +63,8 @@ public class Language {
             languageArray.put("buttonshare", "share");
             languageArray.put("copy", "copy");
             languageArray.put("share", "share your link with friends");
+            languageArray.put("result", "Your Score is :");
+
 
         }
 
